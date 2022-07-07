@@ -12,3 +12,18 @@
 
     <input type="submit" value="Submit" (click)="setValue(name.value,avatar.value,bio.value)">
 </div>
+
+<div>
+  {{ (room$ | async)?.name}}
+
+  {{ (room$ | async)?.bio}}
+
+  {{ (room$ | async)?.avatar}}
+</div>
+
+
+<ul>
+  <li *ngFor="let room of rooms$ | async">
+    {{ room.id }}{{ room.name }}.  {{ room.avatar }} . {{ room.bio }}
+  </li>
+</ul>
