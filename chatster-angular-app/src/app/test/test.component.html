@@ -1,0 +1,14 @@
+<h3>Contact Form</h3>
+
+<div class="container">
+    <label for="fname">name</label>
+    <input type="text" id="fname" name="firstname" placeholder="name" #name >
+
+    <label for="lname"></label>
+    <input type="text" id="lname" name="lastname" placeholder="avatar" #avatar>
+
+    <label for="subject">Subject</label>
+    <textarea id="subject" name="subject" placeholder="bio" #bio style="height:200px"></textarea>
+
+    <input type="submit" value="Submit" (click)="setValue(name.value,avatar.value,bio.value)">
+</div>
