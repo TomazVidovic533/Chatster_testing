@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {RoomsService} from "../../services/rooms.service";
 import {Observable} from "rxjs";
 import {Room} from "../../models/room.model";
+import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-test',
@@ -25,8 +26,39 @@ export class TestComponent implements OnInit {
   }
 
   setValue(name: string, avatar: string, bio: string) {
-    let userIds: string[] = ['prvi user', 'drugi'];
-    this.roomService.addRoom(name, avatar, bio, userIds);
+    let userIds: string[] = ['a', 'b'];
+    let newRoomData: Room = {
+      name: name,
+      bio: bio,
+      avatar: avatar,
+      created_at: new Date().getTime(),
+      is_private: true,
+      is_community: false,
+      max_members: 2,
+      recent_message: {},
+      members: userIds
+    }
+    this.roomService.createNewRoom(newRoomData, userIds);
+  }
+
+  edit(id: string, name: string, avatar: string, bio: string) {
+    let userIds: string[] = ['a', 'b'];
+    let newRoomData: Room = {
+      name: name,
+      bio: bio,
+      avatar: avatar,
+      created_at: new Date().getTime(),
+      is_private: true,
+      is_community: false,
+      max_members: 2,
+      recent_message: {},
+      members: userIds
+    }
+    this.roomService.editRoom(id, newRoomData);
+  }
+
+  del(id: string) {
+    this.roomService.deleteRoom(id);
   }
 
 }

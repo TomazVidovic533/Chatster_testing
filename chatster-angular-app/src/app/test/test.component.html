@@ -1,7 +1,11 @@
 <h3>Contact Form</h3>
 
 <div class="container">
-    <label for="fname">name</label>
+
+  <input type="text" id="fname1" name="firstname" placeholder="id" #id >
+
+
+  <label for="fname">name</label>
     <input type="text" id="fname" name="firstname" placeholder="name" #name >
 
     <label for="lname"></label>
@@ -11,6 +15,8 @@
     <textarea id="subject" name="subject" placeholder="bio" #bio style="height:200px"></textarea>
 
     <input type="submit" value="Submit" (click)="setValue(name.value,avatar.value,bio.value)">
+  <input type="submit" value="e" (click)="edit(id.value,name.value,avatar.value,bio.value)">
+  <input type="submit" value="d" (click)="del(id.value)">
 </div>
 
 <div>
@@ -24,6 +30,6 @@
 
 <ul>
   <li *ngFor="let room of rooms$ | async">
-    {{ room.id }}{{ room.name }}.  {{ room.avatar }} . {{ room.bio }}
+    {{ room.id }}      :   {{ room.name }}.  {{ room.avatar }} . {{ room.bio }}
   </li>
 </ul>
