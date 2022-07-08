@@ -12,6 +12,7 @@ import { provideStorage,getStorage } from '@angular/fire/storage';
 import { TestComponent } from './test/test.component';
 import {AngularFireModule} from "@angular/fire/compat";
 
+import * as fromServices from "../services/base-service.service";
 
 @NgModule({
   declarations: [
@@ -28,7 +29,7 @@ import {AngularFireModule} from "@angular/fire/compat";
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage())
   ],
-  providers: [],
+  providers: [fromServices.BaseServiceService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

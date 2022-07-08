@@ -33,3 +33,10 @@
     {{ room.id }}      :   {{ room.name }}.  {{ room.avatar }} . {{ room.bio }}
   </li>
 </ul>
+
+TODOS
+<ul>
+  <li *ngFor="let td of todos$ | async">
+     {{ td.name }}.  {{ td.avatar }} . {{ td.bio }}
+  </li>
+</ul>
