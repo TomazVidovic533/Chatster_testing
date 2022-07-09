@@ -13,11 +13,13 @@ import { TestComponent } from './test/test.component';
 import {AngularFireModule} from "@angular/fire/compat";
 
 import * as fromServices from "../services/base-service.service";
+import { MessagesTestComponent } from './messages-test/messages-test.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent
+    TestComponent,
+    MessagesTestComponent
   ],
   imports: [
     BrowserModule,

@@ -1,10 +1,10 @@
 import {Inject, Injectable} from '@angular/core';
 import {AngularFirestore} from '@angular/fire/compat/firestore';
-import {from, map, Observable} from 'rxjs';
-import {Room} from "../models/room.model";
-import {switchMap} from 'rxjs/operators';
-import {arrayUnion} from "@angular/fire/firestore";
+import {map, Observable} from 'rxjs';
+
+import {arrayRemove, arrayUnion} from "@angular/fire/firestore";
 import {Message} from "../models/message.model";
+import {Room} from "../models/room.model";
 
 @Injectable({
   providedIn: 'root'
@@ -66,6 +66,12 @@ export class RoomsService {
   public addRoomMember(userId: string, roomId: string) {
     this.firestore.collection('rooms').doc(roomId).update({
       members: arrayUnion(userId)
+    });
+  }
+
+  public removeRoomMember(userId: string, roomId: string) {
+    this.firestore.collection('rooms').doc(roomId).update({
+      members: arrayRemove(userId)
     });
   }
 

@@ -37,6 +37,16 @@
 TODOS
 <ul>
   <li *ngFor="let td of todos$ | async">
-     {{ td.name }}.  {{ td.avatar }} . {{ td.bio }}
+    {{ td.id }}  {{ td.name }}.  {{ td.avatar }} . {{ td.bio }}
   </li>
 </ul>
+
+<div>
+  {{ (todo$ | async)?.id}}
+
+  {{ (todo$ | async)?.name}}
+
+  {{ (todo$ | async)?.bio}}
+
+  {{ (todo$ | async)?.avatar}}
+</div>

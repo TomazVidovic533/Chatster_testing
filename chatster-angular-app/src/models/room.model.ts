@@ -2,6 +2,7 @@
 import {Message} from "./message.model";
 
 export interface Room {
+  id?: string;
   avatar: string;
   bio: string;
   created_at: number;
