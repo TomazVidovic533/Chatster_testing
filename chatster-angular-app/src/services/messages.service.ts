@@ -18,9 +18,20 @@ export class MessagesService extends BaseService<Message> {
     });
   }
 
-  getSubcollectionData(): Observable<Message[]>{
-    return this.listSubcollection('3Lkh1yH7BWYZZhkGtd', 'messages');
+  getMessages(): Observable<Message[]>{
+    return this.listSubCollection('TDdWM7XZ9j0gbX9HsoCE', 'messages');
   }
 
+  addMessage(message: Message):Promise<Message>{
+    return this.addSubCollectionDocument('TDdWM7XZ9j0gbX9HsoCE','messages',message);
+  }
+
+  editMessage(message: Message): Promise<Message>{
+    return this.updateSubCollectionDocument('TDdWM7XZ9j0gbX9HsoCE', 'messages','4ZCCeh94Jzb6xo4fzTcq', message);
+  }
+
+  deleteMessage(){
+    this.deleteSubCollectionDocument('TDdWM7XZ9j0gbX9HsoCE', 'messages','4ZCCeh94Jzb6xo4fzTcq');
+  }
 
 }

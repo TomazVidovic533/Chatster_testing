@@ -1,0 +1,14 @@
+{
+  "projects": {
+    "default": "chatster-b1798"
+  },
+  "targets": {
+    "chatster-b1798": {
+      "hosting": {
+        "chatster-app": [
+          "chatster-b1798"
+        ]
+      }
+    }
+  }
+}
