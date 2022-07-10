@@ -14,6 +14,7 @@ import {AngularFireModule} from "@angular/fire/compat";
 
 import * as fromServices from "../services/base-service.service";
 import { MessagesTestComponent } from './messages-test/messages-test.component';
+import {TestModuleModule} from "./test-module/test-module.module";
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { MessagesTestComponent } from './messages-test/messages-test.component';
     provideAuth(() => getAuth()),
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
-    provideStorage(() => getStorage())
+    provideStorage(() => getStorage()),
+    TestModuleModule
   ],
   providers: [fromServices.BaseServiceService],
   bootstrap: [AppComponent]
