@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { ViewCompComponent } from './view-comp/view-comp.component';
 import { ViewComppComponent } from './view-compp/view-compp.component';
 import {MessagesService} from "../../services/messages.service";
+import { LucideAngularModule } from 'lucide-angular';
 
 
 
@@ -12,7 +13,8 @@ import {MessagesService} from "../../services/messages.service";
     ViewComppComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    LucideAngularModule.pick({ })
   ],
   providers:[
     MessagesService

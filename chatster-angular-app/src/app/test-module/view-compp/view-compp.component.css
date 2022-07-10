@@ -39,15 +39,12 @@ header {
 
 .cta {
   padding: 9px 15px;
-  background-color: rgba(0, 136, 169, 1);
-  border: none;
-  border-radius: 50px;
   cursor: pointer;
   transition: background-color 0.3s ease 0s;
 }
 
-.cta:hover {
-  background-color: rgba(0, 136, 169, 0.8);
+.rounded-image{
+  border-radius: 50%;
 }
 
 /* Mobile Nav */

@@ -1,14 +1,39 @@
 <header>
-  <a class="logo" href="/"><img src="https://images.unsplash.com/photo-1657437998546-0cc5458d9449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80" width="40" height="40" alt="logo"></a>
+  <a class="logo" href="/">
+    <img
+      src="https://images.unsplash.com/photo-1657437998546-0cc5458d9449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      width="40" height="40" alt="logo">
+  </a>
   <nav>
     <ul class="nav__links">
-      <li><a href="#">Services</a></li>
-      <li><a href="#">Projects</a></li>
-      <li><a href="#">About</a></li>
+      <li>
+        <a href="#">
+          <lucide-icon [img]="home" class="svg"></lucide-icon>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <lucide-icon [img]="chat" class="svg"></lucide-icon>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <lucide-icon [img]="people" class="svg"></lucide-icon>
+        </a>
+      </li>
+      <li>
+        <a href="#">
+          <lucide-icon [img]="community" class="svg"></lucide-icon>
+        </a>
+      </li>
     </ul>
   </nav>
 
-  <a class="cta" href="#">Profile</a>
+  <a class="cta" href="#">
+    <img class="rounded-image"
+      src="https://images.unsplash.com/photo-1657437998546-0cc5458d9449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+      width="40" height="40" alt="logo">
+  </a>
   <p class="menu cta" (click)="toggleMenu()">Menu</p>
 </header>
 <div class="overlay" [ngClass]="status ? '': 'overlay--active' ">

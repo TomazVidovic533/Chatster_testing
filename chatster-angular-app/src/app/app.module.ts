@@ -15,7 +15,7 @@ import {AngularFireModule} from "@angular/fire/compat";
 import * as fromServices from "../services/base-service.service";
 import { MessagesTestComponent } from './messages-test/messages-test.component';
 import {TestModuleModule} from "./test-module/test-module.module";
-
+import { LucideAngularModule } from 'lucide-angular';
 @NgModule({
   declarations: [
     AppComponent,
@@ -31,7 +31,8 @@ import {TestModuleModule} from "./test-module/test-module.module";
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
-    TestModuleModule
+    TestModuleModule,
+    LucideAngularModule.pick({ })
   ],
   providers: [fromServices.BaseServiceService],
   bootstrap: [AppComponent]
