@@ -15,12 +15,22 @@ import {AngularFireModule} from "@angular/fire/compat";
 import * as fromServices from "../services/base-service.service";
 import { MessagesTestComponent } from './messages-test/messages-test.component';
 import {TestModuleModule} from "./test-module/test-module.module";
-import { LucideAngularModule } from 'lucide-angular';
+import { NavbarComponent } from './shared/components/navbar/navbar.component';
+import { NotFoundComponent } from './core/components/not-found/not-found.component';
+import { CommunitiesOverviewComponent } from './modules/communites/views/communities-overview/communities-overview.component';
+import { CommunitiyProfileComponent } from './modules/communites/views/communitiy-profile/communitiy-profile.component';
+import { CommunityProfileComponent } from './modules/communites/views/community-profile/community-profile.component';
+
 @NgModule({
   declarations: [
     AppComponent,
     TestComponent,
-    MessagesTestComponent
+    MessagesTestComponent,
+    NavbarComponent,
+    NotFoundComponent,
+    CommunitiesOverviewComponent,
+    CommunitiyProfileComponent,
+    CommunityProfileComponent
   ],
   imports: [
     BrowserModule,
@@ -31,10 +41,9 @@ import { LucideAngularModule } from 'lucide-angular';
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
-    TestModuleModule,
-    LucideAngularModule.pick({ })
+    TestModuleModule
   ],
   providers: [fromServices.BaseServiceService],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {}
