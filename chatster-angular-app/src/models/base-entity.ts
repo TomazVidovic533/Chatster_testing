@@ -1,4 +1,4 @@
-export interface IBaseEntity {
+export interface Entity {
   id?: string;
   name?: string;
 }

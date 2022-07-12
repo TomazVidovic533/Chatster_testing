@@ -1,15 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { SendMessageFormComponent } from './components/send-message-form/send-message-form.component';
-import { RoomsListviewComponent } from './components/rooms-listview/rooms-listview.component';
+
+import { ChatRoutingModule } from './chat-routing.module';
+import {ChatroomComponent} from "./views/chatroom/chatroom.component";
+
 
 @NgModule({
   declarations: [
-    SendMessageFormComponent,
-    RoomsListviewComponent
+    ChatroomComponent
   ],
   imports: [
-    CommonModule
+    CommonModule,
+    ChatRoutingModule
   ]
 })
 export class ChatModule { }

@@ -12,4 +12,12 @@ export class SignInFormComponent implements OnInit {
   ngOnInit(): void {
   }
 
+  signInGoogle(){
+
+  }
+
+  signInWithEmailAndPassword(){
+
+  }
+
 }

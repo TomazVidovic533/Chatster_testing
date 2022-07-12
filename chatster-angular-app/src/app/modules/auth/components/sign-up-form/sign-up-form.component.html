@@ -1,1 +1,76 @@
-<p>sign-up-form works!</p>
+<section class="container forms">
+  <div class="form signup">
+    <div class="form-content">
+      <header>Create account</header>
+      <form action="#">
+
+        <div class="field input-field">
+          <input type="text" placeholder="Username" class="input">
+        </div>
+
+        <div class="field input-field">
+          <input type="email" placeholder="Email" class="input">
+        </div>
+
+        <div class="field input-field">
+          <label for="file-upload" class="file-upload">
+             Choose Avatar
+          </label>
+          <label class="image-image">
+            {{selectedImage}}
+          </label>
+          <input id="file-upload" type="file"/>
+        </div>
+
+        <div class="field input-field">
+          <select placeholder="Language" class="input">
+            <option>Slovene</option>
+            <option>English</option>
+          </select>
+        </div>
+
+        <div class="field input-field">
+          <select placeholder="Gender" class="input">
+            <option>Male</option>
+            <option>Female</option>
+          </select>
+        </div>
+
+        <div class="field input-field">
+          <input type="text" placeholder="Description" class="input">
+        </div>
+
+        <div class="field input-field">
+          <input type="password" placeholder="Create password" class="password">
+        </div>
+
+        <div class="field input-field">
+          <input type="password" placeholder="Confirm password" class="password">
+          <i class='bx bx-hide eye-icon'></i>
+        </div>
+
+        <div class="field button-field">
+          <button>Sign Up</button>
+        </div>
+      </form>
+
+      <div class="form-link">
+        <span>Already have an account? <a routerLink="/auth/sign-in" class="link login-link">Sign In</a></span>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="media-options">
+
+        <div class="field button-field">
+         <button class="google-btn">
+           <img src="assets/google_logo.svg" alt="" class="google-img">
+           <span>Sign In with Google</span>
+         </button>
+        </div>
+
+    </div>
+
+  </div>
+</section>

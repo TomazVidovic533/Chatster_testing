@@ -1,1 +1,41 @@
-<p>sign-in-form works!</p>
+
+<section class="container forms">
+  <div class="form login">
+    <div class="form-content">
+      <header>Welcome to Chatster</header>
+      <form action="#">
+        <div class="field input-field">
+          <input type="email" placeholder="Email" class="input">
+        </div>
+
+        <div class="field input-field">
+          <input type="password" placeholder="Password" class="password">
+          <i class='bx bx-hide eye-icon'></i>
+        </div>
+
+        <div class="form-link">
+          <a routerLink="/auth/forgot-password" class="forgot-pass">Forgot password?</a>
+        </div>
+
+        <div class="field button-field">
+          <button (click)="signInWithEmailAndPassword()">Sign In</button>
+        </div>
+      </form>
+
+      <div class="form-link">
+        <span>Don't have an account? <a routerLink="/auth/sign-up" class="link signup-link">Signup</a></span>
+      </div>
+    </div>
+
+    <div class="line"></div>
+
+    <div class="media-options">
+      <div class="field button-field">
+        <button class="google-btn" (click)="signInGoogle()">
+          <img src="assets/google_logo.svg" alt="" class="google-img">
+          <span>Sign In with Google</span>
+        </button>
+      </div>
+    </div>
+  </div>
+</section>

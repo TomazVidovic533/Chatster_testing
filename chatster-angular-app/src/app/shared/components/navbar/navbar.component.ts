@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
+import {Boxes, Home, MessageCircle, Users, Menu} from 'lucide-angular';
 
 @Component({
   selector: 'app-navbar',
@@ -7,9 +8,21 @@ import { Component, OnInit } from '@angular/core';
 })
 export class NavbarComponent implements OnInit {
 
-  constructor() { }
+  status:boolean=true;
+
+  home=Home;
+  chat=MessageCircle;
+  people=Users;
+  community=Boxes;
+  menu=Menu;
+
+  constructor(private elRef: ElementRef,private renderer: Renderer2) { }
 
   ngOnInit(): void {
+  }
+
+  toggleMenu(){
+    this.status = !this.status;
   }
 
 }

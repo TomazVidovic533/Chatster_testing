@@ -7,14 +7,17 @@
   box-sizing: border-box;
 }
 
+:root{
+  --navbar-color: #1877f2;
+  --file-upload-btn-color: rgba(250, 200, 100, 0.96);
+  --submit-btn-color: #3189c7;
+}
+
 body {
   margin: 0;
   padding: 0;
   font-family: 'Arima', cursive;
+  background-color: #f0f2f5;
 }
 
 
-:root{
-  --main-color: #171821;
-
-}

@@ -7,6 +7,8 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SignUpFormComponent implements OnInit {
 
+  selectedImage: string = 'nekaj';
+
   constructor() { }
 
   ngOnInit(): void {
