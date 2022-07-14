@@ -9,7 +9,7 @@
 body{
 background-color: #f0f2f5;
 
-    }
+}
 .container{
   width: 100%;
   display: flex;
@@ -17,51 +17,19 @@ background-color: #f0f2f5;
   gap: 1%;
 }
 
-.item{
+.chat-message-item{
   margin-top:.6em;
   background-color:#ffffff;
   border-radius:6px;
-  min-height: 6.2em;
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.item:hover{
+.chat-message-item:hover{
     background-color: #fdfcfaf5;
 }
 
-.item-content-header{
-    display: flex;
-}
-
-.item-header{
-    min-width: 6em;
-}
-
-.avatar{
-    border-radius: 50%;
-    position: relative;
-    padding-top: .6em;
-    padding-left: .6em;
-    width: 4em;
-    height: 4em;
-    object-fit: cover;
-}
-
-.item-content-title{
-    font-size: 24px;
-    padding-top: 0.8em;
-    padding-right: 0.6em;
-    padding-bottom: 0.01em;
-}
-
-.item-content-time{
-    padding-top: 1.7em;
-    padding-left: 0.1em;
-}
-
-
-.item-text{
+.chat-message-item-text{
   padding: .4em;
   width: -moz-fit-content;
   width: fit-content;
@@ -71,19 +39,26 @@ background-color: #f0f2f5;
   text-align: justify
 }
 
+.my-message{
+    background-color: #84b2ddf5;
+}
+
+.my-message:hover{
+    background-color: #9fc3e4f5;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: background-color 1.2s;
+}
+
 </style>
     </head>
     <body>
 
         <section class="container">
 
-            <div class="item">
-                <div class="item-content">
-                    <div class="item-text" contenteditable="true">
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
+            <div class="chat-message-item my-message">
+                <div class="chat-message-item-content">
+                    <div class="chat-message-item-text" contenteditable="true">
+                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum
                     </div>
                 </div>
             </div>

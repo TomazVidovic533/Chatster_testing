@@ -1,6 +1,5 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {OverviewComponent} from "../home/views/overview/overview.component";
 import {AppViewComponent} from "./views/app-view/app-view.component";
 
 const routes: Routes = [
@@ -26,8 +25,8 @@ const routes: Routes = [
         loadChildren: () => import('../../modules/people/people.module').then(m => m.PeopleModule)
       },
       {
-        path: 'communities',
-        loadChildren: () => import('../../modules/communities/communities.module').then(m => m.CommunitiesModule)
+        path: 'rooms',
+        loadChildren: () => import('../../modules/rooms/rooms.module').then(m => m.RoomsModule)
       },
       {
         path: 'profile',

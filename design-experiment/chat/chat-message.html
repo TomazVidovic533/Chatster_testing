@@ -10,36 +10,35 @@ body{
 background-color: #f0f2f5;
 
     }
-.container{
+.chat-message-container{
   width: 100%;
   display: flex;
   flex-direction: column;
   gap: 1%;
 }
 
-.item{
+.chat-message-item{
   margin-top:.6em;
   background-color:#ffffff;
   border-radius:6px;
-  min-height: 6.2em;
   display: flex;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.item:hover{
+.chat-message-item:hover{
     background-color: #fdfcfaf5;
 }
 
-.item-content{
+.chat-message-item-content{
   display: column;
   margin-left: .8em;
 }
 
-.item-content-header{
+.chat-message-item-content-header{
     display: flex;
 }
 
-.item-header{
+.chat-message-item-header{
     min-width: 6em;
 }
 
@@ -53,20 +52,20 @@ background-color: #f0f2f5;
     object-fit: cover;
 }
 
-.item-content-title{
+.chat-message-item-content-title{
     font-size: 24px;
     padding-top: 0.8em;
     padding-right: 0.6em;
     padding-bottom: 0.01em;
 }
 
-.item-content-time{
+.chat-message-item-content-time{
     padding-top: 1.7em;
     padding-left: 0.1em;
 }
 
 
-.item-text{
+.chat-message-item-text{
   padding: .4em;
   width: -moz-fit-content;
   width: fit-content;
@@ -80,91 +79,86 @@ background-color: #f0f2f5;
     </head>
     <body>
 
-        <section class="container">
+        <div class="chatcontainer">
 
-            <div class="item">
-                <div class="item-header">
+            <div class="chat-message-item">
+                <div class="chat-message-item-header">
                     <img class="avatar"
                         src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
                 </div>
-                <div class="item-content">
-                    <div class="item-content-header">
-                        <div class="item-content-title">
+                <div class="chat-message-item-content">
+                    <div class="chat-message-item-content-header">
+                        <div class="chat-message-item-content-title">
                             usernameasdsad
                         </div>
-                        <div class="item-content-time">
+                        <div class="chat-message-item-content-time">
                             <i>time</i>
                         </div>
                     </div>
-                    <div class="item-text" contenteditable="true">
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                   
+                    <div class="chat-message-item-text" contenteditable="true">
+                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur aLorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur a
+                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
                     </div>
                 </div>
             </div>
 
-            <div class="item">
-                <div class="item-header">
+
+            <div class="chat-message-item">
+                <div class="chat-message-item-header">
                     <img class="avatar"
                         src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
                 </div>
-                <div class="item-content">
-                    <div class="item-content-header">
-                        <div class="item-content-title">
+                <div class="chat-message-item-content">
+                    <div class="chat-message-item-content-header">
+                        <div class="chat-message-item-content-title">
                             usernameasdsad
                         </div>
-                        <div class="item-content-time">
+                        <div class="chat-message-item-content-time">
                             <i>time</i>
                         </div>
                     </div>
-                    <div class="item-text">
-                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a
+                    <div class="chat-message-item-text" contenteditable="true">
+                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur aLorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur a
+                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur aLorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur a
+                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur aLorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur a
+                        Lorem ipsum dolor sit amet, consectetur a Lorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur aLorem ipsum
+                        dolor sit amet, consectetur aLorem ipsum dolor sit amet,
+                        consectetur aLorem ipsum dolor sit amet, consectetur
+                        aLorem ipsum dolor sit amet, consectetur a
                     </div>
                 </div>
             </div>
 
-            <div class="item">
-                <div class="item-header">
-                    <img class="avatar"
-                        src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
-                </div>
-                <div class="item-content">
-                    <div class="item-content-header">
-                        <div class="item-content-title">
-                            usernameasdsad
-                        </div>
-                        <div class="item-content-time">
-                            <i>time</i>
-                        </div>
-                    </div>
-                    <div class="item-text">
-                        Lorem ipsum dolor sit amet, consectetur a  Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur a
-                    </div>
-                </div>
-            </div>
 
-            <div class="item">
-                <div class="item-header">
-                    <img class="avatar"
-                        src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
-                </div>
-                <div class="item-content">
-                    <div class="item-content-header">
-                        <div class="item-content-title">
-                            usernameasdsad
-                        </div>
-                        <div class="item-content-time">
-                            <i>time</i>
-                        </div>
-                    </div>
-                    <div class="item-text">
-                        Lorem ipsum dolor sit amet, consectetur a
-                    </div>
-                </div>
-            </div>
-        </section>
+        </div>
     </body>
 </html>

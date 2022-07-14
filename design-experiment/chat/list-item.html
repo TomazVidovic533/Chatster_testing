@@ -17,58 +17,58 @@ background-color: #f0f2f5;
   gap: 1%;
 }
 
-.item{
+.room-list-item{
   margin-top:.6em;
   background-color:#ffffff;
   border-radius:6px;
   display: flex;
-  height: 6.2em;
   overflow: hidden;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.item:hover{
+.room-list-item:hover{
     background-color: #fdfcfaf5;
 }
 
-.item-content{
+.room-list-item-content{
   display: column;
   margin-left: .8em;
   float: left;
 }
 
-.item-content-header{
+.room-list-item-content-header{
     display: flex;
 }
 
-.item-header{
-    min-width: 6em;
+.room-list-item-header{
+    min-width: 3em;
 }
 
-.avatar{
+.room-list-item-avatar{
     border-radius: 50%;
     position: relative;
     padding-top: .6em;
     padding-left: .6em;
-    width: 4.5em;
-    height: 4.5em;
+    width: 3em;
+    height: 3em;
     object-fit: cover;
 }
 
-.item-content-title{
-    font-size: 24px;
+.room-list-item-content-title{
+    font-size: 20px;
     padding-top: 0.8em;
     padding-right: 0.6em;
     padding-bottom: 0.01em;
 }
 
-.item-content-time{
+.room-list-item-content-time{
     padding-top: 1.7em;
     padding-left: 0.1em;
 }
 
 
-.item-text{
+.room-list-item-text{
+  font-size: 12px;
   padding-left: .4em;
   padding-top: .4em;
   padding-left: .4em;
@@ -86,90 +86,27 @@ background-color: #f0f2f5;
 </head>
 <body>
 
-    <section class="container">
+    <div class="container">
      
-        <div class="item">
-            <div class="item-header">
-              <img class="avatar" src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" >
+        <div class="room-list-item">
+            <div class="room-list-item-header">
+              <img class="room-list-item-avatar" src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" >
             </div>
-              <div class="item-content">
-                  <div class="item-content-header">
-                      <div class="item-content-title">
+              <div class="room-list-item-content">
+                  <div class="room-list-item-content-header">
+                      <div class="room-list-item-content-title">
                          usernameasdsad
                       </div>
-                      <div class="item-content-time">
-                          <i>time</i>
-                      </div>
+
                   </div>
-                  <div class="item-text">
+                  <div class="room-list-item-text">
                       Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
              </div>
             </div>
           </div>
 
-          <div class="item">
-            <div class="item-header">
-              <img class="avatar" src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" >
-            </div>
-              <div class="item-content">
-                  <div class="item-content-header">
-                      <div class="item-content-title">
-                         usernameasdsad
-                      </div>
-                      <div class="item-content-time">
-                          <i>time</i>
-                      </div>
-                  </div>
-                  <div class="item-text">
-                      Lorem ipsum dolor sit amet, consectetur a     Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                      Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                      Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                      Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                      Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                      Lorem ipsum dolor sit amet, consectetur a Lorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur aLorem ipsum dolor sit amet, consectetur a
-                   
-             </div>
-            </div>
           </div>
-
-          <div class="item">
-            <div class="item-header">
-              <img class="avatar" src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" >
-            </div>
-              <div class="item-content">
-                  <div class="item-content-header">
-                      <div class="item-content-title">
-                         usernameasdsad
-                      </div>
-                      <div class="item-content-time">
-                          <i>time</i>
-                      </div>
-                  </div>
-                  <div class="item-text">
-                      Lorem ipsum dolor sit amet, consectetur a
-             </div>
-            </div>
-          </div>
-
-          <div class="item">
-            <div class="item-header">
-              <img class="avatar" src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" >
-            </div>
-              <div class="item-content">
-                  <div class="item-content-header">
-                      <div class="item-content-title">
-                         usernameasdsad
-                      </div>
-                      <div class="item-content-time">
-                          <i>time</i>
-                      </div>
-                  </div>
-                  <div class="item-text">
-                      Lorem ipsum dolor sit amet, consectetur a
-             </div>
-            </div>
-          </div>
-      </section>
+        </div>
 </body>
 </html>
 

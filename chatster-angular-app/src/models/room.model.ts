@@ -1,8 +1,8 @@
 //ng generate interface Employee --type=model
 import {Message} from "./message.model";
+import {DataObjectItem} from "../app/shared/models/data-object-item";
 
-export interface Room {
-  id?: string;
+export interface Room extends DataObjectItem {
   avatar: string;
   bio: string;
   created_at: number;

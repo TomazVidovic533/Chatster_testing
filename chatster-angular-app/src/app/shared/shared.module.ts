@@ -1,20 +1,21 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { GridviewComponent } from './components/gridview/gridview.component';
-import { ListviewComponent } from './components/listview/listview.component';
-import { CardComponent } from './components/card/card.component';
 import { LucideAngularModule } from 'lucide-angular';
+import {GridviewComponent} from "./components/gridview/gridview.component";
+import {SearchSectionComponent} from "./components/search-section/search-section.component";
 
 @NgModule({
   declarations: [
     GridviewComponent,
-    ListviewComponent,
-    CardComponent
+    SearchSectionComponent
   ],
   imports: [
     CommonModule,
     LucideAngularModule.pick({ })
   ],
-  exports: []
+  exports: [
+    GridviewComponent,
+    SearchSectionComponent
+  ]
 })
 export class SharedModule { }
