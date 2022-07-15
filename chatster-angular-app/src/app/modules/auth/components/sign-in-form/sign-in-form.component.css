@@ -18,6 +18,10 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
+.google-btn{
+  background-color: #FFFFFF;
+}
+
 header {
   font-size: 28px;
   font-weight: 600;
@@ -141,5 +145,4 @@ a.google span {
   .form {
     padding: 20px 10px;
   }
-
 }

@@ -1,5 +1,5 @@
 import {map, Observable, Subject} from "rxjs";
-import {Entity} from "../models/base-entity";
+import {CollectionItem} from "../models/base-entity";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {documentId} from "@angular/fire/firestore";
 
@@ -18,7 +18,7 @@ export interface IBaseService<T> {
   delete(id: string): void;
 }
 
-export class BaseService<T extends Entity> implements IBaseService<T> {
+export class BaseService<T extends CollectionItem> implements IBaseService<T> {
   protected collection: AngularFirestoreCollection<T>;
 
   constructor(protected uri: string, protected afs: AngularFirestore) {

@@ -1,5 +1,5 @@
 import {map, Observable, shareReplay, Subject} from "rxjs";
-import {Entity} from "../../../models/base-entity";
+import {CollectionItem} from "../../../models/base-entity";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 
 export interface FirestoreDataService<T> {
@@ -24,7 +24,7 @@ export interface FirestoreDataService<T> {
   deleteSubCollectionDocument(documentId: string, collectionId: string, subCollectionDocumentId: string): void;
 }
 
-export class FirestoreService<T extends Entity> implements FirestoreDataService<T> {
+export class FirestoreService<T extends CollectionItem> {
   protected collection: AngularFirestoreCollection<T>;
 
   constructor(protected uri: string, protected afs: AngularFirestore) {

@@ -13,8 +13,9 @@ import {
   ProfileInformationSectionComponent
 } from "./components/profile-information-section/profile-information-section.component";
 import { CustomFormInputTextComponent } from './components/custom-form-input-text/custom-form-input-text.component';
-import { CustomFormInputSelectComponent } from './components/custom-form-input-select/custom-form-input-select.component';
 import {FormsModule} from "@angular/forms";
+import { CustomFileUploadComponent } from './components/custom-file-upload/custom-file-upload.component';
+import { CustomButtonComponent } from './components/custom-button/custom-button.component';
 
 @NgModule({
   declarations: [
@@ -25,7 +26,8 @@ import {FormsModule} from "@angular/forms";
     ProfileInformationItemComponent,
     ProfileInformationSectionComponent,
     CustomFormInputTextComponent,
-    CustomFormInputSelectComponent
+    CustomFileUploadComponent,
+    CustomButtonComponent
   ],
   imports: [
     CommonModule,
@@ -41,7 +43,8 @@ import {FormsModule} from "@angular/forms";
     ProfileHeaderComponent,
     ProfileInformationSectionComponent,
     CustomFormInputTextComponent,
-    CustomFormInputSelectComponent
+    CustomFileUploadComponent,
+    CustomButtonComponent
   ]
 })
 export class SharedModule { }

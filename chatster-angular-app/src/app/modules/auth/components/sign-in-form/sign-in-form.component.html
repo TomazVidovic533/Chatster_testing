@@ -14,24 +14,11 @@
                                     [placeholderValue]="'Password'"
                                     formControlName="password"></app-custom-form-input-text>
 
-        <app-custom-form-input-text [type]="'select'"
-                                    [placeholderValue]="'Gender'"
-                                    formControlName="gender"
-                                    [optionItems]="optionItems"></app-custom-form-input-text>
 
-        {{ signInForm.value | json }}
+        <app-custom-button (clickTrigger)="signInWithEmailAndPassword($event)"
+                           [name]="'Sign In'"
+                           [btnType]="'form-btn'"></app-custom-button>
 
-<!--        <div class="field input-field">
-          <input type="email" placeholder="Email" class="input">
-        </div>
-
-        <div class="form-link">
-          <a routerLink="/auth/forgot-password" class="forgot-pass">Forgot password?</a>
-        </div>-->
-
-        <div class="field button-field">
-          <button (click)="signInWithEmailAndPassword()">Sign In</button>
-        </div>
       </form>
 
       <div class="form-link">
@@ -42,12 +29,28 @@
     <div class="line"></div>
 
     <div class="media-options">
-      <div class="field button-field">
-        <button class="google-btn" (click)="signInGoogle()">
-          <img src="assets/google_logo.svg" alt="" class="google-img">
-          <span>Sign In with Google</span>
-        </button>
-      </div>
+
+      <app-custom-button (clickTrigger)="signInGoogle($event)"
+                         [name]="'Sign In'"
+                         [btnType]="'form-btn-google-sign-in'"></app-custom-button>
     </div>
   </div>
 </section>
+
+
+<!--      <app-custom-form-input-text [type]="'select'"
+                                  [placeholderValue]="'Gender'"
+                                  formControlName="gender"
+                                  [optionItems]="optionItems"></app-custom-form-input-text>
+
+      <app-custom-file-upload formControlName="file"></app-custom-file-upload>
+--><!--
+        {{ signInForm.value | json }}-->
+
+<!--        <div class="field input-field">
+          <input type="email" placeholder="Email" class="input">
+        </div>
+
+        <div class="form-link">
+          <a routerLink="/auth/forgot-password" class="forgot-pass">Forgot password?</a>
+        </div>-->
