@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, shareReplay} from "rxjs";
 import {User} from "../../../../../models/user.model";
+import {UsersService} from "../../services/users.service";
+
+
 
 @Component({
   selector: 'app-users-overview',
@@ -9,11 +12,11 @@ import {User} from "../../../../../models/user.model";
 })
 export class UsersOverviewComponent implements OnInit {
 
-  people$!: Observable<User>;
-
-  constructor() { }
+  users$!: Observable<User[]>;
+  constructor(private usersService: UsersService ) {}
 
   ngOnInit(): void {
+    this.users$ =  this.usersService.list().pipe(shareReplay(1));
+    this.users$.subscribe((res)=>{console.log("list", res)});
   }
-
 }

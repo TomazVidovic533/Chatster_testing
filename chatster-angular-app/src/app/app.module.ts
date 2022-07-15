@@ -16,6 +16,7 @@ import * as fromServices from "../services/base-service.service";
 import {MessagesTestComponent} from './messages-test/messages-test.component';
 import {TestModuleModule} from "./test-module/test-module.module";
 import {NotFoundComponent} from './core/components/not-found/not-found.component';
+import {FormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import {NotFoundComponent} from './core/components/not-found/not-found.component
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
-    TestModuleModule
+    TestModuleModule,
+    FormsModule
   ],
   providers: [fromServices.BaseServiceService],
   exports: [],

@@ -3,19 +3,31 @@
   <div class="form login">
     <div class="form-content">
       <header>Welcome to Chatster</header>
-      <form action="#">
-        <div class="field input-field">
-          <input type="email" placeholder="Email" class="input">
-        </div>
+      <form action="#" [formGroup]="signInForm">
 
-        <div class="field input-field">
-          <input type="password" placeholder="Password" class="password">
-          <i class='bx bx-hide eye-icon'></i>
+
+
+        <app-custom-form-input-text [type]="'email'"
+                                    [placeholderValue]="'Email'"
+                                    formControlName="email"></app-custom-form-input-text>
+        <app-custom-form-input-text [type]="'password'"
+                                    [placeholderValue]="'Password'"
+                                    formControlName="password"></app-custom-form-input-text>
+
+        <app-custom-form-input-text [type]="'select'"
+                                    [placeholderValue]="'Gender'"
+                                    formControlName="gender"
+                                    [optionItems]="optionItems"></app-custom-form-input-text>
+
+        {{ signInForm.value | json }}
+
+<!--        <div class="field input-field">
+          <input type="email" placeholder="Email" class="input">
         </div>
 
         <div class="form-link">
           <a routerLink="/auth/forgot-password" class="forgot-pass">Forgot password?</a>
-        </div>
+        </div>-->
 
         <div class="field button-field">
           <button (click)="signInWithEmailAndPassword()">Sign In</button>

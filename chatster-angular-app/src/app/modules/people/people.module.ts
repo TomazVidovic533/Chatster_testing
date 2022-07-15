@@ -11,18 +11,17 @@ import {
 import {
   ProfileInformationItemComponent
 } from "../../shared/components/profile-information-item/profile-information-item.component";
+import {SharedModule} from "../../shared/shared.module";
 
 @NgModule({
   declarations: [
     UsersOverviewComponent,
-    UserProfileComponent,
-    ProfileHeaderComponent,
-    ProfileInformationSectionComponent,
-    ProfileInformationItemComponent
+    UserProfileComponent
   ],
   imports: [
     CommonModule,
-    PeopleRoutingModule
+    PeopleRoutingModule,
+    SharedModule
   ]
 })
 export class PeopleModule { }

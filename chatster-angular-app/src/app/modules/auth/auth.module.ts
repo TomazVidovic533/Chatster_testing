@@ -10,6 +10,8 @@ import {
   ResendVerificationFormComponent
 } from "./components/resend-verification-form/resend-verification-form.component";
 import {NotVerifiedComponent} from "./views/not-verified/not-verified.component";
+import {SharedModule} from "../../shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
 
 
 @NgModule({
@@ -23,7 +25,9 @@ import {NotVerifiedComponent} from "./views/not-verified/not-verified.component"
   ],
   imports: [
     CommonModule,
-    AuthRoutingModule
+    AuthRoutingModule,
+    SharedModule,
+    ReactiveFormsModule
   ]
 })
 export class AuthModule { }
