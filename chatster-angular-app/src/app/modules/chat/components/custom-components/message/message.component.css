@@ -1,0 +1,88 @@
+
+.chat-message-item{
+  margin-top:.6em;
+  width: fit-content;
+  display: flex;
+}
+
+.chat-message-item-content:hover{
+  background-color: #fdfcfaf5;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: background-color 0.3s;
+}
+
+.chat-message-item-content{
+  margin-left: .6em;
+  padding-left:  0.4em;
+  background-color:#ffffff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  border-radius:0.8em;
+}
+
+.chat-message-item-content-header{
+  display: flex;
+}
+
+.chat-message-item-header{
+  min-width: 4em;
+}
+
+.avatar{
+  cursor: pointer;
+  border-radius: 50%;
+  position: relative;
+  padding-top: .2em;
+  padding-left: .2em;
+  width: 3.6em;
+  height: 3.6em;
+  object-fit: cover;
+}
+
+.chat-message-item-content-title{
+  font-size: 18px;
+  font-weight: bold;
+  padding: 0.8em 0.6em 0.01em 0.5em;
+}
+
+.chat-message-item-content-time{
+  padding-top: 1.2em;
+  padding-left: 0.1em;
+}
+
+
+.chat-message-item-text{
+  padding-right: .4em;
+  padding-bottom: .4em;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: fit-content;
+  margin: .8em;
+  text-align: justify;
+}
+
+@media (max-width: 700px) {
+  .chat-message-item-content {
+    margin-right: 0.5em;
+  }
+}
+
+
+/*  my messages style */
+
+.my-message{
+
+  border-radius:0.8em;
+  margin-left: auto;
+  margin-right: 0.4em;
+}
+
+.content-my-message{
+  background-color: #84b2ddf5;
+  margin-left: 0;
+}
+
+.content-my-message:hover{
+  background-color: #9fc3e4f5;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: background-color 0.3s;
+}

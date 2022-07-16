@@ -1,0 +1,324 @@
+ <!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <style>
+  
+  *{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+
+  *::-webkit-scrollbar {
+  width: 0.2em;
+}
+
+*::-webkit-scrollbar-track {
+  background: #dcdcdc;
+  border-radius: 0.1em;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #dcdcdc;
+  border-radius: 0.6em;
+  border: 3px solid #3d3d3d;
+}
+
+
+  body{
+  background-color: #f0f2f5;
+  scrollbar-width: none;
+  }
+
+.grid::-webkit-scrollbar, body::-webkit-scrollbar { 
+    scrollbar-width: thin;          /* "auto" or "thin" */
+    scrollbar-color: #3d3d3d #dcdcdc; 
+}
+
+.grid { 
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(24em, 1fr));
+  grid-gap: .6em;
+  align-items: start;
+  height: 86vh;
+  scrollbar-width: thin;          /* "auto" or "thin" */
+    scrollbar-color: #3d3d3d #dcdcdc; 
+    overflow-y: auto;
+    margin-left: 2em;
+  margin-right: 2em;
+  padding: 0.4em;
+}
+
+.grid > .grid-item {
+  border-radius: 0.8em;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  flex-grow: 1;
+  cursor: pointer;
+}
+.grid > .grid-item img {
+  max-width: 100%;
+  border-radius: 0.8em;
+  flex-grow: 1;
+  cursor: pointer;
+}
+.grid-item-content{
+  padding: 0.8em;
+  display: flex;
+}
+
+.grid-item-content-title{
+    width: 80%;
+    font-size: 22px;
+}
+
+.grid-item-content-btn{
+    width:20%;
+    padding: 0.5em;
+    border-radius: 0.6em;
+    border: none;
+    outline: none;
+    background-color: orange;
+    color:white;
+    cursor: pointer;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+ @media screen and (max-width: 600px) {
+.grid-item  {
+    -ms-flex: 100%;
+    flex: 100%;
+    max-width: 100%;
+  }
+}
+  
+
+.wrapper {
+  background-color: #A2D2FF;
+  margin-top: 2.4em;
+  border-radius: 0.6em;
+  width: 40em;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3em;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+/* search bar component */
+.wrapper-item {
+  color: #fff;
+  width: 100%;
+  padding: 12px;
+  height: 12vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 1em;
+}
+
+.wrapper-search-input{
+    height: 1.8em;
+    border: none;
+    padding: 1.2em;
+    margin-right: 2em;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    border-radius: 1.2em;
+    opacity:0.94;
+
+    word-wrap: break-word;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: rgb(250, 246, 246);
+}
+
+.wrapper-search-input:focus{
+    opacity:1;
+    border: none;
+    outline: none;
+    -webkit-transform: scale(1.008);
+        -ms-transform: scale(1.008);
+        transform: scale(1.008);
+}
+
+.wrapper-search-btn{
+    padding: 0.75em;
+    border-radius: 0.6em;
+    border: none;
+    outline: none;
+    background-color: #f5d64f;
+    color: white;
+    font-weight: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+
+.search-container{
+    height: 80vh;
+}
+  </style>
+    </head>
+    <body>
+
+        <div class="search-container">
+            <div class="wrapper">
+                <div class="wrapper-item">
+                    <input type="text" class="wrapper-search-input"
+                        placeholder="Search for ....">
+                    <button class="wrapper-search-btn">Search</button>
+                </div>
+            </div>
+
+
+            <div class="grid">
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+                <div class="grid-item" href="">
+                    <img src="https://source.unsplash.com/1600x900/?nature"
+                        alt="nature">
+
+                    <div class="grid-item-content">
+                        <div class="grid-item-content-title">
+                            sadsasadsadsa
+                        </div>
+                        <button class="grid-item-content-btn">Nekaj</button>
+                    </div>
+                </div>
+
+
+            </div>
+        </div>
+    </body>
+</html>

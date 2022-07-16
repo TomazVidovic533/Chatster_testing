@@ -8,8 +8,12 @@ const routes: Routes = [
     path: '', component: UsersOverviewComponent
   },
   {
-    path: 'profile/:userId', component: UserProfileComponent
-  }
+    path: ':userId', component: UserProfileComponent
+  },
+  {
+    path: ':userId/edit', component: UserProfileComponent
+  },
+
 ];
 
 @NgModule({

@@ -1,0 +1,120 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <style>
+
+
+.input, .textarea, .select {
+  background-color: #dddddd;
+  color: #666666;
+  border-radius: 10px;
+  border: 2px solid transparent;
+  outline: none;
+  font-family: "Heebo", sans-serif;
+  font-weight: 500;
+  font-size: 16px;
+  line-height: 1.2;
+  padding: 0.6em;
+  transition: all 0.2s;
+  resize: none;
+}
+
+.textarea{
+    height: 6em;
+    width: 100%;
+}
+
+.input{
+    height: 1.2em;
+    width: 100%;
+}
+.select{
+    width: 100%;
+}
+
+.input:hover ,.textarea:hover, select:hover {
+  cursor: pointer;
+  background-color: #eeeeee;
+}
+
+.input, .textarea:focus {
+  cursor: text;
+  color: #333333;
+  background-color: rgb(216, 211, 211);
+  outline: none;
+}
+
+.notification-container{
+    margin-left: auto;
+    margin-right: auto;
+    display: flex;
+    flex-direction: column;
+    background-color: antiquewhite;
+}
+
+.notification-holder {
+  display: flex;
+  align-items: stretch;
+  background-color: #f1f1f1;
+  background-color: cadetblue;
+  border-radius: 0.6em;
+}
+
+.notification-item {
+  color: white;
+  font-size: 18px;
+  margin-top: auto;
+  margin-bottom: auto;
+  justify-content: center;
+  text-align: center;
+}
+
+.notification-item input{
+    width: 24em;
+    border-radius: 0.6em;
+    height: 2em;
+}
+
+
+</style>
+    </head>
+    <body>
+
+        <div class="notification-container">
+            <div class="notification-holder">
+                <div class="notification-item" style="flex-grow: 1">
+                </div>
+                <div class="notification-item" style="flex-grow: 8">
+                    <input type="text" class="input">
+                </div>
+                <div class="notification-item" style="flex-grow: 1">
+                </div>
+            </div>
+            <div class="notification-holder">
+                <div class="notification-item" style="flex-grow: 1">
+                </div>
+                <div class="notification-item" style="flex-grow: 8">
+                    <textarea class="textarea" placeholder="Enter a message..."></textarea>
+                </div>
+                <div class="notification-item" style="flex-grow: 1">
+                </div>
+            </div>
+            <div class="notification-holder">
+                <div class="notification-item" style="flex-grow: 1">
+                </div>
+                <div class="notification-item" style="flex-grow: 8">
+                    <select class="select">
+                        <option>1</option>
+                        <option>1</option>
+                        <option>1</option>
+                    </select>
+                </div>
+                <div class="notification-item" style="flex-grow: 1">
+                </div>
+            </div>
+        </div>
+
+
+    </body>
+</html>

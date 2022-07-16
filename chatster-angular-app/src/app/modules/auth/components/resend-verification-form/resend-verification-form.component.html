@@ -2,19 +2,20 @@
   <div class="form login">
     <div class="form-content">
       <header>You have to verify your account</header>
-      <form>
+      <form >
 
         <div>
           <i>If you did not recieve email, you can request verification again.</i>
         </div>
 
-        <div class="field input-field">
-          <input type="email" placeholder="Email" class="input">
-        </div>
+        <app-custom-button (clickTrigger)="continueToApplication($event)"
+                           [name]="'Continue to application'"
+                           [btnType]="'form-btn'"></app-custom-button>
 
-        <div class="field button-field">
-          <button>Send Verification Email</button>
-        </div>
+        <app-custom-button (clickTrigger)="resendVerificationEmail($event)"
+                           [name]="'Send Verification Email'"
+                           [btnType]="'form-btn'"></app-custom-button>
+
       </form>
 
     </div>

@@ -1,0 +1,937 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Page Title</title>
+        <style>
+  *{
+    box-sizing: border-box;
+    padding: 0;
+    margin: 0;
+  }
+body{
+  background-color: #f0f2f5;
+  scrollbar-width: none;
+}
+
+/* scrollbar */
+
+*::-webkit-scrollbar {
+  width: 0.2em;
+}
+
+*::-webkit-scrollbar-track {
+  background: #dcdcdc;
+  border-radius: 0.1em;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #dcdcdc;
+  border-radius: 0.6em;
+  border: 3px solid #3d3d3d;
+}
+
+/* grid*/
+
+.wrapper {
+  margin-top: 3em;
+  display: grid;
+  grid-gap: 1em;
+  margin-left:2em ;
+  margin-right:2em ;
+  grid-template-columns: 1fr 3fr;
+  grid-template-areas:  "sidebar content";
+}
+
+.chat-container {
+    height: 88vh;
+    grid-area: content;
+    background-color: #dcdcdc;
+    padding: 1em;
+    padding: 1.2em;
+    border-radius: 0.3em;
+    display: flex;
+    flex-direction: column;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+.message-window{
+   /*  -ms-overflow-style: none;  Internet Explorer 10+ 
+    scrollbar-width: none;   Firefox */
+    scrollbar-width: thin;          /* "auto" or "thin" */
+    scrollbar-color: #3d3d3d #dcdcdc; 
+    overflow-y: auto;
+    border-radius: 0.8em;
+    height: 100vh;
+}
+.message-window::-webkit-scrollbar, body::-webkit-scrollbar { 
+    scrollbar-width: thin;          /* "auto" or "thin" */
+    scrollbar-color: #3d3d3d #dcdcdc; 
+}
+
+.user-panel-container {
+    height: 88vh;
+  grid-area: sidebar;
+  background-color: #dcdcdc;
+  /*-ms-overflow-style: none;  
+  scrollbar-width: none; */
+  scrollbar-width: thin;          /* "auto" or "thin" */
+  scrollbar-color: #3d3d3d #dcdcdc; 
+  overflow-y: auto;
+  padding: 1.2em;
+  border-radius: 0.3em;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.user-panel-container::-webkit-scrollbar, body::-webkit-scrollbar { 
+  scrollbar-width: thin;          /* "auto" or "thin" */
+  scrollbar-color: #3d3d3d #dcdcdc; 
+}
+
+
+@media (max-width: 500px) {
+  .wrapper {
+    grid-template-columns: 4fr;
+    grid-template-areas:
+      "content"
+      "sidebar"
+  }
+}
+
+li{
+    background-color: #f0f2f5;
+    margin: 0.5em;
+}
+
+p{
+    background-color: aqua;
+}
+
+.n{
+    background-color: blueviolet;
+    padding: 0.2em;
+    margin-top: 0.4em;
+}
+
+
+
+
+
+/* panels*/
+
+/*  call panel */
+.call-panel{
+    margin-bottom: 0.5em;
+    display: flex;
+    border-radius: 0.4em;
+}
+
+.call-panel-avatar img{
+    cursor: pointer;
+    width: 2.4em;
+    height: 2.4em;
+    object-fit: cover;
+    padding-top: 10%;
+    padding-left: 10%;
+    border-radius: 50%;
+}
+
+.call-panel-username{
+    flex-grow: 6;
+    cursor: pointer;
+    font-weight: bold;
+    padding-top: 0.8em;
+    padding-left: 1.2em;
+}
+
+.call-panel-videocall{
+    padding-right: 1.5em;
+}
+
+
+/*  message panel */
+
+.message-panel{
+    height: 2.5em;
+    margin-top: 0.5em;
+    border-radius: 0.6em;
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    padding: 0.2em;
+    justify-content: center;
+}
+
+.emojis-btn{
+    width: 3em;
+}
+
+.input-message{
+    width: 98%;
+    border: none;
+    margin-left: 0.5em;
+    margin-right: 0.5em;
+    border-radius: 1.2em;
+    opacity:0.94;
+    padding-left: 1em;
+    padding-right: 1em;
+    word-wrap: break-word;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    background-color: rgb(250, 246, 246);
+}
+
+.input-message:focus{
+    opacity:1;
+    border: none;
+    outline: none;
+    -webkit-transform: scale(1.008);
+        -ms-transform: scale(1.008);
+        transform: scale(1.008);
+}
+
+.send-message-btn{
+    width: 4em;
+    border-radius: 0.8em;
+    border: none;
+    background-color: #45aaf2;
+    color: white;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+    opacity:0.8;
+}
+
+.send-message-btn:hover{
+    outline: #308dcf;
+    background-color: #308dcf;
+    color: white;
+    opacity:1;
+    transition-timing-function: ease-in-out;
+    transition: background-color 1.2s;
+}
+
+
+/*  messages in chat window */
+
+.chat-message-item{
+  margin-top:.6em;
+  width: fit-content; 
+  display: flex;
+}
+
+.chat-message-item-content:hover{
+    background-color: #fdfcfaf5;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: background-color 0.3s;
+}
+
+.chat-message-item-content{
+  display: column;
+  margin-left: .6em;
+  padding-left:  0.4em;
+  background-color:#ffffff;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  border-radius:0.8em;
+}
+
+.chat-message-item-content-header{
+    display: flex;
+}
+
+.chat-message-item-header{
+    min-width: 4em;
+}
+
+.avatar{
+    cursor: pointer;
+    border-radius: 50%;
+    position: relative;
+    padding-top: .2em;
+    padding-left: .2em;
+    width: 3.6em;
+    height: 3.6em;
+    object-fit: cover;
+}
+
+.chat-message-item-content-title{
+    font-size: 18px;
+    padding-top: 0.8em;
+    padding-right: 0.6em;
+    padding-left: 0.5em;
+    font-weight: bold;
+    padding-bottom: 0.01em;
+}
+
+.chat-message-item-content-time{
+    padding-top: 1.2em;
+    padding-left: 0.1em;
+}
+
+
+.chat-message-item-text{
+  padding-right: .4em;
+  padding-bottom: .4em;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  margin: .8em;
+  text-align: justify;
+}
+
+@media (max-width: 700px) {
+ .chat-message-item-content {
+    margin-right: 0.5em;
+  }
+
+}
+
+/*  my messages style */
+
+.my-message{
+    
+    border-radius:0.8em;
+    margin-left: auto;
+    margin-right: 0.4em;
+}
+
+.content-my-message{
+    background-color: #84b2ddf5;
+    margin-left: 0;
+}
+
+.content-my-message:hover{
+    background-color: #9fc3e4f5;
+    transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+    transition: background-color 0.3s;
+}
+
+/*  list items in users chat */
+
+.room-list-item{
+  margin-top:.6em;
+  background-color:#ffffff;
+  border-radius:6px;
+  display: flex;
+  overflow: hidden;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.room-list-item:hover{
+    background-color: #fdfcfaf5;
+}
+
+.room-list-item-content{
+  display: column;
+  margin-left: .8em;
+  float: left;
+}
+
+.room-list-item-content-header{
+    display: flex;
+}
+
+.room-list-item-header{
+    min-width: 3em;
+    width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.room-list-item-avatar{
+    border-radius: 50%;
+    position: relative;
+    padding-top: .6em;
+    padding-left: .6em;
+    width: 3em;
+    height: 3em;
+    object-fit: cover;
+}
+
+.room-list-item-content-title{
+    font-size: 20px;
+    padding-top: 0.8em;
+    padding-right: 0.6em;
+    padding-bottom: 0.01em;
+    width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+}
+
+.room-list-item-content-time{
+    padding-top: 1.7em;
+    padding-left: 0.1em;
+}
+
+
+.room-list-item-text{
+  font-size: 12px;
+  padding-left: .4em;
+  padding-top: .4em;
+  padding-left: .4em;
+  padding-right: .2em;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  text-align: justify;
+  margin-right: .8em;
+  margin-bottom: .8em;
+}
+
+
+@media (max-width: 1000px) {
+  .room-list-item-text {
+    display:none
+  }
+}
+
+@media (max-width: 700px) {
+  .room-list-item-content {
+    display:none
+  }
+  .user-panel-container{
+    width: 6.4em;
+  }
+}
+
+@media (max-width: 500px) {
+  .room-list-item-content {
+    display:contents;
+  }
+  .room-list-item-content-title{
+    padding-left: 2em;
+  }
+  .user-panel-container{
+    width: 100%;
+  }
+}
+
+
+  </style>
+    </head>
+    <body>
+
+        <div class="wrapper">
+
+            <div class="chat-container">
+                <div class="call-panel">
+                    <div class="call-panel-avatar">
+                        <img src="https://source.unsplash.com/1600x900/?nature"
+                            alt="nature">
+                    </div>
+                    <div class="call-panel-username">
+                        Username
+                    </div>
+                    <div class="call-panel-videocall">
+                        Videocall
+                    </div>
+                </div>
+                <div class="message-window">
+
+                    <div class="chat-message-item">
+                        <div class="chat-message-item-header">
+                            <img class="avatar"
+                                src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                        </div>
+                        <div class="chat-message-item-content">
+                            <div class="chat-message-item-content-header">
+                                <div class="chat-message-item-content-title">
+                                    usernameasdsad
+                                </div>
+                                <div class="chat-message-item-content-time">
+                                    <i>time</i>
+                                </div>
+                            </div>
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item">
+                        <div class="chat-message-item-header">
+                            <img class="avatar"
+                                src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                        </div>
+                        <div class="chat-message-item-content">
+                            <div class="chat-message-item-content-header">
+                                <div class="chat-message-item-content-title">
+                                    usernameasdsad
+                                </div>
+                                <div class="chat-message-item-content-time">
+                                    <i>time</i>
+                                </div>
+                            </div>
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+
+                    <div class="chat-message-item my-message my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item my-message my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item my-message my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item my-message my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item my-message my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="chat-message-item my-message">
+                        <div class="chat-message-item-content
+                            content-my-message">
+                            <div class="chat-message-item-text"
+                                contenteditable="true">
+                                Lorem ipsum dolor sit amet, consectetur a Lorem
+                                ipsum
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="message-panel">
+
+                    <div class="emojis-btn"><a>Emojis</a></div>
+
+                    <input type="text" class="input-message">
+
+                    <button class="send-message-btn">Send</button>
+
+                </div>
+            </div>
+
+            <div class="user-panel-container">
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+                <div class="room-list-item">
+                    <div class="room-list-item-header">
+                        <img class="room-list-item-avatar"
+                            src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+                    </div>
+                    <div class="room-list-item-content">
+                        <div class="room-list-item-content-header">
+                            <div class="room-list-item-content-title">
+                                usernameasdsad
+                            </div>
+
+                        </div>
+                        <div class="room-list-item-text">
+                            Lorem ipsum dolor sit amet, consectetur a Lorem
+                            ipsum dolor sit amet, consectetur aLorem ipsum dolor
+                            sit amet, consectetur aLorem ipsum dolor sit amet,
+                            consectetur a
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+
+    </body>
+</html>

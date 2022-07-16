@@ -1,0 +1,38 @@
+<ng-template [ngIf]="!myMessage">
+  <div class="chat-message-item">
+    <div class="chat-message-item-header">
+      <img class="avatar"
+           src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+    </div>
+    <div class="chat-message-item-content">
+      <div class="chat-message-item-content-header">
+        <div class="chat-message-item-content-title">
+          usernameasdsad
+        </div>
+        <div class="chat-message-item-content-time">
+          <i>time</i>
+        </div>
+      </div>
+      <div class="chat-message-item-text"
+           contenteditable="true">
+        Lorem ipsum dolor sit amet, consectetur a Lorem
+        ipsum
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
+<ng-template [ngIf]="myMessage">
+  <div class="chat-message-item my-message">
+    <div class="chat-message-item-content
+                            content-my-message">
+      <div class="chat-message-item-text"
+           contenteditable="true">
+        Lorem ipsum dolor sit amet, consectetur a Lorem
+        ipsum
+      </div>
+    </div>
+  </div>
+</ng-template>
+

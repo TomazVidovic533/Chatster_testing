@@ -2,6 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {AngularFireStorage} from "@angular/fire/compat/storage";
 import {finalize, tap} from "rxjs";
+import {AngularFireFunctions} from "@angular/fire/compat/functions";
+import {AngularFireAuth} from "@angular/fire/compat/auth";
+import {AuthService} from "../../services/auth.service";
 
 export function requiredFileType( type: string ) {
   return function (control: FormControl) {
@@ -29,7 +32,9 @@ export function requiredFileType( type: string ) {
 export class SignInFormComponent implements OnInit {
 
   signInForm!: FormGroup;
-  constructor(private formBuilder: FormBuilder, private storage: AngularFireStorage) { }
+
+  constructor(private formBuilder: FormBuilder, private authService: AuthService) {
+  }
 
   ngOnInit(): void {
     this.signInForm = this.formBuilder.group({
@@ -38,39 +43,15 @@ export class SignInFormComponent implements OnInit {
     });
   }
 
-  signInGoogle(event: Event){
+  async signInGoogle(event: Event) {
+
+    await this.authService.signInWithGoogle();
 
   }
 
-  signInWithEmailAndPassword(event: Event){
-
+  async signInWithEmailAndPassword(event: Event) {
+    await this.authService.signInWithEmailAndPassword(
+      this.signInForm.get('email')?.value,
+      this.signInForm.get('password')?.value);
   }
-
-  /*
-  * optionItems:string[] = ['Male', 'Female', 'Other'];
-    this.signInForm = this.formBuilder.group({
-      email: [],
-      password: [],
-      gender: ['Male'],
-      file: new FormControl(null, [Validators.required, requiredFileType('png')])
-    });
-    this.signInForm.valueChanges.subscribe((res)=>{
-      console.log(res)
-    })
-  *   const path = `test/${Date.now()}_${this.signInForm.value.name}`;
-
-    // Reference to storage bucket
-    const ref = this.storage.ref(path);
-
-    // The main task
-    this.storage.upload(path, this.signInForm.get('file')?.value).snapshotChanges().pipe(
-      tap(console.log),
-      // The file's download URL
-      finalize( async() =>  {
-        let downloadURL = await ref.getDownloadURL();
-        console.log(downloadURL)
-      }),
-    );
-  * */
-
 }

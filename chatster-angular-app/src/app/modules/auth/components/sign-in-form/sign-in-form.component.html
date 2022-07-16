@@ -5,15 +5,12 @@
       <header>Welcome to Chatster</header>
       <form action="#" [formGroup]="signInForm">
 
-
-
         <app-custom-form-input-text [type]="'email'"
                                     [placeholderValue]="'Email'"
                                     formControlName="email"></app-custom-form-input-text>
         <app-custom-form-input-text [type]="'password'"
                                     [placeholderValue]="'Password'"
                                     formControlName="password"></app-custom-form-input-text>
-
 
         <app-custom-button (clickTrigger)="signInWithEmailAndPassword($event)"
                            [name]="'Sign In'"
@@ -36,21 +33,3 @@
     </div>
   </div>
 </section>
-
-
-<!--      <app-custom-form-input-text [type]="'select'"
-                                  [placeholderValue]="'Gender'"
-                                  formControlName="gender"
-                                  [optionItems]="optionItems"></app-custom-form-input-text>
-
-      <app-custom-file-upload formControlName="file"></app-custom-file-upload>
---><!--
-        {{ signInForm.value | json }}-->
-
-<!--        <div class="field input-field">
-          <input type="email" placeholder="Email" class="input">
-        </div>
-
-        <div class="form-link">
-          <a routerLink="/auth/forgot-password" class="forgot-pass">Forgot password?</a>
-        </div>-->

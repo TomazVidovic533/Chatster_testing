@@ -12,6 +12,8 @@ import {
 import {NotVerifiedComponent} from "./views/not-verified/not-verified.component";
 import {SharedModule} from "../../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
+import {UsersService} from "../people/services/users.service";
+import {ForgotPasswordComponent} from "./views/forgot-password/forgot-password.component";
 
 
 @NgModule({
@@ -21,13 +23,17 @@ import {ReactiveFormsModule} from "@angular/forms";
     SignUpComponent,
     SignUpFormComponent,
     ResendVerificationFormComponent,
-    NotVerifiedComponent
+    NotVerifiedComponent,
+    ForgotPasswordComponent
   ],
   imports: [
     CommonModule,
     AuthRoutingModule,
     SharedModule,
     ReactiveFormsModule
+  ],
+  providers: [
+    UsersService
   ]
 })
 export class AuthModule { }

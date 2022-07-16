@@ -30,10 +30,16 @@
     </ul>
   </nav>
 
-  <a class="cta" routerLink="people/profile/nekaj">
-    <img class="rounded-image"
-         src="https://images.unsplash.com/photo-1657437998546-0cc5458d9449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-         width="40" height="40" alt="logo">
+  <a class="cta" routerLink="people/{{userId}}">
+    <div class="dropdown">
+      <img class="rounded-image dropbtn"
+                                   src="https://images.unsplash.com/photo-1657437998546-0cc5458d9449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
+                                   width="40" height="40" alt="logo">
+      <div class="dropdown-content">
+        <a (click)="logOut()"> Logout</a>
+      </div>
+    </div>
+
   </a>
   <p class="menu cta" (click)="toggleMenu()"><lucide-icon [img]="menu" class="svg"></lucide-icon></p>
 </header>
@@ -44,5 +50,6 @@
     <a routerLink="chat"><lucide-icon [img]="chat" class="svg"></lucide-icon> Chat</a>
     <a routerLink="people"><lucide-icon [img]="people" class="svg"></lucide-icon> People</a>
     <a routerLink="rooms"><lucide-icon [img]="community" class="svg"></lucide-icon> Rooms</a>
+    <a (click)="logOut()"><lucide-icon [img]="logout" class="svg"></lucide-icon> Logout</a>
   </div>
 </div>

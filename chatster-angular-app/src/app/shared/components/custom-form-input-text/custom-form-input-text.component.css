@@ -1,0 +1,21 @@
+
+.field input,.field select,
+.field button {
+  height: 3em;
+  width: 100%;
+  margin-top: 0.6em;
+  border: none;
+  font-size: 16px;
+  font-weight: 400;
+  border-radius: 6px;
+}
+
+.field input ,.field select{
+  outline: none;
+  padding: 0 15px;
+  border: 1px solid #CACACA;
+}
+
+.field input:focus {
+  border-bottom-width: 2px;
+}

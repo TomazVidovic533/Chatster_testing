@@ -2,56 +2,44 @@
   <div class="form signup">
     <div class="form-content">
       <header>Create account</header>
-      <form action="#">
+      <form action="#" [formGroup]="signUpForm">
 
-        <div class="field input-field">
-          <input type="text" placeholder="Username" class="input">
-        </div>
+        <app-custom-form-input-text [type]="'text'"
+                                    [placeholderValue]="'Full name'"
+                                    formControlName="full_name"></app-custom-form-input-text>
 
-        <div class="field input-field">
-          <input type="email" placeholder="Email" class="input">
-        </div>
+        <app-custom-form-input-text [type]="'text'"
+                                    [placeholderValue]="'Username'"
+                                    formControlName="username"></app-custom-form-input-text>
 
-        <div class="field input-field">
-          <label for="file-upload" class="file-upload">
-             Choose Avatar
-          </label>
-          <label class="image-image">
-            {{selectedImage}}
-          </label>
-          <input id="file-upload" type="file"/>
-        </div>
+        <app-custom-form-input-text [type]="'email'"
+                                    [placeholderValue]="'Email'"
+                                    formControlName="email"></app-custom-form-input-text>
 
-        <div class="field input-field">
-          <select placeholder="Language" class="input">
-            <option>Slovene</option>
-            <option>English</option>
-          </select>
-        </div>
+        <app-custom-form-input-text [type]="'select'"
+                                    [placeholderValue]="'Gender'"
+                                    formControlName="gender"
+                                    [optionItems]="genderOptions"></app-custom-form-input-text>
 
-        <div class="field input-field">
-          <select placeholder="Gender" class="input">
-            <option>Male</option>
-            <option>Female</option>
-          </select>
-        </div>
+        <app-custom-form-input-text [type]="'select'"
+                                    [placeholderValue]="'Language'"
+                                    formControlName="language"
+                                    [optionItems]="languageOptions"></app-custom-form-input-text>
 
-        <div class="field input-field">
-          <input type="text" placeholder="Description" class="input">
-        </div>
+        <app-custom-file-upload formControlName="avatar"></app-custom-file-upload>
 
-        <div class="field input-field">
-          <input type="password" placeholder="Create password" class="password">
-        </div>
+        <app-custom-form-input-text [type]="'text'"
+                                    [placeholderValue]="'Bio'"
+                                    formControlName="bio"></app-custom-form-input-text>
 
-        <div class="field input-field">
-          <input type="password" placeholder="Confirm password" class="password">
-          <i class='bx bx-hide eye-icon'></i>
-        </div>
+        <app-custom-form-input-text [type]="'password'"
+                                    [placeholderValue]="'Password'"
+                                    formControlName="password"></app-custom-form-input-text>
 
-        <div class="field button-field">
-          <button>Sign Up</button>
-        </div>
+        <app-custom-button (clickTrigger)="signUpWithEmailAndPassword($event)"
+                           [name]="'Sign Up'"
+                           [btnType]="'form-btn'"></app-custom-button>
+
       </form>
 
       <div class="form-link">
@@ -63,14 +51,13 @@
 
     <div class="media-options">
 
-        <div class="field button-field">
-         <button class="google-btn">
-           <img src="assets/google_logo.svg" alt="" class="google-img">
-           <span>Sign In with Google</span>
-         </button>
-        </div>
+      <app-custom-button (clickTrigger)="signInGoogle($event)"
+                         [name]="'Sign Up'"
+                         [btnType]="'form-btn-google-sign-in'"></app-custom-button>
 
     </div>
 
   </div>
 </section>
+
+{{ signUpForm.value | json }}

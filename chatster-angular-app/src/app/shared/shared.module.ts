@@ -9,9 +9,6 @@ import {ProfileHeaderComponent} from "./components/profile-header/profile-header
 import {
   ProfileInformationItemComponent
 } from "./components/profile-information-item/profile-information-item.component";
-import {
-  ProfileInformationSectionComponent
-} from "./components/profile-information-section/profile-information-section.component";
 import { CustomFormInputTextComponent } from './components/custom-form-input-text/custom-form-input-text.component';
 import {FormsModule} from "@angular/forms";
 import { CustomFileUploadComponent } from './components/custom-file-upload/custom-file-upload.component';
@@ -24,7 +21,6 @@ import { CustomButtonComponent } from './components/custom-button/custom-button.
     GridCardComponent,
     ProfileHeaderComponent,
     ProfileInformationItemComponent,
-    ProfileInformationSectionComponent,
     CustomFormInputTextComponent,
     CustomFileUploadComponent,
     CustomButtonComponent
@@ -41,7 +37,6 @@ import { CustomButtonComponent } from './components/custom-button/custom-button.
     GridCardComponent,
     ProfileInformationItemComponent,
     ProfileHeaderComponent,
-    ProfileInformationSectionComponent,
     CustomFormInputTextComponent,
     CustomFileUploadComponent,
     CustomButtonComponent

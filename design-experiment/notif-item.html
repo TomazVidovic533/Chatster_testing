@@ -1,0 +1,121 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+<title>Page Title</title>
+<style>
+
+body{
+background-color: #f0f2f5;
+
+    }
+.container{
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: 1%;
+}
+
+.room-list-item{
+  margin-top:.6em;
+  background-color:#ffffff;
+  border-radius:6px;
+  display: flex;
+  overflow: hidden;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  width: fit-content;
+}
+
+.room-list-item:hover{
+    background-color: #fdfcfaf5;
+}
+
+.room-list-item-content{
+  display: column;
+  margin-left: .8em;
+}
+
+.room-list-item-content-header{
+    display: flex;
+}
+
+.room-list-item-header{
+    min-width: 3em;
+}
+
+.room-list-item-avatar{
+    border-radius: 50%;
+    position: relative;
+    padding-top: .6em;
+    padding-left: .6em;
+    width: 3em;
+    height: 3em;
+    object-fit: cover;
+}
+
+.room-list-item-content-title{
+    font-size: 20px;
+    padding-top: 1em;
+    padding-right: 0.6em;
+    padding-bottom: 0.01em;
+    width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  text-align: justify;
+  word-wrap: break-word;
+}
+
+.room-list-item-content-time{
+    padding-top: 1.7em;
+    padding-left: 0.1em;
+}
+
+
+.room-list-item-text{
+  font-size: 12px;
+  padding-left: .4em;
+  padding-top: .4em;
+  padding-left: .4em;
+  padding-right: .2em;
+  width: -moz-fit-content;
+  width: fit-content;
+  height: -moz-fit-content;
+  height: fit-content;
+  text-align: justify;
+  margin-right: .8em;
+  margin-bottom: .8em;
+}
+
+
+</style>
+</head>
+<body>
+
+    <div class="container">
+     
+        <div class="room-list-item">
+            <div class="room-list-item-header">
+              <img class="room-list-item-avatar" src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80" >
+            </div>
+              <div class="room-list-item-content">
+                  <div class="room-list-item-content-header">
+                      <div class="room-list-item-content-title">
+                        started chat with you
+                      </div>
+                      <div class="room-list-item-content-title">
+                        icon
+                     </div>
+                     <div class="room-list-item-content-title">
+                        icon
+                     </div>
+                  </div>
+            </div>
+          </div>
+
+          </div>
+        </div>
+</body>
+</html>
+

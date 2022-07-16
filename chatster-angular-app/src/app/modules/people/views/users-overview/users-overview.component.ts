@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {Observable, shareReplay} from "rxjs";
-import {User} from "../../../../../models/user.model";
+import {User} from "../../../../core/models/user.model";
 import {UsersService} from "../../services/users.service";
 
 

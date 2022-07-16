@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import {AuthService} from "../../services/auth.service";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-resend-verification-form',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResendVerificationFormComponent implements OnInit {
 
-  constructor() { }
+  constructor(private authService: AuthService, private router:Router) { }
 
   ngOnInit(): void {
+  }
+
+  continueToApplication(event: Event){
+    this.router.navigate(['/app/home']);
+  }
+
+  resendVerificationEmail(event: Event){
+   this.authService.resendVerificationEmail();
   }
 
 }

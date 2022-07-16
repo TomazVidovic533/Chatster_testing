@@ -6,17 +6,16 @@ import {UsersOverviewComponent} from "./views/users-overview/users-overview.comp
 import {UserProfileComponent} from "./views/user-profile/user-profile.component";
 import {ProfileHeaderComponent} from "../../shared/components/profile-header/profile-header.component";
 import {
-  ProfileInformationSectionComponent
-} from "../../shared/components/profile-information-section/profile-information-section.component";
-import {
   ProfileInformationItemComponent
 } from "../../shared/components/profile-information-item/profile-information-item.component";
 import {SharedModule} from "../../shared/shared.module";
+import { ProfileEditComponent } from './views/profile-edit/profile-edit.component';
 
 @NgModule({
   declarations: [
     UsersOverviewComponent,
-    UserProfileComponent
+    UserProfileComponent,
+    ProfileEditComponent
   ],
   imports: [
     CommonModule,
