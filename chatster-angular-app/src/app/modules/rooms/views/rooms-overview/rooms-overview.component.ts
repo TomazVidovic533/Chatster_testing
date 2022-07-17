@@ -1,8 +1,7 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
-import{User} from "../../../../core/models/user.model";
-import {Room} from "../../../../../models/room.model";
 import {RoomService} from "../../services/room.service";
 import {Observable, shareReplay} from "rxjs";
+import {Room} from "../../../../core/models/room.model";
 
 @Component({
   selector: 'app-rooms-overview',

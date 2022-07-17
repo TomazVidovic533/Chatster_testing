@@ -8,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ProfileInformationItemComponent implements OnInit {
 
   @Input() label!:string;
-  @Input() content!:string;
+  @Input() content!:string | undefined | Date;
 
   constructor() { }
 

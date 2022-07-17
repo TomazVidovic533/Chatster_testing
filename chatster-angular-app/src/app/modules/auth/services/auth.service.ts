@@ -1,5 +1,5 @@
 import {Injectable} from '@angular/core';
-import {BehaviorSubject, first, Observable, of, switchMap} from "rxjs";
+import {auditTime, BehaviorSubject, filter, first, Observable, of, switchMap, take, tap} from "rxjs";
 import {LoggedUser, User} from "../../../core/models/user.model";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {UsersService} from "../../people/services/users.service";
@@ -14,20 +14,40 @@ import {FilesService} from "../../../shared/services/files.service";
 export class AuthService {
 
   // @ts-ignore
-  user$!: firebase.User;
-
+  user$!: Observable<firebase.User>;
+  // @ts-ignore
+  userId$!: string;
+  id!: string;
 
   constructor(private usersService: UsersService,
               private fireAuth: AngularFireAuth,
               private router: Router,
               private filesService: FilesService) {
 
-    this.fireAuth.authState.subscribe((user) => {
-      if (user) {
-        this.user$ = user;
+    this.user$ = this.fireAuth.user;
+    this.fireAuth.authState.subscribe(user => {
+      if(user) {
+        this.userId$ = user.uid;
       }
     });
   };
+
+  getUserId() {
+    return this.fireAuth.authState;
+  }
+
+  getUserData(){
+    return this.fireAuth.authState.pipe(
+      switchMap(user => {
+        if (user) {
+          return this.usersService.get(user.uid);
+        } else {
+          return of(null);
+        }
+      })
+    );
+
+  }
 
   isLoggedIn() {
     return this.fireAuth.authState.pipe(first())
@@ -45,7 +65,10 @@ export class AuthService {
   signUpWithEmailAndPassword(userData: User, password: string, file: File) {
     return this.fireAuth
       .createUserWithEmailAndPassword(<string>userData.email, password).then((userCredential) => {
-        this.filesService.uploadProfilePhoto(file, userData, userCredential.user?.uid);
+        this.usersService.update(userData,<string>userCredential.user?.uid);
+        if(file){
+          this.filesService.uploadProfilePhoto(file, userData, userCredential.user?.uid);
+        }
         this.signInWithEmailAndPassword(userData.email, password).then(r => {
           this.resendVerificationEmail();
         });
@@ -63,13 +86,10 @@ export class AuthService {
   }
 
   forgotPassword(email: string) {
-    this.fireAuth.currentUser.then((user) => {
-      return this.fireAuth.sendPasswordResetEmail(<string>user?.email).then(() => {
-        window.alert('Password reset email sent, check your inbox.');
-      })
-        .catch((error) => {
-          window.alert(error);
-        });
+    this.fireAuth.sendPasswordResetEmail(email).then(() => {
+      window.alert('Password reset email sent, check your inbox.');
+    },(err)=>{
+      window.alert(err);
     })
   }
 

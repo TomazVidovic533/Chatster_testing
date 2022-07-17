@@ -3,8 +3,9 @@ import {RouterModule, Routes} from '@angular/router';
 import {AppViewComponent} from "./views/app-view/app-view.component";
 import {AngularFireAuthGuard, canActivate} from '@angular/fire/compat/auth-guard';
 import {hasCustomClaim, redirectLoggedInTo, redirectUnauthorizedTo} from "@angular/fire/compat/auth-guard";
-import {map} from "rxjs";
+import {map, pipe} from "rxjs";
 import { customClaims } from '@angular/fire/compat/auth-guard';
+import {emailVerified} from "@angular/fire/compat/auth-guard";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth/sign-in']);
 const redirectLoggedInToItems = () => redirectLoggedInTo(['app/home']);
@@ -18,9 +19,12 @@ const onlyAllowSelf = ({next}: { next: any }) => {
   });
 };
 
+const redirectUnverifiedTo = (redirect: any[]) => pipe(emailVerified, map(emailVerified => emailVerified || redirect));
+const redirectUnverifiedToLogin = () => redirectUnverifiedTo(['auth/resend-verification']);
 
 
-const routes: Routes = [
+let routes: Routes;
+routes = [
   {
     path: '',
     redirectTo: 'home',
@@ -33,27 +37,27 @@ const routes: Routes = [
       {
         path: 'home',
         loadChildren: () => import('../../modules/home/home.module').then(m => m.HomeModule),
-        ...canActivate(redirectUnauthorizedToLogin)
+        ...canActivate(redirectUnauthorizedToLogin),...canActivate(redirectUnverifiedToLogin)
       },
       {
         path: 'chat',
         loadChildren: () => import('../../modules/chat/chat.module').then(m => m.ChatModule),
-        ...canActivate(redirectUnauthorizedToLogin)
+        ...canActivate(redirectUnauthorizedToLogin),...canActivate(redirectUnverifiedToLogin)
       },
       {
         path: 'people',
         loadChildren: () => import('../../modules/people/people.module').then(m => m.PeopleModule),
-        ...canActivate(redirectUnauthorizedToLogin)
+        ...canActivate(redirectUnauthorizedToLogin),...canActivate(redirectUnverifiedToLogin)
       },
       {
         path: 'rooms',
         loadChildren: () => import('../../modules/rooms/rooms.module').then(m => m.RoomsModule),
-        ...canActivate(redirectUnauthorizedToLogin)
+        ...canActivate(redirectUnauthorizedToLogin),...canActivate(redirectUnverifiedToLogin)
       },
       {
         path: 'profile',
         loadChildren: () => import('../../modules/people/people.module').then(m => m.PeopleModule),
-        ...canActivate(redirectUnauthorizedToLogin)
+        ...canActivate(redirectUnauthorizedToLogin),...canActivate(redirectUnverifiedToLogin)
       }
     ]
   }

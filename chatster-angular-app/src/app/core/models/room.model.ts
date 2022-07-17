@@ -5,9 +5,9 @@ export interface Room {
   name?: string;
   bio?: string;
   is_private?: boolean;
-  created_at?: Date;
+  created_at?: number;
   is_group?: boolean;
-  recent_message: Message;
-  owner: string;
+  recent_message?: Message;
+  owner?: string;
   avatar?:string;
 }

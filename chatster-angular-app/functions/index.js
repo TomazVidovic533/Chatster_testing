@@ -7,7 +7,8 @@ exports.userSignUp = functions.auth.user().onCreate((newUser)=>{
     email: newUser.email,
     avatar: newUser.photoURL,
     created_at: admin.firestore.FieldValue.serverTimestamp(),
-    full_name: newUser.displayName,
+    name: newUser.displayName,
+    is_pro_member: false,
   });
 });
 

@@ -1,12 +1,32 @@
-<app-profile-header></app-profile-header>
-<div class="profile-content-container">
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-</div>
+<ng-container *ngIf="userData$ | async; let user">
+  <app-profile-header [avatar]="user.avatar" [fullName]="user.name"></app-profile-header>
 
+  <div class="profile-content-container">
+
+    <app-profile-information-item [label]="'Username'"
+                                  [content]="user.username"></app-profile-information-item>
+
+    <app-profile-information-item [label]="'Email'"
+                                  [content]="user.email"></app-profile-information-item>
+
+    <app-profile-information-item [label]="'Gender'"
+                                  [content]="user.gender"></app-profile-information-item>
+
+    <app-profile-information-item [label]="'Language'"
+                                  [content]="user.language"></app-profile-information-item>
+
+    <app-profile-information-item [label]="'Bio'"
+                                  [content]="user.bio"></app-profile-information-item>
+
+    <ng-template [ngIf]="user.is_pro_member== null||user.is_pro_member == undefined || user.is_pro_member == false">
+      <app-profile-information-item [label]="'PRO status'"
+                                    [content]="'Not a PRO member'"></app-profile-information-item>
+    </ng-template>
+    <ng-template [ngIf]="user.is_pro_member">
+      <app-profile-information-item [label]="'PRO status'"
+                                    [content]="'PRO member status active'"></app-profile-information-item>
+    </ng-template>
+
+  </div>
+
+</ng-container>

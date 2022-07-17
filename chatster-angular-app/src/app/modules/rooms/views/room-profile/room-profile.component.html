@@ -1,12 +1,22 @@
-<app-profile-header></app-profile-header>
-<div class="profile-content-container">
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-  <app-profile-information-item></app-profile-information-item>
-</div>
+<ng-container *ngIf="roomData$ | async; let room">
+  <app-profile-header [avatar]="room.avatar" [fullName]="room.name"></app-profile-header>
 
+  <div class="profile-content-container">
+
+    <app-profile-information-item [label]="'Bio'"
+                                  [content]="room.bio"></app-profile-information-item>
+
+    <ng-template [ngIf]="room.is_private">
+      <app-profile-information-item [label]="'Type'"
+                                    [content]="'Private room'"></app-profile-information-item>
+    </ng-template>
+
+    <ng-template [ngIf]="!room.is_private">
+      <app-profile-information-item [label]="'Type'"
+                                    [content]="'Public room'"></app-profile-information-item>
+    </ng-template>
+  </div>
+
+  <!-- add members section -->
+
+</ng-container>

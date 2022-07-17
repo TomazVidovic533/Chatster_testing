@@ -30,11 +30,11 @@
     </ul>
   </nav>
 
-  <a class="cta" routerLink="people/{{userId}}">
+  <a class="cta" routerLink="people/{{(userId | async)?.uid}}">
     <div class="dropdown">
-      <img class="rounded-image dropbtn"
-                                   src="https://images.unsplash.com/photo-1657437998546-0cc5458d9449?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1170&q=80"
-                                   width="40" height="40" alt="logo">
+        <img class="rounded-image dropbtn"
+             src="{{(userData$ | async)?.avatar}}"
+             width="40" height="40" alt="logo">
       <div class="dropdown-content">
         <a (click)="logOut()"> Logout</a>
       </div>

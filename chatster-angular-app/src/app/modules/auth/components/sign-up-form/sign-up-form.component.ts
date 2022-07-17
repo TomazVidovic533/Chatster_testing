@@ -12,7 +12,6 @@ export class SignUpFormComponent implements OnInit {
 
   signUpForm!: FormGroup;
 
-  selectedImage: string = 'nekaj';
   genderOptions: string[] = ['Male', 'Female', 'Other'];
   languageOptions: string[] = ['Slovene', 'English', 'Spanish'];
 
@@ -21,7 +20,7 @@ export class SignUpFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
-      full_name: new FormControl(null, [Validators.required]),
+      name: new FormControl(null, [Validators.required]),
       username: new FormControl(null, [Validators.required]),
       email: new FormControl(null, [Validators.required]),
       gender: new FormControl('Male', [Validators.required]),
@@ -34,16 +33,14 @@ export class SignUpFormComponent implements OnInit {
 
   signUpWithEmailAndPassword(event: Event){
     let user = {
-      full_name: this.signUpForm.get('full_name')?.value,
+      name: this.signUpForm.get('name')?.value,
       username: this.signUpForm.get('username')?.value,
       email: this.signUpForm.get('email')?.value,
       gender: this.signUpForm.get('gender')?.value,
       language: this.signUpForm.get('language')?.value,
       bio: this.signUpForm.get('bio')?.value
     }as User;
-    this.authService.signUpWithEmailAndPassword(user, this.signUpForm.get('password')?.value,this.signUpForm.get('avatar')?.value).then(r =>{
-      console.log(r)
-    });
+    this.authService.signUpWithEmailAndPassword(user, this.signUpForm.get('password')?.value,this.signUpForm.get('avatar')?.value);
   }
 
   signInGoogle(event: Event){
