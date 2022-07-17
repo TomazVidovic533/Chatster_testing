@@ -3,16 +3,17 @@ import {RouterModule, Routes} from '@angular/router';
 import {RoomsOverviewComponent} from "./views/rooms-overview/rooms-overview.component";
 import {RoomProfileComponent} from "./views/room-profile/room-profile.component";
 import {RoomEditComponent} from "./views/room-edit/room-edit.component";
-import {RoomAddComponent} from "./views/room-add/room-add.component";
+import {RoomCreateComponent} from "./views/room-create/room-create.component";
 
-const routes: Routes = [{
+const routes: Routes = [
+  {
   path: '', component: RoomsOverviewComponent
 },
   {
-    path: ':roomId', component: RoomProfileComponent
+    path: 'add', component: RoomCreateComponent
   },
   {
-    path: 'add-room', component: RoomAddComponent
+    path: ':roomId', component: RoomProfileComponent
   },
   {
     path: ':roomId/edit', component: RoomEditComponent

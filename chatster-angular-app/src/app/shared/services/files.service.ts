@@ -36,7 +36,7 @@ export class FilesService extends FirestoreService<UploadFile> {
             objectData.avatar = downloadURL;
             this.usersService.update(objectData, userId);
           }
-          
+
           this.add({
             name: file.name,
             path: filePath,
@@ -50,11 +50,30 @@ export class FilesService extends FirestoreService<UploadFile> {
     ).subscribe();
   }
 
-  uploadRoomProfilePhoto(){
+  uploadRoomProfilePhoto(roomData: Room, file: File) {
+    const filePath = 'files/' + new Date().getTime() + '_' + file.name;
+    const storageRef = this.storage.ref(filePath);
+    const uploadTask = this.storage.upload(filePath, file);
+    uploadTask.snapshotChanges().pipe(
+      finalize(() => {
+        storageRef.getDownloadURL().subscribe(downloadURL => {
+          roomData.avatar = downloadURL;
+          this.roomsService.add(roomData);
 
+          this.add({
+            name: file.name,
+            path: filePath,
+            ownerId: roomData.owner,
+            created_at: new Date().getTime(),
+            url: downloadURL,
+          } as UploadFile);
+
+        });
+      })
+    ).subscribe();
   }
 
-  sendFileAsMessage(){
+  sendFileAsMessage() {
 
   }
 

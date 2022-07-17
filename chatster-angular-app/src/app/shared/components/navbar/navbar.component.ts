@@ -37,6 +37,8 @@ export class NavbarComponent implements OnInit {
     this.userData$.subscribe((res)=>{
       console.log("nav", res)
     });
+
+    console.log("id",this.authService.getUserId())
   }
 
   toggleMenu(){

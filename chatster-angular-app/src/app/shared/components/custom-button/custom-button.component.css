@@ -15,10 +15,6 @@
   cursor: pointer;
 }
 
-.field button:hover {
-  background-color: #016dcb;
-}
-
 .media-options a {
   display: flex;
   align-items: center;
@@ -59,4 +55,51 @@ a.google span {
   color: white;
   font-weight: bold;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  cursor: pointer;
+}
+
+.field .form-btn-create{
+  background-color: #51af5d;
+}
+
+.field .google{
+  background-color: #eceeec;
+}
+
+
+.add-btn{
+  border-radius: 0.4em;
+  border:none;
+  outline: none;
+  background-color: #62b75d;
+  padding: 0.8em;
+  color: white;
+  margin-bottom: 1em;
+  margin-left: 3.5em;
+  font-weight: bold;
+}
+.add-btn:hover{
+  background-color: #549d50;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.action-btn{
+  border-radius: 0.4em;
+  border:none;
+  outline: none;
+  background-color: #d96838;
+  padding: 0.8em;
+  color: white;
+  margin-top: 1.5em;
+  margin-left: 2em;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+.action-btn:hover{
+  background-color: #d96838;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
 }

@@ -1,1 +1,36 @@
-<p>create-room-form works!</p>
+<div class="container forms">
+  <div class="form login">
+    <div class="form-content">
+      <header>Create New Room</header>
+      <form action="#" [formGroup]="createRoomForm">
+
+        <app-custom-form-input-text [type]="'text'"
+                                    [placeholderValue]="'Name'"
+                                    formControlName="name"></app-custom-form-input-text>
+
+        <app-custom-file-upload formControlName="avatar"></app-custom-file-upload>
+
+        <app-custom-form-input-text [type]="'select'"
+                                    [placeholderValue]="'Private'"
+                                    formControlName="is_private"
+                                    [optionItems]="isPrivateOptions"></app-custom-form-input-text>
+
+        <app-custom-form-input-text [type]="'text'"
+                                    [placeholderValue]="'Bio'"
+                                    formControlName="bio"></app-custom-form-input-text>
+
+
+      </form>
+
+      <div class="line"></div>
+
+      <div class="media-options">
+
+        <app-custom-button (clickTrigger)="createNewRoom($event)"
+                           [name]="'Create Room'"
+                           [btnType]="'form-btn-create'"></app-custom-button>
+      </div>
+    </div>
+
+  </div>
+</div>

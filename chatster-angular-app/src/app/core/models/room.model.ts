@@ -1,4 +1,6 @@
-import {Message} from "./message.model";
+interface Members {
+  id?: string;
+}
 
 export interface Room {
   id?: string;
@@ -7,7 +9,8 @@ export interface Room {
   is_private?: boolean;
   created_at?: number;
   is_group?: boolean;
-  recent_message?: Message;
+  recent_message?: string;
   owner?: string;
   avatar?:string;
+  members?: Members[];
 }

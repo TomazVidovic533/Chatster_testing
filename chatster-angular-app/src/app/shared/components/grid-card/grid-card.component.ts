@@ -9,8 +9,7 @@ import {Observable} from "rxjs";
 })
 export class GridCardComponent<T extends DataObjectItem>  implements OnInit {
 
-  @Input()
-  dataObject!: T;
+  @Input() dataObject!: T;
 
   constructor() { }
 

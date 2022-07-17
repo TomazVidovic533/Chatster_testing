@@ -1,4 +1,4 @@
-import {Injectable} from '@angular/core';
+import {Injectable, OnInit} from '@angular/core';
 import {auditTime, BehaviorSubject, filter, first, Observable, of, switchMap, take, tap} from "rxjs";
 import {LoggedUser, User} from "../../../core/models/user.model";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
@@ -11,26 +11,24 @@ import {FilesService} from "../../../shared/services/files.service";
 @Injectable({
   providedIn: 'root'
 })
-export class AuthService {
+export class AuthService{
 
   // @ts-ignore
   user$!: Observable<firebase.User>;
   // @ts-ignore
   userId$!: string;
-  id!: string;
 
   constructor(private usersService: UsersService,
               private fireAuth: AngularFireAuth,
               private router: Router,
               private filesService: FilesService) {
-
     this.user$ = this.fireAuth.user;
     this.fireAuth.authState.subscribe(user => {
       if(user) {
         this.userId$ = user.uid;
       }
     });
-  };
+  }
 
   getUserId() {
     return this.fireAuth.authState;
@@ -46,7 +44,6 @@ export class AuthService {
         }
       })
     );
-
   }
 
   isLoggedIn() {
@@ -55,6 +52,7 @@ export class AuthService {
 
   signInWithEmailAndPassword(email: string, password: string) {
     return this.fireAuth.signInWithEmailAndPassword(email, password).then(res => {
+      localStorage.setItem('myUserId',<string>res.user?.uid)
       return res;
     })
       .catch(err => {
@@ -96,7 +94,7 @@ export class AuthService {
 
   async signInWithGoogle() {
     return this.fireAuth.signInWithPopup(new GoogleAuthProvider()).then((res) => {
-      console.log(res.user)
+      localStorage.setItem('myUserId',<string>res.user?.uid)
       if (res.user?.emailVerified == false) {
         this.resendVerificationEmail();
       } else {
@@ -108,6 +106,7 @@ export class AuthService {
   }
 
   logOut() {
+    localStorage.removeItem('myUserId')
     this.fireAuth.signOut().then(() => {
       this.router.navigate(['auth/sign-in'])
     });

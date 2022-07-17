@@ -1,6 +1,15 @@
 <ng-container *ngIf="userData$ | async; let user">
   <app-profile-header [avatar]="user.avatar" [fullName]="user.name"></app-profile-header>
 
+  <ng-template [ngIf]="user.id!=myId">
+    <div class="profile-content-container">
+      <app-custom-button (clickTrigger)="startConversation($event)"
+                         [name]="'Start Conversation'"
+                         [btnType]="'action-btn'"></app-custom-button>
+    </div>
+  </ng-template>
+
+
   <div class="profile-content-container">
 
     <app-profile-information-item [label]="'Username'"

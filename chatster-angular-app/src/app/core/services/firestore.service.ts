@@ -1,6 +1,7 @@
 import {map, Observable, shareReplay, Subject} from "rxjs";
 import {CollectionItem} from "../../../models/base-entity";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
+import {where} from "@angular/fire/firestore";
 
 export interface FirestoreDataService<T> {
   get(id: string): Observable<T>;
@@ -63,6 +64,20 @@ export class FirestoreService<T extends CollectionItem> {
 
   list(): Observable<T[]> {
     return this.collection
+      .snapshotChanges()
+      .pipe(
+        map(changes => {
+          return changes.map(a => {
+            const data = a.payload.doc.data() as T;
+            data.id = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
+  listWhere(fieldName: string, value: any): Observable<T[]> {
+    return this.afs.collection(this.uri, ref=> ref.where(fieldName,'==',value))
       .snapshotChanges()
       .pipe(
         map(changes => {

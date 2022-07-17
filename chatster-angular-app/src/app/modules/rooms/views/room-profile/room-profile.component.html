@@ -3,6 +3,30 @@
 
   <div class="profile-content-container">
 
+  <ng-template [ngIf]="!room.is_private">
+    <app-custom-button routerLink="/app/chat/{{room.id}}"
+                       [name]="'Join Room'"
+                       [btnType]="'action-btn'"></app-custom-button>
+
+    <app-custom-button routerLink="/app/chat/{{room.id}}"
+                       [name]="'Add to Favorites'"
+                       [btnType]="'action-btn'"></app-custom-button>
+
+    <app-custom-button routerLink="/app/chat/{{room.id}}"
+                       [name]="'Leave'"
+                       [btnType]="'action-btn'"></app-custom-button>
+
+  </ng-template>
+
+  <ng-template [ngIf]="room.is_private">
+    <app-custom-button [name]="'Request Access'"
+                       [btnType]="'action-btn'"></app-custom-button>
+  </ng-template>
+  </div>
+
+
+  <div class="profile-content-container">
+
     <app-profile-information-item [label]="'Bio'"
                                   [content]="room.bio"></app-profile-information-item>
 

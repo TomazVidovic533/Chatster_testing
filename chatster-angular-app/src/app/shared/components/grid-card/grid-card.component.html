@@ -1,11 +1,12 @@
-<div class="grid-item" routerLink="{{dataObject.id}}">
+<div class="grid-item">
   <img src="{{dataObject.avatar}}"
-       alt="nature">
+       alt="avatar" routerLink="{{dataObject.id}}">
 
   <div class="grid-item-content">
-    <div class="grid-item-content-title">
+    <div class="grid-item-content-title" routerLink="{{dataObject.id}}">
       {{dataObject.name}}
     </div>
-    <button class="grid-item-content-btn">Nekaj</button>
   </div>
 </div>
+
+

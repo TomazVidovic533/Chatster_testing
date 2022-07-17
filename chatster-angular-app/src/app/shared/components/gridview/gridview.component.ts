@@ -9,8 +9,7 @@ import {Observable} from "rxjs";
 })
 export class GridviewComponent<T extends DataObjectItem> implements OnInit {
 
-  @Input()
-  dataSource!: Observable<T[]>;
+  @Input() dataSource!: Observable<T[]>;
 
   constructor() { }
 

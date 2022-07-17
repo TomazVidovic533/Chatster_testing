@@ -7,15 +7,33 @@
 
 <ng-template [ngIf]="btnType=='search-btn'">
   <div class="wrapper-search-btn">
-    <button type="button" class= "btn" (click)="triggerButton($event)" >{{name}}</button>
+    <button type="button" class= "btn search" style="cursor: pointer" (click)="triggerButton($event)" >{{name}}</button>
   </div>
 </ng-template>
 
 <ng-template [ngIf]="btnType=='form-btn-google-sign-in'">
-  <div class="field button-field">
+  <div class="field button-field google">
     <button class="btn" type="button" (click)="triggerButton($event)">
       <img src="assets/google_logo.svg" alt="" class="google-img">
       <span>Sign In with Google</span>
     </button>
   </div>
+</ng-template>
+
+<ng-template [ngIf]="btnType=='form-btn-create'">
+  <div class="field button-field form-btn-create">
+    <button type="button" class="form-btn-create"(click)="triggerButton($event)">{{name}}</button>
+  </div>
+</ng-template>
+
+<ng-template [ngIf]="btnType=='add-btn'">
+  <button class="add-btn" (click)="triggerButton($event)">
+    {{name}}
+  </button>
+</ng-template>
+
+<ng-template [ngIf]="btnType=='action-btn'">
+  <button class="action-btn" (click)="triggerButton($event)">
+    {{name}}
+  </button>
 </ng-template>

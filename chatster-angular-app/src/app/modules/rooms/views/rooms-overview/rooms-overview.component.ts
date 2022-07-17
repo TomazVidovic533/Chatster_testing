@@ -16,7 +16,7 @@ export class RoomsOverviewComponent implements OnInit,OnDestroy {
   constructor(private roomService:RoomService) {}
 
   ngOnInit(): void {
-    this.rooms$ =  this.roomService.list().pipe(shareReplay(1));
+    this.rooms$ =  this.roomService.listWhere('is_group',true).pipe(shareReplay(1));
     this.rooms$.subscribe((res)=>{console.log("list", res)});
   }
 

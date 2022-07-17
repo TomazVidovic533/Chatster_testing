@@ -1,2 +1,7 @@
 <app-search-section></app-search-section>
+
+<app-custom-button routerLink="add"
+                   [name]="'Create Room'"
+                   [btnType]="'add-btn'"></app-custom-button>
+
 <app-gridview [dataSource]="rooms$"></app-gridview>
