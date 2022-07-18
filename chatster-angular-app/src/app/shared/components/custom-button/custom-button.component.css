@@ -103,3 +103,24 @@ a.google span {
   cursor: pointer;
   font-weight: bold;
 }
+
+.send-message-btn{
+  width: 4em;
+  border-radius: 0.8em;
+  border: none;
+  background-color: #45aaf2;
+  color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  opacity:0.8;
+  margin-top: 0.8em;
+  height: 2em;
+}
+
+.send-message-btn:hover{
+  outline: #308dcf;
+  background-color: #308dcf;
+  color: white;
+  opacity:1;
+  transition-timing-function: ease-in-out;
+  transition: background-color 1.2s;
+}

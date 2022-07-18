@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable} from "rxjs";
+import {Message} from "../../../../../core/models/message.model";
+import {ChatService} from "../../../services/chat.service";
 
 @Component({
   selector: 'app-chatroom-message-window',
@@ -7,9 +10,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatroomMessageWindowComponent implements OnInit {
 
-  constructor() { }
+  chatMessages$!: Observable<Message[]>;
+
+  constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
+
   }
 
 }

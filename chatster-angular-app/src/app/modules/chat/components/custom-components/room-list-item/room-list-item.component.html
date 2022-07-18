@@ -1,20 +1,23 @@
-<div class="room-list-item">
+<div class="room-list-item" routerLink="{{roomData.id}}">
   <div class="room-list-item-header">
     <img class="room-list-item-avatar"
-         src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
+         src="{{roomData.avatar}}">
   </div>
   <div class="room-list-item-content">
     <div class="room-list-item-content-header">
       <div class="room-list-item-content-title">
-        usernameasdsad
+        {{roomData.name}}
       </div>
 
     </div>
     <div class="room-list-item-text">
-      Lorem ipsum dolor sit amet, consectetur a Lorem
-      ipsum dolor sit amet, consectetur aLorem ipsum dolor
-      sit amet, consectetur aLorem ipsum dolor sit amet,
-      consectetur a
+      <ng-template [ngIf]="roomData.recent_message==''">
+        No messages
+      </ng-template>
+      <ng-template [ngIf]="roomData.recent_message!=''">
+        {{roomData.recent_message}}
+      </ng-template>
+      {{roomData.recent_message}}
     </div>
   </div>
 </div>

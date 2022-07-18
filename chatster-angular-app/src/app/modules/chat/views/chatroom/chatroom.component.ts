@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
+import {Observable} from "rxjs";
+import {Room} from "../../../../core/models/room.model";
+import {UsersService} from "../../../people/services/users.service";
 
 @Component({
   selector: 'app-chatroom',
@@ -7,9 +10,19 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ChatroomComponent implements OnInit {
 
-  constructor() { }
+  usersRooms$!: Observable<Room[]>;
 
-  ngOnInit(): void {
+  constructor(private usersService: UsersService) {
   }
 
+  ngOnInit(): void {
+    let id = localStorage.getItem('myUserId');
+    if (id) {
+      this.usersRooms$ = this.usersService.getUsersRooms(id);
+      this.usersRooms$.subscribe((res) => {
+        console.log('users rooms', res)
+      })
+    }
+
+  }
 }

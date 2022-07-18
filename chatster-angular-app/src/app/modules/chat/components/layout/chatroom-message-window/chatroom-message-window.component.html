@@ -1,11 +1,6 @@
 <div class="message-window">
-
-<app-message [myMessage]=false></app-message>
-<app-message [myMessage]=false></app-message>
-<app-message [myMessage]=false></app-message>
-<app-message [myMessage]=false></app-message>
-<app-message [myMessage]=true></app-message>
-<app-message [myMessage]=false></app-message>
-<app-message [myMessage]=true></app-message>
-
+  <ng-container *ngFor="let dataObject of (chatMessages$ | async)">
+    <app-message [messageData]="dataObject"></app-message>
+  </ng-container>
 </div>
+

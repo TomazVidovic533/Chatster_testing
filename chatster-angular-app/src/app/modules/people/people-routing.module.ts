@@ -12,8 +12,7 @@ const routes: Routes = [
   },
   {
     path: ':userId/edit', component: UserProfileComponent
-  },
-
+  }
 ];
 
 @NgModule({

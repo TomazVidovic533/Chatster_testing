@@ -19,3 +19,29 @@
 .field input:focus {
   border-bottom-width: 2px;
 }
+
+
+.input-message{
+  border: none;
+  margin-top: 0.8em;
+  margin-left: 0.5em;
+  margin-right: 0.5em;
+  border-radius: 1.2em;
+  opacity:0.94;
+  padding-left: 1em;
+  padding-right: 1em;
+  height: 2em;
+  word-wrap: break-word;
+  width:100%;
+  box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+  background-color: rgb(250, 246, 246);
+}
+
+.input-message:focus{
+  opacity:1;
+  border: none;
+  outline: none;
+  -webkit-transform: scale(1.008);
+  -ms-transform: scale(1.008);
+  transform: scale(1.008);
+}

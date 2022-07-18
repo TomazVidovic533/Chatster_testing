@@ -56,3 +56,15 @@
   transition-timing-function: ease-in-out;
   transition: background-color 1.2s;
 }
+
+.input-container{
+  width: 100%;
+  margin-right: 1.8em;
+  margin-left: 0.8em;
+}
+
+.emojis-btn{
+  margin-top: 0.8em;
+}
+
+

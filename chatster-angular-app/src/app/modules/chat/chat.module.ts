@@ -17,6 +17,10 @@ import { CallControlPanelComponent } from './components/custom-components/call-c
 import { CallContainerComponent } from './components/layout/call-container/call-container.component';
 import { CallroomComponent } from './views/callroom/callroom.component';
 import { CallWindowsHolderComponent } from './components/layout/call-windows-holder/call-windows-holder.component';
+import {SharedModule} from "../../shared/shared.module";
+import {ReactiveFormsModule} from "@angular/forms";
+import {LucideAngularModule} from "lucide-angular";
+import { ChatViewComponent } from './views/chat-view/chat-view.component';
 
 
 
@@ -35,10 +39,14 @@ import { CallWindowsHolderComponent } from './components/layout/call-windows-hol
     CallContainerComponent,
     CallroomComponent,
     CallWindowsHolderComponent,
+    ChatViewComponent,
   ],
   imports: [
+    SharedModule,
     CommonModule,
-    ChatRoutingModule
+    ChatRoutingModule,
+    ReactiveFormsModule,
+    LucideAngularModule
   ]
 })
 export class ChatModule { }

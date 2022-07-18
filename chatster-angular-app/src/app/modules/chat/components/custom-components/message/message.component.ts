@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Message} from "../../../../../core/models/message.model";
 
 @Component({
   selector: 'app-message',
@@ -7,11 +8,16 @@ import {Component, Input, OnInit} from '@angular/core';
 })
 export class MessageComponent implements OnInit {
 
-  @Input('myMessage') myMessage! : boolean ;
+  myUserId!: string;
+  @Input() messageData!: Message;
 
-  constructor() { }
+  constructor() {
+  }
 
   ngOnInit(): void {
+    // @ts-ignore
+    this.myUserId = localStorage.getItem('myUserId');
+
   }
 
 }

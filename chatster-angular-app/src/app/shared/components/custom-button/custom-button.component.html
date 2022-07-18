@@ -37,3 +37,10 @@
     {{name}}
   </button>
 </ng-template>
+
+
+<ng-template [ngIf]="btnType=='send-message-btn'">
+  <button class="send-message-btn" (click)="triggerButton($event)">
+    {{name}}
+  </button>
+</ng-template>

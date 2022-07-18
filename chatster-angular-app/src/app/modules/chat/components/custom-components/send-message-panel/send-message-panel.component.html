@@ -1,9 +1,17 @@
-<div class="message-panel">
+<form action="#" [formGroup]="sendMessageForm">
+  <div class="message-panel">
+    <div class="emojis-btn"><lucide-icon [img]="smilePlus" class="svg"></lucide-icon></div>
 
-  <div class="emojis-btn"><a>Emojis</a></div>
+    <app-custom-form-input-text class="input-container" [type]="'message-input'"
+                                [placeholderValue]="'Enter message...'"
+                                formControlName="message"></app-custom-form-input-text>
 
-  <input type="text" class="input-message">
+    <app-custom-button (clickTrigger)="sendMessage($event)"
+                       [name]="'Send'"
+                       [btnType]="'send-message-btn'"></app-custom-button>
 
-  <button class="send-message-btn">Send</button>
+  </div>
+</form>
 
-</div>
+<!--{{ sendMessageForm.value | json }}-->
+

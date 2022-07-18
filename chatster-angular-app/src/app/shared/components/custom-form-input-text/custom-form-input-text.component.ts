@@ -21,7 +21,6 @@ export class CustomFormInputTextComponent implements OnInit, ControlValueAccesso
   inputValue!: string;
   onChange!: (value: string) => void;
   onTouched!: () => void;
-  selectedFile!: string;
   @Input() optionItems!: string[];
 
   constructor() {
