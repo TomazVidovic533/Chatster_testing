@@ -1,4 +1,7 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
+import {Video} from "lucide-angular";
+import {Observable} from "rxjs";
+import {Room} from "../../../../../core/models/room.model";
 
 @Component({
   selector: 'app-call-panel',
@@ -6,6 +9,10 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./call-panel.component.css']
 })
 export class CallPanelComponent implements OnInit {
+
+  videocall=Video;
+
+  @Input() roomData$!: Observable<Room>
 
   constructor() { }
 

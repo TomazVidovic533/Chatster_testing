@@ -26,4 +26,6 @@
 
 .call-panel-videocall{
   padding-right: 1.5em;
+  padding-top: 0.5em;
+  cursor: pointer;
 }

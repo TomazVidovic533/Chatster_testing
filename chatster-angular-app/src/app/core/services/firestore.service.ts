@@ -32,6 +32,23 @@ export class FirestoreService<T extends CollectionItem> {
     this.collection = this.afs.collection(this.uri);
   }
 
+  search(fieldName: string, query: string): Observable<T[]> {
+    return this.afs
+      .collection(this.uri, ref => ref.orderBy(fieldName)
+        .startAt(query)
+        .endAt(query + '\uf8ff'))
+      .snapshotChanges()
+      .pipe(
+        map(changes => {
+          return changes.map(a => {
+            const data = a.payload.doc.data() as T;
+            data.id = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
   get(identifier: string): Observable<T> {
     return this.collection
       .doc<T>(identifier)
@@ -77,7 +94,7 @@ export class FirestoreService<T extends CollectionItem> {
   }
 
   listWhere(fieldName: string, value: any): Observable<T[]> {
-    return this.afs.collection(this.uri, ref=> ref.where(fieldName,'==',value))
+    return this.afs.collection(this.uri, ref => ref.where(fieldName, '==', value))
       .snapshotChanges()
       .pipe(
         map(changes => {

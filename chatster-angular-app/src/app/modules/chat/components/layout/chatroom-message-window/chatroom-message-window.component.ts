@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
 import {Message} from "../../../../../core/models/message.model";
 import {ChatService} from "../../../services/chat.service";
@@ -10,12 +10,12 @@ import {ChatService} from "../../../services/chat.service";
 })
 export class ChatroomMessageWindowComponent implements OnInit {
 
-  chatMessages$!: Observable<Message[]>;
+  @Input() chatMessages$!: Observable<Message[]>;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
-
+    this.chatMessages$.subscribe();
   }
 
 }
