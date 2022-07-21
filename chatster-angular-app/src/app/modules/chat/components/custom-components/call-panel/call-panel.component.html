@@ -1,10 +1,10 @@
 <div class="call-panel">
   <div class="call-panel-avatar">
-    <img src="https://source.unsplash.com/1600x900/?nature"
+    <img src="{{(roomData$ | async)?.avatar}}"
          alt="nature">
   </div>
   <div class="call-panel-username">
-    Username
+    {{(roomData$ | async)?.name}}
   </div>
   <div class="call-panel-videocall">
     <lucide-icon [img]="videocall" class="svg"></lucide-icon>

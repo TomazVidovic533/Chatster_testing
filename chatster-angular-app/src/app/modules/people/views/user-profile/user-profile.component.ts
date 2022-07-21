@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {first, Observable} from "rxjs";
+import {first, Observable, switchMap, take} from "rxjs";
 import {AuthService} from "../../../auth/services/auth.service";
 import {UsersService} from "../../services/users.service";
 import {User} from "../../../../core/models/user.model";
@@ -22,8 +22,8 @@ export class UserProfileComponent implements OnInit {
 
   userData$!: Observable<User>;
   userObj!: User;
-  id!:string | null;
-  myId!:string | null;
+  id!: string | null;
+  myId!: string | null;
 
   ngOnInit(): void {
 
@@ -32,35 +32,32 @@ export class UserProfileComponent implements OnInit {
 
     if (this.id) {
       this.userData$ = this.userService.get(this.id);
-      this.userData$.subscribe((u)=>{
-        this.userObj=u;
+      this.userData$.subscribe((user) => {
+        this.userObj = user;
       });
     }
   }
 
   startConversation(event: Event) {
-    if(this.id){
-      // @ts-ignore
-      let userIds: string [] = [this.userObj.id,localStorage.getItem('myUserId')];
-      let r={
-        name: this.userObj.name,
-        is_private: true,
-        is_group: false,
-        recent_message: '',
-        created_at: new Date().getTime(),
-        avatar: this.userObj.avatar
-      } as Room;
-      console.log(this.userObj);
-      console.log("res",r);
-      this.roomsService.startConversation(r, userIds)
-    }
+    this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
+      if (myUserData) {
+        this.roomsService.startConversation({
+          name: this.userObj.name,
+          is_private: true,
+          is_group: false,
+          recent_message: '',
+          created_at: new Date().getTime(),
+          avatar: this.userObj.avatar
+        } as Room, this.userObj, myUserData);
+      }
+    })
   }
 
-  edit(event: Event){
+  edit(event: Event) {
 
   }
 
-  delete(event: Event){
+  delete(event: Event) {
     if (this.myId != null) {
       localStorage.removeItem('myUserId')
       this.authService.deleteAccount();

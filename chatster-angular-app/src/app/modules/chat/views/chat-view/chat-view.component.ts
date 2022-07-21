@@ -11,12 +11,13 @@ import {
   Subscription,
   switchMap,
   take,
-  tap
+  tap, zip
 } from "rxjs";
 import {Room} from "../../../../core/models/room.model";
 import {Message} from "../../../../core/models/message.model";
 import {ChatService} from "../../services/chat.service";
 import {RoomService} from "../../../rooms/services/room.service";
+import {AuthService} from "../../../auth/services/auth.service";
 
 @Component({
   selector: 'app-chat-view',
@@ -26,42 +27,90 @@ import {RoomService} from "../../../rooms/services/room.service";
 export class ChatViewComponent implements OnInit {
 
   id!: string | null;
-
-  @Input() roomData$!: Observable<Room>;
-
-  chatMessages!: Observable<Message[]>;
-  room$!: Observable<Room>;
-
+  chatMessages$!: Observable<Message[]>;
+  roomData$!: Observable<Room>;
+  roomId!: string
+  test$!: any
   constructor(private route: ActivatedRoute,
               private chatService: ChatService,
-              private roomsService: RoomService) {
+              private roomsService: RoomService,
+              private auth: AuthService) {
   }
 
   ngOnInit(): void {
-    this.chatMessages = this.route.params.pipe(
+
+
+/*    this.test$ = this.route.params.pipe(
       switchMap(params => {
-          return this.chatService.getChatRoomMessages(params['roomId']);
+        this.roomId = params['roomId'];
+        return this.chatService.getProductInfo(params['roomId']);
+      })
+    ).subscribe((r)=>{
+      console.log("DELA", r)
+    });*/
+
+    this.auth.getUserData().pipe(take(1)).subscribe((u)=>{
+     this.chatService.getRoomsOfUser(u?.id);
+    })
+
+
+
+    this.route.params.pipe(
+      switchMap(typeId => combineLatest([
+        this.chatService.getIds(typeId['roomId']),
+        this.chatService.getMessages(typeId['roomId'])
+      ]))
+    )
+      .subscribe(([ids, m]) => {
+        console.log("view ids", ids)
+        console.log("view m", m)
+      });
+
+
+
+    this.chatMessages$ = this.route.params.pipe(
+      switchMap(params => {
+        this.roomId = params['roomId'];
+        return this.chatService.getChatRoomMessages(params['roomId']);
       })
     );
 
-/*
-    this.room$ = this.route.params.pipe(
+    this.roomData$ = this.route.params.pipe(
       switchMap(params => {
+        this.roomId = params['roomId'];
         return this.roomsService.get(params['roomId']);
       })
     );
 
-    this.room$.subscribe((res)=>{
-      console.log("room data", res);
-    });
-*/
+    this.chatMessages$.subscribe();
+    this.roomData$.subscribe();
 
-    this.chatMessages.subscribe((res)=>{
-      console.log("r meessages", res);
-    });
+    /*    this.route.params.pipe(
+          switchMap(typeId => combineLatest([
+            this.typesService.getProjectsByType(typeId),
+            this.typesService.getProgramsByType(typeId)
+          ]))
+        )
+          .subscribe(([projects, programs]) => {
+            // ...
+          });*/
+
+    /*
+        this.room$ = this.route.params.pipe(
+          switchMap(params => {
+            return this.roomsService.get(params['roomId']);
+          })
+        );
+
+        this.room$.subscribe((res)=>{
+          console.log("room data", res);
+        });
+    */
+
+
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     //this.chatMessages.subscribe().unsubscribe();
   }
 }

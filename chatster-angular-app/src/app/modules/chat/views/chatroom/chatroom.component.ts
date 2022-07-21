@@ -13,14 +13,23 @@ export class ChatroomComponent implements OnInit {
 
   usersRooms$!: Observable<Room[]>;
 
-  constructor(private roomsService: RoomService) {
+  constructor(private usersService: UsersService) {
   }
 
   ngOnInit(): void {
     let id = localStorage.getItem('myUserId');
-    if (id) {
+    /*if (id) {
       this.usersRooms$=this.roomsService.getUsersRooms(id);
       this.usersRooms$.subscribe();
+    }*/
+    if (id) {
+      this.usersRooms$=this.usersService.getUsersRooms(id);
+      this.usersRooms$.subscribe((r)=>{
+        console.log("wtf",r);
+      })
     }
+
+
+
   }
 }

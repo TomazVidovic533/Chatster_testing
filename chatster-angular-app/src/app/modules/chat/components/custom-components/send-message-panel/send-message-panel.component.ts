@@ -1,8 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {ChatService} from "../../../services/chat.service";
 import {Message} from "../../../../../core/models/message.model";
 import {SmilePlus} from "lucide-angular";
+import {AuthService} from "../../../../auth/services/auth.service";
+import {Observable, take} from "rxjs";
+import {Room} from "../../../../../core/models/room.model";
 
 
 @Component({
@@ -13,10 +16,13 @@ import {SmilePlus} from "lucide-angular";
 export class SendMessagePanelComponent implements OnInit {
 
   sendMessageForm!: FormGroup;
+  @Input() roomId!: string | undefined;
 
-  smilePlus=SmilePlus;
+  smilePlus = SmilePlus;
 
-  constructor(private formBuilder: FormBuilder,private chatService:ChatService) {
+  constructor(private formBuilder: FormBuilder,
+              private chatService: ChatService,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -26,15 +32,15 @@ export class SendMessagePanelComponent implements OnInit {
   }
 
   sendMessage(event: Event) {
-    let newMessage = {
-      created_at: new Date().getTime(),
-      sent_by: localStorage.getItem('myUserId'),
-      message:  this.sendMessageForm.get('message')?.value,
-    } as Message;
-
-    console.log(newMessage)
-
-    this.chatService.sendMessageToRoom(newMessage, 'nekaj')
+    this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
+      if (this.roomId != null) {
+        this.chatService.sendMessageToRoom({
+          created_at: new Date().getTime(),
+          sent_by: myUserData?.id,
+          message: this.sendMessageForm.get('message')?.value,
+        } as Message, this.roomId)
+      }
+    })
   }
 
 }

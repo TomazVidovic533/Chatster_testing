@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, take} from "rxjs";
 import {User} from "../../../../core/models/user.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RoomService} from "../../services/room.service";
 import {Room} from "../../../../core/models/room.model";
+import {AuthService} from "../../../auth/services/auth.service";
 
 
 @Component({
@@ -13,10 +14,14 @@ import {Room} from "../../../../core/models/room.model";
 })
 export class RoomProfileComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private roomService: RoomService, private router: Router) {
+  constructor(private route: ActivatedRoute,
+              private roomService: RoomService,
+              private authService: AuthService,
+              private router: Router) {
   }
 
   roomData$!: Observable<Room>;
+  roomObject!: Room;
   myId!: string;
   roomId!: string | null;
 
@@ -28,13 +33,19 @@ export class RoomProfileComponent implements OnInit {
 
     if (this.roomId) {
       this.roomData$ = this.roomService.get(this.roomId);
-      this.roomData$.subscribe();
+      this.roomData$.subscribe((roomObject)=>{
+        this.roomObject=roomObject;
+      });
     }
   }
 
   joinRoom(event: Event) {
     if (this.roomId != null) {
-      this.roomService.joinRoom(this.roomId, this.myId);
+      this.authService.getUserData().pipe(take(1)).subscribe((myUserData)=>{
+        if (myUserData) {
+          this.roomService.joinRoom(this.roomObject, myUserData);
+        }
+      })
     }
   }
 

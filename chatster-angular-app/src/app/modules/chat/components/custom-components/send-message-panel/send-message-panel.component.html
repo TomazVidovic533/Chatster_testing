@@ -9,7 +9,7 @@
     <app-custom-button (clickTrigger)="sendMessage($event)"
                        [name]="'Send'"
                        [btnType]="'send-message-btn'"></app-custom-button>
-
+{{ sendMessageForm.getRawValue() |json}}
   </div>
 </form>
 

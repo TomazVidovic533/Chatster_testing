@@ -87,3 +87,7 @@
   transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
   transition: background-color 0.3s;
 }
+
+.file-message{
+  width: 60%;
+}

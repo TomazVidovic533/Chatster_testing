@@ -5,7 +5,6 @@
 
     <ng-template [ngIf]="!room.is_private">
 
-      <ng-template [ngIf]="">
         <app-custom-button routerLink="/app/chat/{{room.id}}"
                            (clickTrigger)="joinRoom($event)"
                            [name]="'Join Room'"
@@ -13,9 +12,9 @@
 
         <app-custom-button routerLink="/app/rooms/{{room.id}}"
                            (clickTrigger)="leaveRoom($event)"
-                           [name]="'Join Room'"
+                           [name]="'Leave Room'"
                            [btnType]="'action-btn'"></app-custom-button>
-      </ng-template>
+
 
       <app-custom-button
         [name]="'Edit'"

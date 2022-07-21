@@ -172,6 +172,7 @@ export class FirestoreService<T extends CollectionItem> {
     });
   }
 
+
   update(item: T, id: string): Promise<T> {
     return new Promise<T>((resolve, reject) => {
       this.collection
