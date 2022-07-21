@@ -124,3 +124,17 @@ a.google span {
   transition-timing-function: ease-in-out;
   transition: background-color 1.2s;
 }
+
+
+.wrapper-search-btn{
+  padding: 0.75em;
+  border-radius: 0.6em;
+  border: none;
+  outline: none;
+  background-color: #f5d64f;
+  color: white;
+  font-weight: bold;
+  height: 2.5em;
+  cursor: pointer;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}

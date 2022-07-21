@@ -50,3 +50,14 @@
          (ngModelChange)="onChange($event)"
          (blur)="onTouched()">
 </ng-template>
+
+
+
+<ng-template [ngIf]="type=='search-input'">
+  <input type="text"
+         class="search-input"
+         placeholder="{{placeholderValue}}"
+         [ngModel]="inputValue"
+         (ngModelChange)="onChange($event)"
+         (blur)="onTouched()">
+</ng-template>

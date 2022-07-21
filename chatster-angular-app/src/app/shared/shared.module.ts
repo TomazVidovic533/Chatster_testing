@@ -10,9 +10,10 @@ import {
   ProfileInformationItemComponent
 } from "./components/profile-information-item/profile-information-item.component";
 import { CustomFormInputTextComponent } from './components/custom-form-input-text/custom-form-input-text.component';
-import {FormsModule} from "@angular/forms";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CustomFileUploadComponent } from './components/custom-file-upload/custom-file-upload.component';
 import { CustomButtonComponent } from './components/custom-button/custom-button.component';
+import { SearchViewComponent } from './components/search-view/search-view.component';
 
 @NgModule({
   declarations: [
@@ -23,14 +24,16 @@ import { CustomButtonComponent } from './components/custom-button/custom-button.
     ProfileInformationItemComponent,
     CustomFormInputTextComponent,
     CustomFileUploadComponent,
-    CustomButtonComponent
+    CustomButtonComponent,
+    SearchViewComponent
   ],
-  imports: [
-    CommonModule,
-    RouterModule,
-    LucideAngularModule.pick({}),
-    FormsModule
-  ],
+    imports: [
+        CommonModule,
+        RouterModule,
+        LucideAngularModule.pick({}),
+        FormsModule,
+        ReactiveFormsModule
+    ],
   exports: [
     GridviewComponent,
     SearchSectionComponent,
@@ -39,7 +42,8 @@ import { CustomButtonComponent } from './components/custom-button/custom-button.
     ProfileHeaderComponent,
     CustomFormInputTextComponent,
     CustomFileUploadComponent,
-    CustomButtonComponent
+    CustomButtonComponent,
+    SearchViewComponent
   ]
 })
 export class SharedModule { }

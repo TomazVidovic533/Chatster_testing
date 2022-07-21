@@ -44,3 +44,10 @@
     {{name}}
   </button>
 </ng-template>
+
+
+<ng-template [ngIf]="btnType=='search-section-btn'">
+  <button class="wrapper-search-btn" (click)="triggerButton($event)">
+    {{name}}
+  </button>
+</ng-template>

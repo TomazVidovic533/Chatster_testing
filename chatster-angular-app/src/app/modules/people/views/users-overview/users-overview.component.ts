@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {Observable, shareReplay} from "rxjs";
+import {Observable, shareReplay, switchMap} from "rxjs";
 import {User} from "../../../../core/models/user.model";
 import {UsersService} from "../../services/users.service";
+import {SearchService} from "../../../../shared/services/search.service";
 
 
 
@@ -13,7 +14,7 @@ import {UsersService} from "../../services/users.service";
 export class UsersOverviewComponent implements OnInit {
 
   users$!: Observable<User[]>;
-  constructor(private usersService: UsersService ) {}
+  constructor(private usersService: UsersService, private searchService: SearchService) {}
 
   ngOnInit(): void {
     this.users$ =  this.usersService.list().pipe(shareReplay(1));

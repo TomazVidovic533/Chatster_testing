@@ -2,6 +2,7 @@ import {map, Observable, shareReplay, Subject} from "rxjs";
 import {CollectionItem} from "../../../models/base-entity";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {where} from "@angular/fire/firestore";
+import {Condition} from "../models/condition";
 
 export interface FirestoreDataService<T> {
   get(id: string): Observable<T>;
@@ -25,6 +26,8 @@ export interface FirestoreDataService<T> {
   deleteSubCollectionDocument(documentId: string, collectionId: string, subCollectionDocumentId: string): void;
 }
 
+
+
 export class FirestoreService<T extends CollectionItem> {
   protected collection: AngularFirestoreCollection<T>;
 
@@ -32,9 +35,32 @@ export class FirestoreService<T extends CollectionItem> {
     this.collection = this.afs.collection(this.uri);
   }
 
-  search(fieldName: string, query: string): Observable<T[]> {
+  search(collectionName: string,fieldName: string, query: string): Observable<T[]> {
+    if(query === ''){
+      return this.list();
+    }
     return this.afs
-      .collection(this.uri, ref => ref.orderBy(fieldName)
+      .collection(collectionName, ref => ref.orderBy(fieldName)
+        .startAt(query)
+        .endAt(query + '\uf8ff'))
+      .snapshotChanges()
+      .pipe(
+        map(changes => {
+          return changes.map(a => {
+            const data = a.payload.doc.data() as T;
+            data.id = a.payload.doc.id;
+            return data;
+          });
+        })
+      );
+  }
+
+  searchWhere(collectionName: string,fieldName: string, query: string, condition: Condition): Observable<T[]> {
+
+    return this.afs
+      .collection(collectionName, ref => ref.orderBy(fieldName)
+        // @ts-ignore
+         .where(condition.fieldName,condition.operator, condition.value)
         .startAt(query)
         .endAt(query + '\uf8ff'))
       .snapshotChanges()
@@ -93,8 +119,9 @@ export class FirestoreService<T extends CollectionItem> {
       );
   }
 
-  listWhere(fieldName: string, value: any): Observable<T[]> {
-    return this.afs.collection(this.uri, ref => ref.where(fieldName, '==', value))
+  listWhere(fieldName: string,operator:string, value: any): Observable<T[]> {
+    // @ts-ignore
+    return this.afs.collection(this.uri, ref => ref.where(fieldName, operator, value))
       .snapshotChanges()
       .pipe(
         map(changes => {
