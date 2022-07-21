@@ -1,27 +1,50 @@
 <ng-container *ngIf="roomData$ | async; let room">
   <app-profile-header [avatar]="room.avatar" [fullName]="room.name"></app-profile-header>
 
-  <div class="profile-content-container">
+  <div class="profile-action-bar">
 
-  <ng-template [ngIf]="!room.is_private">
-    <app-custom-button routerLink="/app/chat/{{room.id}}"
-                       [name]="'Join Room'"
-                       [btnType]="'action-btn'"></app-custom-button>
+    <ng-template [ngIf]="!room.is_private">
 
-    <app-custom-button routerLink="/app/chat/{{room.id}}"
-                       [name]="'Add to Favorites'"
-                       [btnType]="'action-btn'"></app-custom-button>
+      <ng-template [ngIf]="">
+        <app-custom-button routerLink="/app/chat/{{room.id}}"
+                           (clickTrigger)="joinRoom($event)"
+                           [name]="'Join Room'"
+                           [btnType]="'action-btn'"></app-custom-button>
 
-    <app-custom-button routerLink="/app/chat/{{room.id}}"
-                       [name]="'Leave'"
-                       [btnType]="'action-btn'"></app-custom-button>
+        <app-custom-button routerLink="/app/rooms/{{room.id}}"
+                           (clickTrigger)="leaveRoom($event)"
+                           [name]="'Join Room'"
+                           [btnType]="'action-btn'"></app-custom-button>
+      </ng-template>
 
-  </ng-template>
+      <app-custom-button
+        [name]="'Edit'"
+        [btnType]="'edit-btn'"></app-custom-button>
 
-  <ng-template [ngIf]="room.is_private">
-    <app-custom-button [name]="'Request Access'"
-                       [btnType]="'action-btn'"></app-custom-button>
-  </ng-template>
+      <ng-template [ngIf]="room.owner==myId">
+        <app-custom-button
+          (clickTrigger)="delete($event)"
+          [name]="'Delete'"
+          [btnType]="'delete-btn'"></app-custom-button>
+      </ng-template>
+
+    </ng-template>
+
+    <ng-template [ngIf]="room.is_private">
+      <app-custom-button [name]="'Request Access'"
+                         [btnType]="'action-btn'"></app-custom-button>
+
+      <app-custom-button
+        [name]="'Edit'"
+        [btnType]="'edit-btn'"></app-custom-button>
+
+      <ng-template [ngIf]="room.owner==myId">
+        <app-custom-button
+          [name]="'Delete'"
+          [btnType]="'delete-btn'"></app-custom-button>
+      </ng-template>
+
+    </ng-template>
   </div>
 
 

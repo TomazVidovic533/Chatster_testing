@@ -2,12 +2,25 @@
   <app-profile-header [avatar]="user.avatar" [fullName]="user.name"></app-profile-header>
 
   <ng-template [ngIf]="user.id!=myId">
-    <div class="profile-content-container">
+    <div class="profile-action-bar">
       <app-custom-button (clickTrigger)="startConversation($event)"
                          [name]="'Start Conversation'"
-                         [btnType]="'action-btn'"></app-custom-button>
+                         [btnType]="'start-convo-btn'"></app-custom-button>
     </div>
   </ng-template>
+
+  <ng-template [ngIf]="user.id==myId">
+    <div class="profile-action-bar">
+      <app-custom-button (clickTrigger)="edit($event)"
+                         [name]="'Edit'"
+                         [btnType]="'edit-btn'"></app-custom-button>
+
+      <app-custom-button (clickTrigger)="delete($event)"
+                         [name]="'Delete'"
+                         [btnType]="'delete-btn'"></app-custom-button>
+    </div>
+  </ng-template>
+
 
 
   <div class="profile-content-container">

@@ -10,22 +10,13 @@ import {ChatViewComponent} from "./views/chat-view/chat-view.component";
 
 const routes: Routes = [
   {
-    path: 'test', component: ChatroomComponent,
+    path: '', component: ChatroomComponent,
     children: [
       {
         path: ':roomId', component: ChatViewComponent
       },
     ]
   },
-  {
-    path: '', component: ChatroomComponent,
-    children: [
-      {
-        path: ':roomId', component: ChatroomChatContainerComponent
-      },
-    ]
-  },
-
   {
     path: 'call/:roomId', component: CallroomComponent
   }

@@ -74,7 +74,7 @@ a.google span {
   background-color: #62b75d;
   padding: 0.8em;
   color: white;
-  margin-bottom: 1em;
+  margin-top: 2em;
   margin-left: 3.5em;
   font-weight: bold;
 }
@@ -89,7 +89,7 @@ a.google span {
   border-radius: 0.4em;
   border:none;
   outline: none;
-  background-color: #d96838;
+  background-color: #5eb945;
   padding: 0.8em;
   color: white;
   margin-top: 1.5em;
@@ -98,7 +98,65 @@ a.google span {
   font-weight: bold;
 }
 .action-btn:hover{
-  background-color: #d96838;
+  background-color: #52a93c;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.start-convo-btn{
+  border-radius: 0.4em;
+  border:none;
+  outline: none;
+  background-color: #5eb945;
+  padding: 0.8em;
+  color: white;
+  margin-top: 1.5em;
+  margin-left: 2em;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+.start-convo-btn:hover{
+  background-color: #52a93c;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.edit-btn{
+  border-radius: 0.8em;
+  border:none;
+  outline: none;
+  background-color: #e7ca5b;
+  padding: 0.8em;
+  color: white;
+  margin-top: 1.5em;
+  margin-left: 2em;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+.edit-btn:hover{
+  background-color: #e7c546;
+  transition: all 0.3s ease;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+.delete-btn{
+  border-radius: 0.8em;
+  border:none;
+  outline: none;
+  background-color: #ce484e;
+  padding: 0.8em;
+  color: white;
+  margin-top: 1.5em;
+  margin-left: 2em;
+  margin-bottom: 1em;
+  font-weight: bold;
+}
+
+.delete-btn:hover{
+  background-color: #bd3d43;
   transition: all 0.3s ease;
   cursor: pointer;
   font-weight: bold;

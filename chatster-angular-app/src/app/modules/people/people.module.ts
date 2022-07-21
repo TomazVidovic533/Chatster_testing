@@ -10,12 +10,14 @@ import {
 } from "../../shared/components/profile-information-item/profile-information-item.component";
 import {SharedModule} from "../../shared/shared.module";
 import { ProfileEditComponent } from './views/profile-edit/profile-edit.component';
+import { EditProfileFormComponent } from './components/edit-profile-form/edit-profile-form.component';
 
 @NgModule({
   declarations: [
     UsersOverviewComponent,
     UserProfileComponent,
-    ProfileEditComponent
+    ProfileEditComponent,
+    EditProfileFormComponent
   ],
   imports: [
     CommonModule,

@@ -1,5 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from "rxjs";
+import {Delete, Edit, MessageCircle, Trash} from "lucide-angular";
 
 @Component({
   selector: 'app-custom-button',
@@ -13,6 +14,9 @@ export class CustomButtonComponent implements OnInit {
   @Input() btnType!: string;
   @Output() clickTrigger = new EventEmitter<any>();
 
+  edit=Edit;
+  delete=Trash;
+  startConvo=MessageCircle;
 
   constructor() { }
 

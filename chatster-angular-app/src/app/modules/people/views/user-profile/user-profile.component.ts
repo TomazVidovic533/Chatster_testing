@@ -14,7 +14,10 @@ import {Room} from "../../../../core/models/room.model";
 })
 export class UserProfileComponent implements OnInit {
 
-  constructor(private route: ActivatedRoute, private userService: UsersService, private roomsService: RoomService) {
+  constructor(private route: ActivatedRoute,
+              private userService: UsersService,
+              private roomsService: RoomService,
+              private authService: AuthService) {
   }
 
   userData$!: Observable<User>;
@@ -50,6 +53,18 @@ export class UserProfileComponent implements OnInit {
       console.log(this.userObj);
       console.log("res",r);
       this.roomsService.startConversation(r, userIds)
+    }
+  }
+
+  edit(event: Event){
+
+  }
+
+  delete(event: Event){
+    if (this.myId != null) {
+      localStorage.removeItem('myUserId')
+      this.authService.deleteAccount();
+      this.authService.logOut();
     }
   }
 

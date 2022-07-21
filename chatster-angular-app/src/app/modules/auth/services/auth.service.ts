@@ -112,4 +112,10 @@ export class AuthService{
     });
   }
 
+  deleteAccount(){
+    this.fireAuth.authState.subscribe((user)=>{
+      user?.delete();
+    })
+  }
+
 }
