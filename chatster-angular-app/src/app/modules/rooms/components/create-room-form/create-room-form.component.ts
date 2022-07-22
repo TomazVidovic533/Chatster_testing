@@ -7,6 +7,7 @@ import {Observable} from "rxjs";
 import {User} from "../../../../core/models/user.model";
 import {FilesService} from "../../../../shared/services/files.service";
 import {Router} from "@angular/router";
+import {Timestamp} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-create-room-form',
@@ -46,7 +47,7 @@ export class CreateRoomFormComponent implements OnInit {
       recent_message: '',
       owner: 'nekaj',
       bio: this.createRoomForm.get('bio')?.value,
-      created_at: new Date().getTime()
+      created_at: Timestamp.now(),
     } as Room;
 
     this.roomService.uploadRoomProfilePhoto(newRoomData, this.createRoomForm.get('avatar')?.value);

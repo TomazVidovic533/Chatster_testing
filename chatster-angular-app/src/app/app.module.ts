@@ -10,12 +10,9 @@ import {provideFirestore, getFirestore} from '@angular/fire/firestore';
 import {provideFunctions, getFunctions} from '@angular/fire/functions';
 import {provideStorage, getStorage} from '@angular/fire/storage';
 import {AngularFireModule} from "@angular/fire/compat";
-
-import * as fromServices from "../services/base-service.service";
 import {NotFoundComponent} from './core/components/not-found/not-found.component';
 import {FormsModule} from "@angular/forms";
 import {LucideAngularModule} from "lucide-angular";
-
 
 @NgModule({
   declarations: [
@@ -34,7 +31,7 @@ import {LucideAngularModule} from "lucide-angular";
     FormsModule,
     LucideAngularModule.pick({})
   ],
-  providers: [fromServices.BaseServiceService],
+  providers: [],
   exports: [],
   bootstrap: [AppComponent]
 })

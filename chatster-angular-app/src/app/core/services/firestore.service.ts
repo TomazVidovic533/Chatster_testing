@@ -1,7 +1,8 @@
-import {map, Observable, shareReplay, Subject} from "rxjs";
-import {CollectionItem} from "../../../models/base-entity";
+import {map, Observable} from "rxjs";
+
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {Condition} from "../models/condition";
+import { CollectionItem } from "../models/collection-item.model";
 
 export class FirestoreService<T extends CollectionItem> {
   protected collection: AngularFirestoreCollection<T>;

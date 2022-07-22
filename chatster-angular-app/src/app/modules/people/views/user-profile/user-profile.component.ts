@@ -6,6 +6,7 @@ import {User} from "../../../../core/models/user.model";
 import {ActivatedRoute} from "@angular/router";
 import {RoomService} from "../../../rooms/services/room.service";
 import {Room} from "../../../../core/models/room.model";
+import {Timestamp} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-user-profile',
@@ -46,9 +47,9 @@ export class UserProfileComponent implements OnInit {
           is_private: true,
           is_group: false,
           recent_message: '',
-          created_at: new Date().getTime(),
+          created_at: Timestamp,
           avatar: this.userObj.avatar
-        } as Room, this.userObj, myUserData);
+        } as unknown as Room, this.userObj, myUserData);
       }
     })
   }
