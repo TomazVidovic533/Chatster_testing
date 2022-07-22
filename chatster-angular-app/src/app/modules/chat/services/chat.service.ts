@@ -48,7 +48,7 @@ export class ChatService extends FirestoreService<Message> {
     return this.listSubCollection(roomId, 'messages');
   }
 
-  getIds(roomId: string): Observable<any> {
+  getRoomMembersIds(roomId: string): Observable<any> {
     return this.firestore.collection('rooms').doc(roomId).collection('members')
       .snapshotChanges()
       .pipe(
@@ -114,10 +114,7 @@ export class ChatService extends FirestoreService<Message> {
         ),
         switchMap((messages: Message[]) => {
           const membersData$ = messages.map((message) =>
-            this.firestore
-              .collection(`users`)
-              .doc(message.sent_by)
-              .valueChanges()
+            this.firestore.collection(`users`).doc(message.sent_by).valueChanges()
           );
           return combineLatest([
             of(messages),

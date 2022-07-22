@@ -29,9 +29,9 @@ export class EditRoomFormComponent implements OnInit {
   ngOnInit(): void {
 
     this.editRoomForm = this.formBuilder.group({
-      name: new FormControl(this.roomData?.name || '', [Validators.required]),
-      is_private: new FormControl((this.roomData?.is_private || false) ? 'Private room' : 'Public room', [Validators.required]),
-      bio: new FormControl(this.roomData?.bio || '', [Validators.required])
+      name: new FormControl(null, [Validators.required]),
+      is_private: new FormControl(null, [Validators.required]),
+      bio: new FormControl(null, [Validators.required])
     });
 
     this.route.paramMap.pipe(
@@ -41,11 +41,10 @@ export class EditRoomFormComponent implements OnInit {
       })).subscribe((data) => {
       if (data.id != null) {
         this.roomData = data;
-        this.editRoomForm.get('name')?.setValue(data.name)
       }
     });
 
-
+    //(this.roomData?.is_private || false) ? 'Private room' : 'Public room'
   }
 
   editRoom(event: Event) {

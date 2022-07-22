@@ -40,8 +40,10 @@ export class SendMessagePanelComponent implements OnInit {
           sent_by: myUserData?.id,
           message: this.sendMessageForm.get('message')?.value,
         } as Message, this.roomId)
+
       }
     })
+   // this.sendMessageForm.get('message')?.reset();
   }
 
 }

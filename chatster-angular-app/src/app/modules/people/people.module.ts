@@ -11,6 +11,7 @@ import {
 import {SharedModule} from "../../shared/shared.module";
 import { ProfileEditComponent } from './views/profile-edit/profile-edit.component';
 import { EditProfileFormComponent } from './components/edit-profile-form/edit-profile-form.component';
+import {ReactiveFormsModule} from "@angular/forms";
 
 @NgModule({
   declarations: [
@@ -19,10 +20,11 @@ import { EditProfileFormComponent } from './components/edit-profile-form/edit-pr
     ProfileEditComponent,
     EditProfileFormComponent
   ],
-  imports: [
-    CommonModule,
-    PeopleRoutingModule,
-    SharedModule
-  ]
+    imports: [
+        CommonModule,
+        PeopleRoutingModule,
+        SharedModule,
+        ReactiveFormsModule
+    ]
 })
 export class PeopleModule { }

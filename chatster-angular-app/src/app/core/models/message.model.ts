@@ -1,5 +1,3 @@
-import {UploadFile} from "./file.model";
-import {User} from "./user.model";
 import { Timestamp } from '@angular/fire/firestore';
 
 export interface Message {
@@ -7,8 +5,7 @@ export interface Message {
   created_at?: Timestamp;
   sent_by?: string;
   message?: string;
-  file?: UploadFile
-  userData?: User;
+  fileId?: string;
 }
 
 export interface MappedMessage {

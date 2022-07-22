@@ -21,6 +21,7 @@ import {SharedModule} from "../../shared/shared.module";
 import {ReactiveFormsModule} from "@angular/forms";
 import {LucideAngularModule} from "lucide-angular";
 import { ChatViewComponent } from './views/chat-view/chat-view.component';
+import { FileDropDirective } from './directive/file-drop.directive';
 
 
 
@@ -40,6 +41,7 @@ import { ChatViewComponent } from './views/chat-view/chat-view.component';
     CallroomComponent,
     CallWindowsHolderComponent,
     ChatViewComponent,
+    FileDropDirective,
   ],
   imports: [
     SharedModule,

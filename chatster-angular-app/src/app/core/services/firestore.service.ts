@@ -174,6 +174,19 @@ export class FirestoreService<T extends CollectionItem> {
     });
   }
 
+  setSubCollectionDocument(documentId: string, collectionId: string, subCollectionDocumentId: string, item: T): Promise<T> {
+    return new Promise<T>((resolve, reject) => {
+      this.collection.doc(documentId).collection(collectionId)
+        .doc<T>(subCollectionDocumentId)
+        .set(item)
+        .then(() => {
+          resolve({
+            ...(item as any)
+          });
+        });
+    });
+  }
+
   delete(id: string): void {
     this.collection.doc<T>(id).delete();
   }

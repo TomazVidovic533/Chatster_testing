@@ -1,1 +1,36 @@
-<p>edit-profile-form works!</p>
+<div class="container forms">
+  <div class="form login">
+    <div class="form-content">
+      <!--<header>Edit room {{roomData?.name || ''}}</header> -->
+      <form action="#" [formGroup]="editUserForm">
+
+        <app-custom-form-input-text [type]="'text'"
+                                    formControlName="name"></app-custom-form-input-text>
+
+        <app-custom-form-input-text [type]="'text'"
+                                    formControlName="username"></app-custom-form-input-text>
+
+        <app-custom-form-input-text [type]="'select'"
+                                    formControlName="gender"
+                                    [optionItems]="genderOptions"></app-custom-form-input-text>
+
+        <app-custom-form-input-text [type]="'select'"
+                                    formControlName="language"
+                                    [optionItems]="languageOptions"></app-custom-form-input-text>
+
+        <app-custom-form-input-text [type]="'text'"
+                                    formControlName="bio"></app-custom-form-input-text>
+      </form>
+      {{editUserForm.getRawValue() | json}}
+      <div class="line"></div>
+
+      <div class="media-options">
+
+        <app-custom-button (clickTrigger)="editUser($event)"
+                             [name]="'Edit User'"
+                           [btnType]="'form-btn-create'"></app-custom-button>
+      </div>
+    </div>
+
+  </div>
+</div>

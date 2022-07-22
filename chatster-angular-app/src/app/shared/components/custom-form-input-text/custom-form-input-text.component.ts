@@ -29,20 +29,20 @@ export class CustomFormInputTextComponent implements OnInit, ControlValueAccesso
   ngOnInit(): void {
   }
 
-  registerOnChange(fn: any): void {
-    this.onChange = fn;
+  registerOnChange(onChange: any): void {
+    this.onChange = onChange;
   }
 
-  registerOnTouched(fn: any): void {
-    this.onTouched = fn;
+  registerOnTouched(onTouched: any): void {
+    this.onTouched = onTouched;
   }
 
 
   setDisabledState(isDisabled: boolean): void {
   }
 
-  writeValue(obj: any): void {
-    this.inputValue = obj ?? '';
+  writeValue(value: any): void {
+    this.inputValue = value ?? '';
   }
 
 }

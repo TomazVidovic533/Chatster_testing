@@ -1,7 +1,9 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, take} from "rxjs";
 import {MappedMessage, Message} from "../../../../../core/models/message.model";
 import {ChatService} from "../../../services/chat.service";
+import {FilesService} from "../../../../../shared/services/files.service";
+import {AuthService} from "../../../../auth/services/auth.service";
 
 @Component({
   selector: 'app-chatroom-message-window',
@@ -11,8 +13,15 @@ import {ChatService} from "../../../services/chat.service";
 export class ChatroomMessageWindowComponent implements OnInit {
   @ViewChild('scrollBar') private myScrollContainer!: ElementRef;
   @Input() chatMessages$!: Observable<MappedMessage[]>;
+  @Input() roomId!: string;
 
-  constructor(private chatService: ChatService) { }
+  isFileOverMessageWindow!: boolean;
+
+  files: File[] = [];
+
+  constructor(private chatService: ChatService,
+              private filesService: FilesService,
+              private authService: AuthService) { }
 
   ngOnInit(): void {
     this.chatMessages$.subscribe();
@@ -28,5 +37,20 @@ export class ChatroomMessageWindowComponent implements OnInit {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
     } catch(err) { }
   }
+
+  showFileDetection(isOver: boolean) {
+    this.isFileOverMessageWindow = isOver;
+  }
+
+   dropFiles(files: FileList) {
+    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+      for (let i = 0; i < files.length; i++) {
+        // @ts-ignore
+        this.filesService.sendFileAsMessage(files.item(i),this.roomId,user?.id);
+      }
+    })
+
+  }
+
 
 }
