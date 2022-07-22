@@ -6,6 +6,7 @@ import {SmilePlus} from "lucide-angular";
 import {AuthService} from "../../../../auth/services/auth.service";
 import {Observable, take} from "rxjs";
 import {Room} from "../../../../../core/models/room.model";
+import { Timestamp } from '@angular/fire/firestore';
 
 
 @Component({
@@ -35,7 +36,7 @@ export class SendMessagePanelComponent implements OnInit {
     this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
       if (this.roomId != null) {
         this.chatService.sendMessageToRoom({
-          created_at: new Date().getTime(),
+          created_at: Timestamp.now(),
           sent_by: myUserData?.id,
           message: this.sendMessageForm.get('message')?.value,
         } as Message, this.roomId)

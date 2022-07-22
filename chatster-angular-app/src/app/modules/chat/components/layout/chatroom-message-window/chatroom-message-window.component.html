@@ -1,4 +1,4 @@
-<div class="message-window">
+<div #scrollBar class="message-window">
   <ng-container *ngFor="let dataObject of (chatMessages$ | async)">
     <app-message [messageData]="dataObject"></app-message>
   </ng-container>

@@ -1,9 +1,10 @@
 import {Component, OnInit} from '@angular/core';
-import {BehaviorSubject, Observable} from "rxjs";
+import {BehaviorSubject, Observable, take} from "rxjs";
 import {Room} from "../../../../../core/models/room.model";
 import {UsersService} from "../../../../people/services/users.service";
 import {ChatService} from "../../../services/chat.service";
 import {RoomService} from "../../../../rooms/services/room.service";
+import {AuthService} from "../../../../auth/services/auth.service";
 
 @Component({
   selector: 'app-chatroom-room-container',
@@ -14,7 +15,9 @@ export class ChatroomRoomContainerComponent implements OnInit {
 
   rooms$!: Observable<Room[]>;
 
-  constructor(private usersService: UsersService,private chatService:ChatService) {
+  constructor(private usersService: UsersService,
+              private chatService:ChatService,
+              private authService: AuthService) {
   }
 
   ngOnInit(): void {
@@ -26,12 +29,13 @@ export class ChatroomRoomContainerComponent implements OnInit {
       })
     }*/
 
-    if (id) {
+    /*if (id) {
       this.rooms$=this.usersService.getUsersRooms(id);
       this.rooms$.subscribe((r)=>{
         console.log("wtf",r);
       })
-    }
+    }*/
+
 
   }
 }

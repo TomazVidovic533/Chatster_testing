@@ -1,6 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
 import {Observable} from "rxjs";
-import {Message} from "../../../../../core/models/message.model";
+import {MappedMessage, Message} from "../../../../../core/models/message.model";
 import {ChatService} from "../../../services/chat.service";
 
 @Component({
@@ -9,13 +9,24 @@ import {ChatService} from "../../../services/chat.service";
   styleUrls: ['./chatroom-message-window.component.css']
 })
 export class ChatroomMessageWindowComponent implements OnInit {
-
-  @Input() chatMessages$!: Observable<Message[]>;
+  @ViewChild('scrollBar') private myScrollContainer!: ElementRef;
+  @Input() chatMessages$!: Observable<MappedMessage[]>;
 
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
     this.chatMessages$.subscribe();
+    this.scrollToBottom();
+  }
+
+  ngAfterViewChecked() {
+    this.scrollToBottom();
+  }
+
+  scrollToBottom(): void {
+    try {
+      this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
+    } catch(err) { }
   }
 
 }

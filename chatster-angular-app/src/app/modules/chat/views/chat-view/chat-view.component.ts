@@ -14,7 +14,7 @@ import {
   tap, zip
 } from "rxjs";
 import {Room} from "../../../../core/models/room.model";
-import {Message} from "../../../../core/models/message.model";
+import {MappedMessage, Message} from "../../../../core/models/message.model";
 import {ChatService} from "../../services/chat.service";
 import {RoomService} from "../../../rooms/services/room.service";
 import {AuthService} from "../../../auth/services/auth.service";
@@ -27,7 +27,7 @@ import {AuthService} from "../../../auth/services/auth.service";
 export class ChatViewComponent implements OnInit {
 
   id!: string | null;
-  chatMessages$!: Observable<Message[]>;
+  chatMessages$!: Observable<MappedMessage[]>;
   roomData$!: Observable<Room>;
   roomId!: string
   test$!: any
@@ -40,19 +40,11 @@ export class ChatViewComponent implements OnInit {
   ngOnInit(): void {
 
 
-/*    this.test$ = this.route.params.pipe(
+    this.chatMessages$ = this.route.params.pipe(
       switchMap(params => {
-        this.roomId = params['roomId'];
-        return this.chatService.getProductInfo(params['roomId']);
+        return this.chatService.getMappedRoomMessages(params['roomId']);
       })
-    ).subscribe((r)=>{
-      console.log("DELA", r)
-    });*/
-
-    this.auth.getUserData().pipe(take(1)).subscribe((u)=>{
-     this.chatService.getRoomsOfUser(u?.id);
-    })
-
+    )
 
 
     this.route.params.pipe(
@@ -68,12 +60,12 @@ export class ChatViewComponent implements OnInit {
 
 
 
-    this.chatMessages$ = this.route.params.pipe(
+/*    this.chatMessages$ = this.route.params.pipe(
       switchMap(params => {
         this.roomId = params['roomId'];
         return this.chatService.getChatRoomMessages(params['roomId']);
       })
-    );
+    );*/
 
     this.roomData$ = this.route.params.pipe(
       switchMap(params => {

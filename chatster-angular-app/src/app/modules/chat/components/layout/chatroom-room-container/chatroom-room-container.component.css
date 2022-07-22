@@ -15,11 +15,6 @@
   scrollbar-color: #3d3d3d #dcdcdc;
 }
 
-@media (max-width: 700px) {
-  .user-panel-container{
-    width: 6.5em;
-  }
-}
 
 @media (max-width: 500px) {
   .user-panel-container{

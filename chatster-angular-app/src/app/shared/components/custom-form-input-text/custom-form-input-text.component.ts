@@ -37,11 +37,12 @@ export class CustomFormInputTextComponent implements OnInit, ControlValueAccesso
     this.onTouched = fn;
   }
 
+
   setDisabledState(isDisabled: boolean): void {
   }
 
   writeValue(obj: any): void {
-    this.inputValue = obj;
+    this.inputValue = obj ?? '';
   }
 
 }

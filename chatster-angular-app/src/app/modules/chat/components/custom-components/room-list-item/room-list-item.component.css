@@ -78,9 +78,9 @@
 }
 
 @media (max-width: 700px) {
-  .room-list-item-content {
+ /* .room-list-item-content {
     display:none
-  }
+  }*/
 }
 
 @media (max-width: 500px) {

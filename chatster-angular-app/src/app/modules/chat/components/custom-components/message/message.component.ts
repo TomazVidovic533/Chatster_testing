@@ -1,5 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Message} from "../../../../../core/models/message.model";
+import {MappedMessage, Message} from "../../../../../core/models/message.model";
+import {AuthService} from "../../../../auth/services/auth.service";
+import {take} from "rxjs";
 
 @Component({
   selector: 'app-message',
@@ -9,14 +11,16 @@ import {Message} from "../../../../../core/models/message.model";
 export class MessageComponent implements OnInit {
 
   myUserId!: string;
-  @Input() messageData!: Message;
+  @Input() messageData!: MappedMessage;
 
-  constructor() {
+
+  constructor(private authService: AuthService) {
   }
 
   ngOnInit(): void {
     // @ts-ignore
     this.myUserId = localStorage.getItem('myUserId');
+    this.authService.getUserData().pipe(take(1)).subscribe();
 
   }
 

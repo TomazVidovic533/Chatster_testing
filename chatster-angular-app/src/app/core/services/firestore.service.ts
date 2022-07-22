@@ -56,7 +56,6 @@ export class FirestoreService<T extends CollectionItem> {
   }
 
   searchWhere(collectionName: string,fieldName: string, query: string, condition: Condition): Observable<T[]> {
-
     return this.afs
       .collection(collectionName, ref => ref.orderBy(fieldName)
         // @ts-ignore
