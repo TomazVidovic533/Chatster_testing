@@ -13,6 +13,13 @@ import {AngularFireModule} from "@angular/fire/compat";
 import {NotFoundComponent} from './core/components/not-found/not-found.component';
 import {FormsModule} from "@angular/forms";
 import {LucideAngularModule} from "lucide-angular";
+import {TranslateLoader, TranslateModule} from "@ngx-translate/core";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -29,7 +36,16 @@ import {LucideAngularModule} from "lucide-angular";
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
     FormsModule,
-    LucideAngularModule.pick({})
+    HttpClientModule,
+    LucideAngularModule.pick({}),
+    HttpClientModule,
+    TranslateModule.forRoot({
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    })
   ],
   providers: [],
   exports: [],

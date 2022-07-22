@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import {TranslateService} from "@ngx-translate/core";
+
 
 @Component({
   selector: 'app-root',
@@ -7,4 +9,12 @@ import { Component } from '@angular/core';
 })
 export class AppComponent {
   title = 'chatster-angular-app';
+
+  constructor(private translate: TranslateService) {
+    translate.addLangs(['en', 'si', 'esp']);
+    translate.setDefaultLang('si');
+    translate.use('si');
+  }
+
+
 }

@@ -14,6 +14,7 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { CustomFileUploadComponent } from './components/custom-file-upload/custom-file-upload.component';
 import { CustomButtonComponent } from './components/custom-button/custom-button.component';
 import { SearchViewComponent } from './components/search-view/search-view.component';
+import {TranslateModule} from "@ngx-translate/core";
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { SearchViewComponent } from './components/search-view/search-view.compon
     CustomFormInputTextComponent,
     CustomFileUploadComponent,
     CustomButtonComponent,
-    SearchViewComponent
+    SearchViewComponent,
+    TranslateModule
   ]
 })
 export class SharedModule { }
