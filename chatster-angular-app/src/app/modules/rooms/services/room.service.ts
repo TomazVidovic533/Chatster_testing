@@ -21,7 +21,8 @@ export class RoomService extends FirestoreService<Room> {
       .collection('contacts').doc(otherUserData.id)
       .snapshotChanges().pipe(take(1)).subscribe(userContact => {
       if (userContact.payload.exists) {
-        this.router.navigate(['/app/chat/']);
+        const data = userContact.payload.data() as any;
+        this.router.navigate(['/app/chat/'+data.id]);
       } else {
         this.add(roomData).then((newRoomReference) => {
 
@@ -90,8 +91,18 @@ export class RoomService extends FirestoreService<Room> {
     this.router.navigate(['/app/chat/' + roomId]);
   }
 
-  getRoomMembersIds(roomId: string){
-    return this.listSubCollection(roomId,'members');
+  getCurrentRoom(userId: string | undefined, roomId: string | undefined){
+    return this.firestore.collection('users').doc(userId).collection('rooms').doc(roomId)
+      .snapshotChanges()
+      .pipe(
+        map(doc => {
+          if (doc.payload.exists) {
+            const data = doc.payload.data() as any;
+            const id = doc.payload.id;
+            return {id, ...data};
+          }
+        })
+      );
   }
 
 

@@ -1,32 +1,7 @@
 import {map, Observable, shareReplay, Subject} from "rxjs";
 import {CollectionItem} from "../../../models/base-entity";
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
-import {where} from "@angular/fire/firestore";
 import {Condition} from "../models/condition";
-
-export interface FirestoreDataService<T> {
-  get(id: string): Observable<T>;
-
-  getSubCollectionDocument(documentId: string, collectionId: string, collectionDocumentId: string): Observable<T>;
-
-  list(): Observable<T[]>;
-
-  listSubCollection(documentId: string, collectionId: string): Observable<T[]>;
-
-  add(item: T): Promise<T>;
-
-  addSubCollectionDocument(documentId: string, collectionId: string, item: T): Promise<T>;
-
-  update(item: T, id: string): Promise<T>;
-
-  updateSubCollectionDocument(documentId: string, collectionId: string, subCollectionDocumentId: string, item: T): Promise<T>;
-
-  delete(id: string): void;
-
-  deleteSubCollectionDocument(documentId: string, collectionId: string, subCollectionDocumentId: string): void;
-}
-
-
 
 export class FirestoreService<T extends CollectionItem> {
   protected collection: AngularFirestoreCollection<T>;

@@ -9,21 +9,17 @@ import {provideAuth, getAuth} from '@angular/fire/auth';
 import {provideFirestore, getFirestore} from '@angular/fire/firestore';
 import {provideFunctions, getFunctions} from '@angular/fire/functions';
 import {provideStorage, getStorage} from '@angular/fire/storage';
-import {TestComponent} from './test/test.component';
 import {AngularFireModule} from "@angular/fire/compat";
 
 import * as fromServices from "../services/base-service.service";
-import {MessagesTestComponent} from './messages-test/messages-test.component';
-import {TestModuleModule} from "./test-module/test-module.module";
 import {NotFoundComponent} from './core/components/not-found/not-found.component';
 import {FormsModule} from "@angular/forms";
+import {LucideAngularModule} from "lucide-angular";
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestComponent,
-    MessagesTestComponent,
     NotFoundComponent
   ],
   imports: [
@@ -35,8 +31,8 @@ import {FormsModule} from "@angular/forms";
     provideFirestore(() => getFirestore()),
     provideFunctions(() => getFunctions()),
     provideStorage(() => getStorage()),
-    TestModuleModule,
-    FormsModule
+    FormsModule,
+    LucideAngularModule.pick({})
   ],
   providers: [fromServices.BaseServiceService],
   exports: [],

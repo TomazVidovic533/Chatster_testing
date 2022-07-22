@@ -29,3 +29,9 @@
   padding-top: 0.5em;
   cursor: pointer;
 }
+
+@media (max-width: 750px) {
+  .chat-message-item-text{
+    max-width: 16em;
+  }
+}

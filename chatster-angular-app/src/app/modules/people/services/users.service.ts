@@ -26,16 +26,5 @@ export class UsersService extends FirestoreService<User> {
       );
   }
 
-  getUsersRoomsIds(userId: string){
-    return this.firestore.collection('users').doc(userId).collection('rooms')
-      .snapshotChanges()
-      .pipe(
-        map(changes => {
-          return changes.map(a => {
-            return a.payload.doc.id;
-          });
-        })
-      );
-  }
 
 }

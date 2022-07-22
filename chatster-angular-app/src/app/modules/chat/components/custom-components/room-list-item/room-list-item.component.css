@@ -42,6 +42,7 @@
 }
 
 .room-list-item-content-title{
+  word-wrap: break-word;
   font-size: 20px;
   padding-top: 0.8em;
   padding-right: 0.6em;
@@ -83,11 +84,16 @@
   }*/
 }
 
+
+
 @media (max-width: 500px) {
   .room-list-item-content {
     display:contents;
   }
   .room-list-item-content-title{
     padding-left: 2em;
+  }
+  .room-list-item{
+
   }
 }
