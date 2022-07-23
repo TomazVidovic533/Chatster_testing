@@ -1,1 +1,3 @@
-<app-edit-profile-form [userData]="userData"></app-edit-profile-form>
+<ng-container *ngIf="userData$ | async; let user">
+<app-edit-profile-form [userData]="user"></app-edit-profile-form>
+</ng-container>

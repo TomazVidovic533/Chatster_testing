@@ -16,7 +16,7 @@ export class EditProfileFormComponent implements OnInit {
   editUserForm!: FormGroup;
   languageOptions: string[] = ['Slovene', 'English', 'Spanish'];
   genderOptions: string[] = ['Male', 'Female'];
-  @Input() userData: any;
+  @Input() userData!: User;
 
   constructor(private formBuilder:FormBuilder,
               private router: Router,
@@ -26,20 +26,20 @@ export class EditProfileFormComponent implements OnInit {
   ngOnInit(): void {
     this.editUserForm = this.formBuilder.group({
       name: new FormControl(this.userData.name, [Validators.required]),
-      username: new FormControl(null, [Validators.required]),
-      gender: new FormControl(null, [Validators.required]),
-      language: new FormControl(null, [Validators.required]),
-      bio: new FormControl(null, [Validators.required]),
+      username: new FormControl(this.userData.username, [Validators.required]),
+      gender: new FormControl(this.userData.gender, [Validators.required]),
+      language: new FormControl(this.userData.language, [Validators.required]),
+      bio: new FormControl(this.userData.bio, [Validators.required]),
     });
   }
 
   editUser(event: Event){
     let editedData = {
       name: this.editUserForm.get('name')?.value,
-      username: this.editUserForm.get('name')?.value,
-      gender: this.editUserForm.get('name')?.value,
-      language: this.editUserForm.get('name')?.value,
-      bio: this.editUserForm.get('name')?.value
+      username: this.editUserForm.get('username')?.value,
+      gender: this.editUserForm.get('gender')?.value,
+      language: this.editUserForm.get('language')?.value,
+      bio: this.editUserForm.get('bio')?.value
     } as User;
 
     this.authService.getUserData().pipe(take(1)).subscribe((user)=>{

@@ -6,6 +6,7 @@ import {hasCustomClaim, redirectLoggedInTo, redirectUnauthorizedTo} from "@angul
 import {map, pipe} from "rxjs";
 import { customClaims } from '@angular/fire/compat/auth-guard';
 import {emailVerified} from "@angular/fire/compat/auth-guard";
+import {NotFoundComponent} from "../../core/components/not-found/not-found.component";
 
 const redirectUnauthorizedToLogin = () => redirectUnauthorizedTo(['auth/sign-in']);
 const redirectLoggedInToItems = () => redirectLoggedInTo(['app/home']);

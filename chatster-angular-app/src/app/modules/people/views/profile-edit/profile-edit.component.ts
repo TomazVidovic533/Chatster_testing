@@ -1,4 +1,7 @@
 import { Component, OnInit } from '@angular/core';
+import {Observable, take} from "rxjs";
+import {User} from "../../../../core/models/user.model";
+import {AuthService} from "../../../auth/services/auth.service";
 
 @Component({
   selector: 'app-profile-edit',
@@ -12,9 +15,14 @@ export class ProfileEditComponent implements OnInit {
     gender: 'g'
   };
 
-  constructor() { }
+  userData$!: Observable<User | null>;
+
+  constructor(private authService: AuthService) { }
 
   ngOnInit(): void {
+    this.userData$=this.authService.getUserData().pipe(take(1));
+    this.userData$.subscribe();
+
   }
 
 }

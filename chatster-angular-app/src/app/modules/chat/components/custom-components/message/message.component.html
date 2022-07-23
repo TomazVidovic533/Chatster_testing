@@ -10,7 +10,7 @@
           {{messageData.userData.name}}
         </div>
         <div class="chat-message-item-content-time">
-          <i>{{messageData.messageData.created_at?.toDate() | date:'shortTime' }}</i>
+          <i>{{messageData.messageData.created_at?.toDate() | date:'short' }}</i>
         </div>
       </div>
       <div class="chat-message-item-text"
@@ -26,13 +26,8 @@
   <div class="chat-message-item my-message">
     <div class="chat-message-item-content
                             content-my-message">
-      <div class="chat-message-item-text"
-          >
+      <div class="chat-message-item-text">
         {{messageData.messageData.message}}
-
-      <!--  <img class="file-message"
-             src="https://images.unsplash.com/photo-1657586640569-4a3d4577328c?ixlib=rb-1.2.1&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1064&q=80">
--->
       </div>
     </div>
   </div>

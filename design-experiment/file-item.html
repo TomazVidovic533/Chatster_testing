@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <style>
+
+*::-webkit-scrollbar {
+  width: 0.1em;
+}
+
+*::-webkit-scrollbar-track {
+  background: #dcdcdc;
+  border-radius: 0.1em;
+}
+
+*::-webkit-scrollbar-thumb {
+  background-color: #7c7878;
+  border-radius: 0.6em;
+}
+
+.grid::-webkit-scrollbar, body::-webkit-scrollbar { 
+    scrollbar-width: thin;          /* "auto" or "thin" */
+    scrollbar-color: #3d3d3d #dcdcdc; 
+}
+h1 {
+  font-size: 0.9em;
+  font-weight: 100;
+  letter-spacing: 3px;
+  padding-top: 5px;
+  color: white;
+  padding-bottom: 5px;
+  text-transform: uppercase;
+}
+
+p {
+  margin-top: -5px;
+  font-size: 0.5em;
+  font-weight: 100;
+  color: white;
+  letter-spacing: 1px;
+}
+
+button{
+  cursor: pointer;
+}
+
+#success-box {
+  position: absolute;
+  width: 35%;
+  height: 100%;
+  left: 12%;
+  background: green;
+  border-radius: 20px;
+  box-shadow: 5px 5px 20px black;
+  perspective: 40px;
+}
+
+.message {
+  position: absolute;
+  width: 100%;
+  text-align: center;
+  height: 40%;
+  top: 47%;
+}
+
+.button-box {
+  position: absolute;
+  background: white;
+  width: 50%;
+  height: 15%;
+  border-radius: 20px;
+  top: 73%;
+  left: 25%;
+  outline: 0;
+  border: none;
+  box-shadow: 2px 2px 10px black;
+  transition: all 0.5s ease-in-out;
+  
+}
+
+.button-box:hover {
+    background: blue;
+    transition: all 0.3s ease-in-out;
+  }
+
+
+</style>
+    </head>
+    <body>
+
+        <div id="success-box">
+            <div class="message">
+                <h1 class="alert">Success!</h1>
+                <p>yay, everything is working.</p>
+            </div>
+            <button class="button-box"><h1 class="green">continue</h1></button>
+        </div>
+
+
+    </body>
+</html>
