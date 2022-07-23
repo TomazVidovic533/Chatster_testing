@@ -17,18 +17,18 @@ export class RoomService extends FirestoreService<Room> {
   }
 
   startConversation(roomData: Room, otherUserData: User, myUserData: User) {
-    this.firestore.collection('users_contacts').doc(myUserData.id)
+    this.firestore.collection('users').doc(myUserData.id)
       .collection('contacts').doc(otherUserData.id)
       .snapshotChanges().pipe(take(1)).subscribe(userContact => {
       if (userContact.payload.exists) {
-        const data = userContact.payload.data() as any;
-        this.router.navigate(['/app/chat/'+data.id]);
+        //const data = userContact.payload.data() as any;
+        this.router.navigate(['/app/chat/']);
       } else {
         this.add(roomData).then((newRoomReference) => {
 
           if (newRoomReference.id != null) {
-            this.addRoomToUser(otherUserData, myUserData, newRoomReference.id, roomData);
-            this.addRoomToUser(myUserData, otherUserData, newRoomReference.id, roomData);
+            this.addRoomToUser(otherUserData,newRoomReference.id);
+            this.addRoomToUser(myUserData, newRoomReference.id);
 
             this.addUserToRoom(otherUserData, newRoomReference.id);
             this.addUserToRoom(myUserData, newRoomReference.id);
@@ -43,35 +43,27 @@ export class RoomService extends FirestoreService<Room> {
   }
 
   joinRoom(roomData: Room, user: User) {
-    this.firestore.collection('rooms').doc(roomData.id).collection('members').doc(user.id).set({
-      avatar: user.avatar,
-      name: user.name
-    })
-    this.firestore.collection('users').doc(user.id).collection('rooms').doc(roomData.id).set({
-      avatar: roomData.avatar,
-      name: roomData.name,
-      recent_message: ''
-    })
+    if (roomData.id != null) {
+      this.addRoomToUser(user, roomData.id);
+      this.addUserToRoom(user, roomData.id);
+    }
     this.router.navigate(['/app/chat/' + roomData.id]);
   }
 
-  private addRoomToUser(otherUser: User, myUser: User, newRoomReferenceId: string, roomData: Room) {
+  private addRoomToUser(myUser: User, newRoomReferenceId: string) {
     this.firestore.collection('users').doc(myUser.id).collection('rooms').doc(newRoomReferenceId).set({
-      avatar: otherUser.avatar,
-      name: otherUser.name,
-      recent_message: ''
+      is_member: true
     })
   }
 
   private addUserToRoom(user: User, newRoomReferenceId: string) {
     this.firestore.collection('rooms').doc(newRoomReferenceId).collection('members').doc(user.id).set({
-      avatar: user.avatar,
-      name: user.name
+      is_member: true
     })
   }
 
   private addContact(myUser: User, otherUser: User, newRoomReferenceId: string) {
-    this.firestore.collection('users_contacts').doc(myUser.id).collection('contacts').doc(otherUser.id).set({
+    this.firestore.collection('users').doc(myUser.id).collection('contacts').doc(otherUser.id).set({
       room_id: newRoomReferenceId
     })
   }
@@ -84,7 +76,7 @@ export class RoomService extends FirestoreService<Room> {
     /* this.firestore.collection('rooms').doc(roomId).update({
        members: arrayRemove(userId)
      });*/
-    this.firestore.collection('rooms').doc(roomId).collection('members').doc(userId).delete();
+    this.deleteSubCollectionDocument(roomId,'members', userId);
     this.firestore.collection('users').doc(userId).collection('rooms').doc(roomId).delete();
     this.router.navigate(['/app/chat/' + roomId]);
   }

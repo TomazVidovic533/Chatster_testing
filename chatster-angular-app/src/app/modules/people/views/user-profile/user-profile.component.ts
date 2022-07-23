@@ -43,11 +43,11 @@ export class UserProfileComponent implements OnInit {
     this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
       if (myUserData) {
         this.roomsService.startConversation({
-          name: this.userObj.name,
+          name: this.userObj.name + ' - ' + myUserData.name,
           is_private: true,
           is_group: false,
           recent_message: '',
-          created_at: Timestamp,
+          created_at: Timestamp.now(),
           avatar: this.userObj.avatar
         } as unknown as Room, this.userObj, myUserData);
       }
