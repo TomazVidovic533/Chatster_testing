@@ -30,6 +30,14 @@ export class ChatroomComponent implements OnInit {
         console.log("wtf",r);
       })
     }*/
+
+
+    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+      this.chatService.getUsersActiveRoomsAndContacts(user?.id).subscribe((res)=>{
+        console.log("test",res)
+      })
+    })
+
     this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
       this.usersRooms$=this.chatService.getRoomsOfUser(user?.id);
     })

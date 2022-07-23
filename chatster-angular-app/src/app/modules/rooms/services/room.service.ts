@@ -40,7 +40,19 @@ export class RoomService extends FirestoreService<Room> {
         });
       }
     });
+  }
 
+  joinRoom(roomData: Room, user: User) {
+    this.firestore.collection('rooms').doc(roomData.id).collection('members').doc(user.id).set({
+      avatar: user.avatar,
+      name: user.name
+    })
+    this.firestore.collection('users').doc(user.id).collection('rooms').doc(roomData.id).set({
+      avatar: roomData.avatar,
+      name: roomData.name,
+      recent_message: ''
+    })
+    this.router.navigate(['/app/chat/' + roomData.id]);
   }
 
   private addRoomToUser(otherUser: User, myUser: User, newRoomReferenceId: string, roomData: Room) {
@@ -63,20 +75,6 @@ export class RoomService extends FirestoreService<Room> {
       room_id: newRoomReferenceId
     })
   }
-
-  joinRoom(roomData: Room, user: User) {
-    this.firestore.collection('rooms').doc(roomData.id).collection('members').doc(user.id).set({
-      avatar: user.avatar,
-      name: user.name
-    })
-    this.firestore.collection('users').doc(user.id).collection('rooms').doc(roomData.id).set({
-      avatar: roomData.avatar,
-      name: roomData.name,
-      recent_message: ''
-    })
-    this.router.navigate(['/app/chat/' + roomData.id]);
-  }
-
 
   getUsersRooms(userId: string) {
     return this.listWhere('members', 'array-contains', userId);

@@ -3,21 +3,11 @@ import {FirestoreService} from "../../../core/services/firestore.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {ActivatedRoute, Router} from "@angular/router";
 import {Message} from "../../../core/models/message.model";
-import {
-  BehaviorSubject,
-  combineLatest,
-  forkJoin,
-  from,
-  map,
-  mergeMap,
-  Observable, of,
-  Subscription,
-  switchMap,
-  toArray
-} from "rxjs";
+import {BehaviorSubject, combineLatest, map, Observable, of, switchMap} from "rxjs";
 import {RoomService} from "../../rooms/services/room.service";
-import {User} from "../../../core/models/user.model";
 import {user} from "@angular/fire/auth";
+import {zip} from "rxjs/operators";
+
 
 @Injectable({
   providedIn: 'root'
@@ -140,5 +130,40 @@ export class ChatService extends FirestoreService<Message> {
        return messages;
      })
    )*/
+
+
+  getUsersContacts(userId: string | undefined): Observable<any> {
+    return this.firestore
+      .collection('users')
+      .doc(userId)
+      .collection('rooms')
+      .snapshotChanges()
+      .pipe(
+        map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
+        switchMap((products: any[]) => {
+          const pricesCols$ = products.map((p) =>
+            this.firestore
+              .collection(`rooms`).doc(p.id)
+              .valueChanges()
+          );
+          return combineLatest([of(products), combineLatest(pricesCols$.length ? pricesCols$ : [of([])])]);
+        }),
+        map(([products, pricesCols]) =>
+          products.map((p, idx) => {
+            p.roomData = pricesCols[idx];
+            return p;
+          })
+        )
+      );
+  }
+
+  getUsersActiveRoomsAndContacts(userId: string | undefined) {
+    let rooms$ = this.getRoomsOfUser(userId);
+    let contacts$ = this.getUsersContacts(userId);
+
+
+
+    return rooms$;
+  }
 }
 
