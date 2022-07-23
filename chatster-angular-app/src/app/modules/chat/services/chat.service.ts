@@ -7,7 +7,7 @@ import {BehaviorSubject, combineLatest, map, Observable, of, switchMap} from "rx
 import {RoomService} from "../../rooms/services/room.service";
 import {user} from "@angular/fire/auth";
 import {zip} from "rxjs/operators";
-
+import {forkJoin} from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
@@ -70,7 +70,7 @@ export class ChatService extends FirestoreService<Message> {
     return this.firestore
       .collection('users')
       .doc(userId)
-      .collection('rooms')
+      .collection('rooms',ref => ref.where('is_group','==', true))
       .snapshotChanges()
       .pipe(
         map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
@@ -92,7 +92,7 @@ export class ChatService extends FirestoreService<Message> {
   }
 
   getMappedRoomMessages(roomId: string) {
-   return this.collection
+    return this.collection
       .doc(roomId)
       .collection('messages', ref => ref.orderBy('created_at'))
       .snapshotChanges()
@@ -136,21 +136,21 @@ export class ChatService extends FirestoreService<Message> {
     return this.firestore
       .collection('users')
       .doc(userId)
-      .collection('rooms')
+      .collection('contacts')
       .snapshotChanges()
       .pipe(
         map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
         switchMap((products: any[]) => {
           const pricesCols$ = products.map((p) =>
             this.firestore
-              .collection(`rooms`).doc(p.id)
+              .collection(`users`).doc(p.id)
               .valueChanges()
           );
           return combineLatest([of(products), combineLatest(pricesCols$.length ? pricesCols$ : [of([])])]);
         }),
         map(([products, pricesCols]) =>
           products.map((p, idx) => {
-            p.roomData = pricesCols[idx];
+            p.userData = pricesCols[idx];
             return p;
           })
         )
@@ -158,12 +158,13 @@ export class ChatService extends FirestoreService<Message> {
   }
 
   getUsersActiveRoomsAndContacts(userId: string | undefined) {
-    let rooms$ = this.getRoomsOfUser(userId);
-    let contacts$ = this.getUsersContacts(userId);
-
-
-
-    return rooms$;
+    forkJoin([
+      this.getRoomsOfUser(userId),
+      this.getUsersContacts(userId)
+      ]
+    ).subscribe((r)=>{
+      console.log("r",r)
+    });
   }
 }
 

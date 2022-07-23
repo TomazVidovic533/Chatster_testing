@@ -27,8 +27,8 @@ export class RoomService extends FirestoreService<Room> {
         this.add(roomData).then((newRoomReference) => {
 
           if (newRoomReference.id != null) {
-            this.addRoomToUser(otherUserData,newRoomReference.id);
-            this.addRoomToUser(myUserData, newRoomReference.id);
+            this.addRoomToUser(otherUserData,newRoomReference.id, false);
+            this.addRoomToUser(myUserData, newRoomReference.id, false);
 
             this.addUserToRoom(otherUserData, newRoomReference.id);
             this.addUserToRoom(myUserData, newRoomReference.id);
@@ -44,15 +44,15 @@ export class RoomService extends FirestoreService<Room> {
 
   joinRoom(roomData: Room, user: User) {
     if (roomData.id != null) {
-      this.addRoomToUser(user, roomData.id);
+      this.addRoomToUser(user, roomData.id, true);
       this.addUserToRoom(user, roomData.id);
     }
     this.router.navigate(['/app/chat/' + roomData.id]);
   }
 
-  private addRoomToUser(myUser: User, newRoomReferenceId: string) {
+  private addRoomToUser(myUser: User, newRoomReferenceId: string, isGroup: boolean) {
     this.firestore.collection('users').doc(myUser.id).collection('rooms').doc(newRoomReferenceId).set({
-      is_member: true
+      is_group: isGroup
     })
   }
 
