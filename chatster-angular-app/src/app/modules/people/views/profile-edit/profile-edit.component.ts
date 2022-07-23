@@ -7,6 +7,11 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ProfileEditComponent implements OnInit {
 
+  userData: any = {
+    name:"name",
+    gender: 'g'
+  };
+
   constructor() { }
 
   ngOnInit(): void {

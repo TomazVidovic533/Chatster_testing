@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../../core/models/user.model";
 import {Router} from "@angular/router";
@@ -16,6 +16,7 @@ export class EditProfileFormComponent implements OnInit {
   editUserForm!: FormGroup;
   languageOptions: string[] = ['Slovene', 'English', 'Spanish'];
   genderOptions: string[] = ['Male', 'Female'];
+  @Input() userData: any;
 
   constructor(private formBuilder:FormBuilder,
               private router: Router,
@@ -24,7 +25,7 @@ export class EditProfileFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.editUserForm = this.formBuilder.group({
-      name: new FormControl(null, [Validators.required]),
+      name: new FormControl(this.userData.name, [Validators.required]),
       username: new FormControl(null, [Validators.required]),
       gender: new FormControl(null, [Validators.required]),
       language: new FormControl(null, [Validators.required]),

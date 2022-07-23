@@ -1,1 +1,16 @@
-<app-call-container></app-call-container>
+<!--<app-call-container></app-call-container> -->
+
+<div class="videocall-container">
+  <div class="videocall-holder">
+    <video #myStream [autoplay]="true" class="video-frame">1</video>
+    <video #otherStream [autoplay]="true"  class="video-frame">2</video>
+  </div>
+</div>
+
+<div class="videocall-controls-panel">
+  <button class="video-controll-button-item" (click)="join()">Start</button>
+  <button class="video-controll-button-item" (click)="createOffer()">Create offer</button>
+  <button class="video-controll-button-item" (click)="createAnswer()">Create answer</button>
+  <button class="video-controll-button-item">Share</button>
+  <button class="video-controll-button-item" (click)="leave()" >Stop</button>
+</div>
