@@ -5,16 +5,17 @@
 
     <ng-template [ngIf]="!room.is_private">
 
-        <app-custom-button routerLink="/app/chat/{{room.id}}"
-                           (clickTrigger)="joinRoom($event)"
-                           [name]="'Join Room'"
-                           [btnType]="'action-btn'"></app-custom-button>
+      <app-custom-button
+        routerLink="/app/chat/{{room.id}}"
+        (clickTrigger)="joinRoom($event)"
+        [name]="'Join'"
+        [btnType]="'join-btn'"></app-custom-button>
 
-        <app-custom-button routerLink="/app/rooms/{{room.id}}"
-                           (clickTrigger)="leaveRoom($event)"
-                           [name]="'Leave Room'"
-                           [btnType]="'action-btn'"></app-custom-button>
-
+      <app-custom-button
+        routerLink="/app/rooms/{{room.id}}"
+        (clickTrigger)="leaveRoom($event)"
+        [name]="'Leave'"
+        [btnType]="'leave-btn'"></app-custom-button>
 
       <app-custom-button
         [name]="'Edit'"
@@ -31,7 +32,7 @@
 
     <ng-template [ngIf]="room.is_private">
       <app-custom-button [name]="'Request Access'"
-                         [btnType]="'action-btn'"></app-custom-button>
+                         [btnType]="'request-btn'"></app-custom-button>
 
       <app-custom-button
         [name]="'Edit'"
@@ -66,6 +67,28 @@
     </ng-template>
   </div>
 
-  <!-- add members section -->
+
+  <app-table-view
+    [isOwner]="room.owner==myId"
+    [deleteActionHeader]="'Remove file'"
+    [nameHeader]="'File name'"
+    [title]="'Shared files inside room'"
+    viewActionHeader="See File's Content"
+    contentHeader=""
+    (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
+
+    <app-table-view
+      [isOwner]="room.owner==myId"
+      redirectPath="app/people"
+      [deleteActionHeader]="'Remove request'"
+      [nameHeader]="'Username'"
+      [title]="'User Requests'"
+      viewActionHeader="See User Profile"
+      contentHeader=""
+      (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
 
 </ng-container>
+
+
+
+

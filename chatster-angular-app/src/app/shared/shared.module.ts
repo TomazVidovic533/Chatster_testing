@@ -15,6 +15,8 @@ import { CustomFileUploadComponent } from './components/custom-file-upload/custo
 import { CustomButtonComponent } from './components/custom-button/custom-button.component';
 import { SearchViewComponent } from './components/search-view/search-view.component';
 import {TranslateModule} from "@ngx-translate/core";
+import { TableViewComponent } from './components/table-view/table-view.component';
+import { TableItemComponent } from './components/table-item/table-item.component';
 
 @NgModule({
   declarations: [
@@ -26,7 +28,9 @@ import {TranslateModule} from "@ngx-translate/core";
     CustomFormInputTextComponent,
     CustomFileUploadComponent,
     CustomButtonComponent,
-    SearchViewComponent
+    SearchViewComponent,
+    TableViewComponent,
+    TableItemComponent
   ],
     imports: [
         CommonModule,
@@ -45,7 +49,9 @@ import {TranslateModule} from "@ngx-translate/core";
     CustomFileUploadComponent,
     CustomButtonComponent,
     SearchViewComponent,
-    TranslateModule
+    TranslateModule,
+    TableItemComponent,
+    TableViewComponent
   ]
 })
 export class SharedModule { }

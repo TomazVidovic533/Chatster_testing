@@ -1,0 +1,97 @@
+<div class="table-content-container">
+  <table>
+    <caption>{{title}}</caption>
+
+
+    <ng-container *ngIf="redirectPath">
+      <thead>
+      <tr>
+        <th scope="col">{{contentHeader}}</th>
+        <th scope="col">{{nameHeader}}</th>
+        <th scope="col">{{viewActionHeader}}</th>
+        <ng-template [ngIf]="isOwner">
+          <th scope="col">{{deleteActionHeader}}</th>
+        </ng-template>
+
+      </tr>
+      </thead>
+    </ng-container>
+
+    <ng-container *ngIf="!redirectPath">
+      <thead>
+      <tr>
+        <th scope="col">{{nameHeader}}</th>
+        <th scope="col">{{viewActionHeader}}</th>
+        <ng-template [ngIf]="isOwner">
+          <th scope="col">{{deleteActionHeader}}</th>
+        </ng-template>
+      </tr>
+      </thead>
+    </ng-container>
+
+    <tbody>
+
+
+    <!-- user request -->
+
+    <ng-container *ngIf="redirectPath">
+      <tr>
+
+        <td>
+          <img
+            src="https://source.unsplash.com/1600x900/?nature"
+            class="image-item-table">
+        </td>
+
+        <td>Name</td>
+
+        <td><a class="see" routerLink="/{{redirectPath}}/ZetHct6P5UQC3kFqRXXmR5M3ocJ3">
+          <lucide-icon [img]="view" class="svg"></lucide-icon>
+        </a>
+        </td>
+
+        <ng-template [ngIf]="isOwner">
+          <td (click)="deleteClicked($event, 'moj id')"><a class="delete">
+            <lucide-icon [img]="trash" class="svg"></lucide-icon>
+          </a>
+          </td>
+        </ng-template>
+
+      </tr>
+    </ng-container>
+
+    <!-- files list -->
+    <ng-container *ngIf="!redirectPath">
+
+      <tr>
+
+        <td>Name</td>
+
+        <td><a class="see" (click)="goToUrl('https://firebasestorage.googleapis.com/v0/b/chatsterv2/o/files%2F1658523882397_Nov%20dokument%20z%20besedilom.txt?alt=media&token=c869fff3-7caa-44b8-b753-e8cff3710d62')">
+           <lucide-icon [img]="view" class="svg"></lucide-icon>
+        </a>
+        </td>
+
+        <ng-template [ngIf]="isOwner">
+          <td (click)="deleteClicked($event, 'moj id')"><a class="delete">
+            <lucide-icon [img]="trash" class="svg"></lucide-icon>
+          </a>
+          </td>
+        </ng-template>
+
+      </tr>
+    </ng-container>
+
+
+    </tbody>
+  </table>
+</div>
+
+
+<!--    <app-table-item
+      [id]="'ZetHct6P5UQC3kFqRXXmR5M3ocJ3'"
+      [name]="'Nekaj'"
+      [avatar]="'https://firebasestorage.googleapis.com/v0/b/chatsterv2/o/files%2F1658066808379_default_room_avatar.jpg?alt=media&token=06ef6cc7-6ca3-41ff-8614-85e269bb334c'"
+      [isOwner]="isOwner"
+      [redirectPath]="redirectPath"
+      (onDeleteTriggered)="deleteClicked($event[0],$event[1])"></app-table-item>-->

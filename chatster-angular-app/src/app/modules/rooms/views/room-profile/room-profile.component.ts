@@ -84,5 +84,8 @@ export class RoomProfileComponent implements OnInit {
   }
 
 
+  deleteFile(event: Event, id: string){
+      console.log("deletem", id)
+  }
 
 }

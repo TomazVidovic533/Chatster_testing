@@ -44,6 +44,24 @@
   </button>
 </ng-template>
 
+<ng-template [ngIf]="btnType=='join-btn'">
+  <button class="start-convo-btn"  (click)="triggerButton($event)">
+    <lucide-icon [img]="join" class="svg"></lucide-icon>
+  </button>
+</ng-template>
+
+<ng-template [ngIf]="btnType=='request-btn'">
+  <button class="start-convo-btn"  (click)="triggerButton($event)">
+    <lucide-icon [img]="request" class="svg"></lucide-icon>
+  </button>
+</ng-template>
+
+<ng-template [ngIf]="btnType=='leave-btn'">
+  <button class="delete-btn" routerLink="edit" (click)="triggerButton($event)">
+    <lucide-icon [img]="leave" class="svg"></lucide-icon>
+  </button>
+</ng-template>
+
 <ng-template [ngIf]="btnType=='delete-btn'">
   <button class="delete-btn" (click)="triggerButton($event)">
     <lucide-icon [img]="delete" class="svg"></lucide-icon>

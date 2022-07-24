@@ -1,6 +1,6 @@
 import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable} from "rxjs";
-import {Delete, Edit, MessageCircle, Trash} from "lucide-angular";
+import {Delete, Edit, ExternalLink, Fingerprint, LogOut, MessageCircle, Trash} from "lucide-angular";
 
 @Component({
   selector: 'app-custom-button',
@@ -17,6 +17,9 @@ export class CustomButtonComponent implements OnInit {
   edit=Edit;
   delete=Trash;
   startConvo=MessageCircle;
+  join=ExternalLink;
+  leave=LogOut;
+  request=Fingerprint;
 
   constructor() { }
 
