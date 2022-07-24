@@ -1,30 +1,29 @@
 
-<h2 style="text-align:center">Responsive Pricing Tables</h2>
-<p style="text-align:center">Resize the browser window to see the
-  effect.</p>
+<h2 style="text-align:center">Pricing</h2>
+<p style="text-align:center">If you want to use extra functionalities take a look at our additional services and upgrade your account.</p>
 
 
 <div class="columns">
   <ul class="price">
     <li class="header">Basic</li>
-    <li class="grey">$ 9.99 / year</li>
-    <li>10GB Storage</li>
-    <li>10 Emails</li>
-    <li>10 Domains</li>
-    <li>1GB Bandwidth</li>
-    <li class="grey"><a href="#" class="button">Sign Up</a></li>
+    <li class="grey">{{ 0 | currency:'EUR'}}</li>
+    <li>Chat with other people</li>
+    <li>Create rooms and chat together</li>
+    <li>Share files inside of conversations</li>
+    <li>Search people and rooms in realtime</li>
+    <li class="grey"><i>Already active</i></li>
   </ul>
 </div>
 
 <div class="columns">
   <ul class="price">
-    <li class="header" style="background-color:#04AA6D">Pro</li>
-    <li class="grey">$ 24.99 / year</li>
-    <li>25GB Storage</li>
-    <li>25 Emails</li>
-    <li>25 Domains</li>
-    <li>2GB Bandwidth</li>
-    <li class="grey"><a href="#" class="button">Sign Up</a></li>
+    <li class="header" style="background-color:#397ef6">Pro</li>
+    <li class="grey">{{ 10 | currency:'EUR'}}</li>
+    <li>Everything from  Free plan included</li>
+    <li>Unlimited number of private calls</li>
+    <li>You pay only once</li>
+    <li>Active forever</li>
+    <li class="grey"><a routerLink="/home/payment" class="activate-link">Activate here</a></li>
   </ul>
 </div>
 

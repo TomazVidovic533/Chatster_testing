@@ -7,6 +7,7 @@ import {SharedModule} from "../../shared/shared.module";
 import { FeaturesOverviewComponent } from './components/features-overview/features-overview.component';
 import { PricingOverviewComponent } from './components/pricing-overview/pricing-overview.component';
 import { UserContactsShortcutComponent } from './components/user-contacts-shortcut/user-contacts-shortcut.component';
+import {LucideAngularModule} from "lucide-angular";
 
 
 @NgModule({
@@ -16,10 +17,11 @@ import { UserContactsShortcutComponent } from './components/user-contacts-shortc
     PricingOverviewComponent,
     UserContactsShortcutComponent
   ],
-    imports: [
-        CommonModule,
-        HomeRoutingModule,
-        SharedModule
-    ]
+  imports: [
+    CommonModule,
+    HomeRoutingModule,
+    SharedModule,
+    LucideAngularModule
+  ]
 })
 export class HomeModule { }
