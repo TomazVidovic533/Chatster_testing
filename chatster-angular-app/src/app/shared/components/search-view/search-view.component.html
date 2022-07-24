@@ -2,7 +2,7 @@
   <div class="wrapper-item">
     <form [formGroup]="searchForm">
       <app-custom-form-input-text [type]="'search-input'"
-                                  [placeholderValue]="'Search for '+collectionName+'...'"
+                                  [placeholderValue]="searchInputLabel"
                                   formControlName="queryString"></app-custom-form-input-text>
 
 <!--      <app-custom-button (clickTrigger)="search($event)"

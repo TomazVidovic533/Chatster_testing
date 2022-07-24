@@ -23,6 +23,7 @@
     </div>
   </div>
 </ng-template>
+
 <ng-template [ngIf]="roomData.is_group">
   <div class="room-list-item" routerLink="{{roomData.id}}">
     <div class="room-list-item-header">
@@ -37,13 +38,15 @@
 
       </div>
       <div class="room-list-item-text">
+
         <ng-template [ngIf]="roomData.recent_message==''">
           No messages
         </ng-template>
+
         <ng-template [ngIf]="roomData.recent_message!=''">
           {{roomData.recent_message}}
         </ng-template>
-        {{roomData.recent_message}}
+
       </div>
     </div>
   </div>

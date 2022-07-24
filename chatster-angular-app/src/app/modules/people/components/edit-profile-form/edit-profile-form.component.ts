@@ -5,6 +5,7 @@ import {Router} from "@angular/router";
 import {AuthService} from "../../../auth/services/auth.service";
 import {take} from "rxjs";
 import {UsersService} from "../../services/users.service";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-edit-profile-form',
@@ -14,16 +15,26 @@ import {UsersService} from "../../services/users.service";
 export class EditProfileFormComponent implements OnInit {
 
   editUserForm!: FormGroup;
-  languageOptions: string[] = ['Slovene', 'English', 'Spanish'];
+  languageOptions: string[] = ['Slovene', 'English'];
   genderOptions: string[] = ['Male', 'Female'];
   @Input() userData!: User;
 
-  constructor(private formBuilder:FormBuilder,
+  constructor(private formBuilder: FormBuilder,
               private router: Router,
               private authService: AuthService,
-              private usersService: UsersService) { }
+              private usersService: UsersService,
+              private translateService: TranslateService) {
+  }
 
   ngOnInit(): void {
+    this.authService.getUserData().pipe().subscribe((user) => {
+      if (user?.language == 'Slovene') {
+        this.translateService.use('si');
+      } else if (user?.language == 'English') {
+        this.translateService.use('en');
+      }
+    })
+
     this.editUserForm = this.formBuilder.group({
       name: new FormControl(this.userData.name, [Validators.required]),
       username: new FormControl(this.userData.username, [Validators.required]),
@@ -33,7 +44,7 @@ export class EditProfileFormComponent implements OnInit {
     });
   }
 
-  editUser(event: Event){
+  editUser(event: Event) {
     let editedData = {
       name: this.editUserForm.get('name')?.value,
       username: this.editUserForm.get('username')?.value,
@@ -42,7 +53,15 @@ export class EditProfileFormComponent implements OnInit {
       bio: this.editUserForm.get('bio')?.value
     } as User;
 
-    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+    if (this.userData.language == 'English') {
+      this.translateService.use('en');
+    } else if (this.userData.language == 'Slovene') {
+      this.translateService.use('si')
+    } else if (this.userData.language == 'Spanish') {
+      this.translateService.use('esp')
+    }
+
+    this.authService.getUserData().pipe(take(1)).subscribe((user) => {
       this.usersService.update(editedData, <string>user?.id);
       this.router.navigate(['/app/profile/' + <string>user?.id]);
     })

@@ -5,6 +5,7 @@ import {ActivatedRoute, Router} from "@angular/router";
 import {RoomService} from "../../services/room.service";
 import {Room} from "../../../../core/models/room.model";
 import {AuthService} from "../../../auth/services/auth.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 @Component({
@@ -17,19 +18,37 @@ export class RoomProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
               private authService: AuthService,
+              private translateService: TranslateService,
               private router: Router) {
   }
 
   roomData$!: Observable<Room>;
   roomObject!: Room;
-  myId!: string;
+  myId!: string | undefined;
   roomId!: string | null;
+
+  createdAtLabel!: string;
+  typeLabel!: string;
+  bioLabel!: string;
+  privateRoomLabel!: string;
+  publicRoomLabel!: string;
 
   ngOnInit(): void {
     // @ts-ignore
-    this.myId = localStorage.getItem('myUserId');
+    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+      this.myId = user?.id
+    })
 
     this.roomId = this.route.snapshot.paramMap.get('roomId')
+
+    this.translateService.get(['profile.created_at','profile.bio','profile.public_room', 'profile.private_room', 'profile.type'])
+      .subscribe(translations => {
+        this.createdAtLabel=translations['profile.created_at'];
+        this.bioLabel=translations['profile.bio'];
+        this.typeLabel=translations['profile.type'];
+        this.publicRoomLabel=translations['profile.public_room'];
+        this.privateRoomLabel=translations['profile.private_room'];
+      });
 
     if (this.roomId) {
       this.roomData$ = this.roomService.get(this.roomId);
@@ -51,7 +70,9 @@ export class RoomProfileComponent implements OnInit {
 
   leaveRoom(event: Event){
     if (this.roomId != null) {
-      this.roomService.leaveRoom(this.roomId, this.myId);
+      if (typeof this.myId === "string") {
+        this.roomService.leaveRoom(this.roomId, this.myId);
+      }
     }
   }
 

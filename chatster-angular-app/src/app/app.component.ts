@@ -1,5 +1,7 @@
-import { Component } from '@angular/core';
+import {ChangeDetectorRef, Component} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
+import {switchMap} from "rxjs";
+import {AuthService} from "./modules/auth/services/auth.service";
 
 
 @Component({
@@ -10,10 +12,12 @@ import {TranslateService} from "@ngx-translate/core";
 export class AppComponent {
   title = 'chatster-angular-app';
 
-  constructor(private translate: TranslateService) {
-    translate.addLangs(['en', 'si', 'esp']);
-    translate.setDefaultLang('si');
-    translate.use('si');
+  constructor(private _changeDetectorRef: ChangeDetectorRef, private translate: TranslateService) {
+    translate.addLangs(['en', 'si']);
+    this.translate.onLangChange.subscribe((language)=>{
+      this.translate.use(language.lang);
+      this._changeDetectorRef.detectChanges();
+    })
   }
 
 

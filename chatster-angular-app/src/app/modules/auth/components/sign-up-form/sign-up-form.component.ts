@@ -12,8 +12,8 @@ export class SignUpFormComponent implements OnInit {
 
   signUpForm!: FormGroup;
 
-  genderOptions: string[] = ['Male', 'Female', 'Other'];
-  languageOptions: string[] = ['Slovene', 'English', 'Spanish'];
+  genderOptions: string[] = ['Male', 'Female'];
+  languageOptions: string[] = ['Slovene', 'English'];
 
   constructor(private formBuilder: FormBuilder,private authService: AuthService) {
   }

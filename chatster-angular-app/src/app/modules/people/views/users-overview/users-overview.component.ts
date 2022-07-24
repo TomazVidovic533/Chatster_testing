@@ -3,6 +3,8 @@ import {Observable, shareReplay, switchMap} from "rxjs";
 import {User} from "../../../../core/models/user.model";
 import {UsersService} from "../../services/users.service";
 import {SearchService} from "../../../../shared/services/search.service";
+import {AuthService} from "../../../auth/services/auth.service";
+import {TranslateService} from "@ngx-translate/core";
 
 
 
@@ -14,9 +16,20 @@ import {SearchService} from "../../../../shared/services/search.service";
 export class UsersOverviewComponent implements OnInit {
 
   users$!: Observable<User[]>;
-  constructor(private usersService: UsersService, private searchService: SearchService) {}
+  constructor(private usersService: UsersService,
+              private authService: AuthService,
+              private translateService: TranslateService) {}
 
   ngOnInit(): void {
+
+    this.authService.getUserData().pipe().subscribe((user) => {
+      if (user?.language == 'Slovene') {
+        this.translateService.use('si');
+      } else if (user?.language == 'English') {
+        this.translateService.use('en');
+      }
+    })
+
     this.users$ =  this.usersService.list().pipe(shareReplay(1));
     this.users$.subscribe((res)=>{console.log("list", res)});
   }

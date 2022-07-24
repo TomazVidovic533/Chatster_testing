@@ -13,6 +13,7 @@ import {Timestamp} from "@angular/fire/firestore";
 import {user} from "@angular/fire/auth";
 import {Message} from "../../core/models/message.model";
 import {ChatService} from "../../modules/chat/services/chat.service";
+import {getStorage, ref} from "@angular/fire/storage";
 
 
 @Injectable({providedIn: 'root'})
@@ -112,7 +113,13 @@ export class FilesService extends FirestoreService<UploadFile> {
   }
 
   downloadFile() {
-
+  /*      const xhr = new XMLHttpRequest();
+        xhr.responseType = 'blob';
+        xhr.onload = (event) => {
+          const blob = xhr.response;
+        };
+        xhr.open('GET', 'https://firebasestorage.googleapis.com/v0/b/chatsterv2/o/files%2F1658614050404_default_room_avatar.jpg?alt=media&token=62a84a90-0739-46d5-8766-806310f28bf6');
+        xhr.send();*/
   }
 }
 

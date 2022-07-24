@@ -30,7 +30,7 @@ export class ChatViewComponent implements OnInit {
   chatMessages$!: Observable<MappedMessage[]>;
   roomData$!: Observable<Room>;
   roomId!: string
-  test$!: any
+
   constructor(private route: ActivatedRoute,
               private chatService: ChatService,
               private roomsService: RoomService,

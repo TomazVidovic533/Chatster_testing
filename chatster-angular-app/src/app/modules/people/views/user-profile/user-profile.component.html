@@ -25,27 +25,30 @@
 
   <div class="profile-content-container">
 
-    <app-profile-information-item [label]="'Username'"
+    <app-profile-information-item [label]="createdAtLabel"
+                                  [content]="'date'" [date]="user?.created_at"></app-profile-information-item>
+
+    <app-profile-information-item [label]="usernameLabel"
                                   [content]="user.username"></app-profile-information-item>
 
-    <app-profile-information-item [label]="'Email'"
+    <app-profile-information-item [label]="emailLabel"
                                   [content]="user.email"></app-profile-information-item>
 
-    <app-profile-information-item [label]="'Gender'"
+    <app-profile-information-item [label]="genderLabel"
                                   [content]="user.gender"></app-profile-information-item>
 
-    <app-profile-information-item [label]="'Language'"
+    <app-profile-information-item [label]="languageLabel"
                                   [content]="user.language"></app-profile-information-item>
 
-    <app-profile-information-item [label]="'Bio'"
+    <app-profile-information-item [label]="bioLabel"
                                   [content]="user.bio"></app-profile-information-item>
 
     <ng-template [ngIf]="user.is_pro_member== null||user.is_pro_member == undefined || user.is_pro_member == false">
-      <app-profile-information-item [label]="'PRO status'"
+      <app-profile-information-item [label]="proStatusLabel"
                                     [content]="'Not a PRO member'"></app-profile-information-item>
     </ng-template>
     <ng-template [ngIf]="user.is_pro_member">
-      <app-profile-information-item [label]="'PRO status'"
+      <app-profile-information-item [label]="proStatusLabel"
                                     [content]="'PRO member status active'"></app-profile-information-item>
     </ng-template>
 

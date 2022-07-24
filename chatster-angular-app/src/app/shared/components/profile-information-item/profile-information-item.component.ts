@@ -1,4 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
+import {Timestamp} from "@angular/fire/firestore";
 
 @Component({
   selector: 'app-profile-information-item',
@@ -8,7 +9,8 @@ import {Component, Input, OnInit} from '@angular/core';
 export class ProfileInformationItemComponent implements OnInit {
 
   @Input() label!:string;
-  @Input() content!:string | undefined | Date;
+  @Input() content!:string | undefined;
+  @Input() date!: Timestamp | undefined;
 
   constructor() { }
 

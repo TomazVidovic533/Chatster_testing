@@ -1,4 +1,4 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {first, Observable, switchMap, take} from "rxjs";
 import {AuthService} from "../../../auth/services/auth.service";
 import {UsersService} from "../../services/users.service";
@@ -7,6 +7,7 @@ import {ActivatedRoute} from "@angular/router";
 import {RoomService} from "../../../rooms/services/room.service";
 import {Room} from "../../../../core/models/room.model";
 import {Timestamp} from "@angular/fire/firestore";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-user-profile',
@@ -18,18 +19,69 @@ export class UserProfileComponent implements OnInit {
   constructor(private route: ActivatedRoute,
               private userService: UsersService,
               private roomsService: RoomService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private translateService: TranslateService,
+              private _changeDetectorRef: ChangeDetectorRef) {
   }
 
   userData$!: Observable<User>;
   userObj!: User;
   id!: string | null;
-  myId!: string | null;
+  myId!: string | undefined;
+
+  createdAtLabel!: string;
+  nameLabel!: string;
+  usernameLabel!: string;
+  emailLabel!: string;
+  genderLabel!: string;
+  languageLabel!: string;
+  bioLabel!: string;
+  proStatusLabel!: string;
+
 
   ngOnInit(): void {
 
+    this.authService.getUserData().pipe().subscribe((user) => {
+      if (user?.language == 'Slovene') {
+        this.translateService.use('si');
+      } else if (user?.language == 'English') {
+        this.translateService.use('en');
+      }
+    })
+
+    this.translateService.onLangChange.subscribe((language)=>{
+      this.translateService.use(language.lang);
+      this._changeDetectorRef.detectChanges();
+    })
+
+
+    this.authService.getUserData().pipe(take(1)).subscribe((userData) => {
+      // @ts-ignore
+      this.myId = userData.id;
+    })
+
+    this.translateService.get([
+      'profile.created_at',
+      'profile.bio',
+      'profile.name',
+      'profile.username',
+      'profile.email',
+      'profile.gender',
+      'profile.language',
+      'profile.pro'])
+      .subscribe(translations => {
+        this.createdAtLabel = translations['profile.created_at'];
+        this.bioLabel = translations['profile.bio'];
+        this.nameLabel = translations['profile.name'];
+        this.usernameLabel = translations['profile.username'];
+        this.emailLabel = translations['profile.email'];
+        this.genderLabel = translations['profile.gender'];
+        this.languageLabel = translations['profile.language'];
+        this.proStatusLabel = translations['profile.pro'];
+      });
+
+
     this.id = this.route.snapshot.paramMap.get('userId');
-    this.myId = localStorage.getItem('myUserId')
 
     if (this.id) {
       this.userData$ = this.userService.get(this.id);

@@ -4,6 +4,7 @@ import {catchError, debounceTime, Observable, of, startWith, Subject, switchMap}
 import {SearchService} from "../../services/search.service";
 import {DataObjectItem} from "../../models/data-object-item";
 import {Condition} from "../../../core/models/condition";
+import {TranslateService} from "@ngx-translate/core";
 
 @Component({
   selector: 'app-search-view',
@@ -13,13 +14,15 @@ import {Condition} from "../../../core/models/condition";
 export class SearchViewComponent implements OnInit {
 
   searchForm!: FormGroup;
-  querySubmit$ = new Subject<Event>;
   queryResults$!: Observable<DataObjectItem[]>;
 
   @Input() collectionName!: string;
   @Input() condition!: Condition;
+  searchInputLabel!: string;
 
-  constructor(private formBuilder: FormBuilder, private searchService: SearchService) {
+  constructor(private formBuilder: FormBuilder,
+              private searchService: SearchService,
+              private translateService: TranslateService) {
   }
 
   ngOnInit(): void {
@@ -28,32 +31,37 @@ export class SearchViewComponent implements OnInit {
       queryString: new FormControl('', [Validators.required]),
     });
 
+    this.translateService.get(['search_' + this.collectionName])
+      .subscribe(translations => {
+        this.searchInputLabel=translations['search_' + this.collectionName];
+      });
+
     // @ts-ignore
     this.queryResults$ = this.searchForm.get('queryString').valueChanges.pipe(
       startWith(''),
       debounceTime(350),
-      switchMap(queryString =>{
-        if(!this.condition){
-          return this.searchService.search(this.collectionName,'name', queryString)
+      switchMap(queryString => {
+        if (!this.condition) {
+          return this.searchService.search(this.collectionName, 'name', queryString)
         }
-        return this.searchService.searchWhere(this.collectionName,'name', queryString, this.condition);
+        return this.searchService.searchWhere(this.collectionName, 'name', queryString, this.condition);
       }));
 
-/*    this.queryResults$ = this.querySubmit$
-      .pipe(
-        switchMap((event) => {
-          const {queryString} = this.searchForm.value;
-          if(!this.condition){
-            return this.searchService.search(this.collectionName,'name', queryString)
-          }
-          return this.searchService.searchWhere(this.collectionName,'name', queryString, this.condition);
-        }),
-      );*/
+    /*    this.queryResults$ = this.querySubmit$
+          .pipe(
+            switchMap((event) => {
+              const {queryString} = this.searchForm.value;
+              if(!this.condition){
+                return this.searchService.search(this.collectionName,'name', queryString)
+              }
+              return this.searchService.searchWhere(this.collectionName,'name', queryString, this.condition);
+            }),
+          );*/
 
 
   }
 
   search(event: Event) {
-   // this.querySubmit$..next(event);
+    // this.querySubmit$..next(event);
   }
 }

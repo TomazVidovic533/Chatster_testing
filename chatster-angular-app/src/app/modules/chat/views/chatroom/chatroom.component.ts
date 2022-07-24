@@ -20,45 +20,52 @@ export class ChatroomComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    /*let id = localStorage.getItem('myUserId');
-    if (id) {
-      this.usersRooms$=this.roomsService.getUsersRooms(id);
-      this.usersRooms$.subscribe();
-    }*/
-    /*  if (id) {
-        this.usersRooms$=this.usersService.getUsersRooms(id);
-        this.usersRooms$.subscribe((r)=>{
-          console.log("wtf",r);
-        })
-      }*/
-
-
-     this.usersRooms$=this.authService.getUserData().pipe(
+    this.usersRooms$ = this.authService.getUserData().pipe(
       switchMap(user => combineLatest([
         this.chatService.getRoomsOfUser(user?.id),
         this.chatService.getUsersContacts(user?.id)
       ])),
       map(([rooms, contacts]) => {
-        return [...rooms, ...contacts];
+        let combined = [...rooms, ...contacts];
+        console.log(combined)
+        let mappedContacts = [];
+        for (const element of combined) {
+          mappedContacts.push({
+            id: element.id,
+            avatar: (element.userData ? element.userData.avatar : element.roomData.avatar),
+            name: (element.userData ? element.userData.name : element.roomData.name)
+          })
+        }
+        return mappedContacts;
       })
     );
 
-  /*  return {
-      id: (o.room_id ? o.room_id: o.id),
-      avatar: (o.userData ? o.userData.avatar: o.roomData.avatar),
-      name: (o.userData ? o.userData.name: o.roomData.name)
-    }*/
-
-     this.usersRooms$.subscribe((r)=>{
-       console.log(r)
-     })
-
-    /*  this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
-        this.chatService.getUsersActiveRoomsAndContacts(user?.id);
-      })*/
-
-    /*this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
-      this.usersRooms$=this.chatService.getRoomsOfUser(user?.id);
-    })*/
+    this.usersRooms$.subscribe()
   }
 }
+
+
+/*  return {
+    id: (o.room_id ? o.room_id: o.id),
+    avatar: (o.userData ? o.userData.avatar: o.roomData.avatar),
+    name: (o.userData ? o.userData.name: o.roomData.name)
+  }*/
+/*  this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+    this.chatService.getUsersActiveRoomsAndContacts(user?.id);
+  })*/
+
+/*this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+  this.usersRooms$=this.chatService.getRoomsOfUser(user?.id);
+})*/
+
+/*let id = localStorage.getItem('myUserId');
+if (id) {
+this.usersRooms$=this.roomsService.getUsersRooms(id);
+this.usersRooms$.subscribe();
+}*/
+/*  if (id) {
+    this.usersRooms$=this.usersService.getUsersRooms(id);
+    this.usersRooms$.subscribe((r)=>{
+      console.log("wtf",r);
+    })
+  }*/

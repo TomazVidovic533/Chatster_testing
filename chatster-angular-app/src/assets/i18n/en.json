@@ -1,5 +1,29 @@
 {
 
-  "hello": "hello"
-
+  "welcome-string": "Welcome to chat platform Chatster!",
+  "profile" : {
+    "username" : "Username",
+    "email" : "Email",
+    "name" : "Name",
+    "gender" : "Gender",
+    "language" : "Language",
+    "private_room" : "Private Room",
+    "public_room" : "Public Room",
+    "created_at": "Create At",
+    "type": "Type",
+    "bio": "Description",
+    "pro": "PRO member",
+    "male": "Male",
+    "female": "Female",
+    "slovene": "Slovene",
+    "english": "English"
+  },
+  "search_users": "Search for users...",
+  "search_rooms": "Search for rooms...",
+  "create_room_btn": "Create Room",
+  "join_room_btn": "Join Room",
+  "request_room_btn": "Request Access",
+  "edit_room_string": "Edit Room",
+  "edit_profile_string": "Edit Profile",
+  "avatar-btn": "Choose avatar"
 }

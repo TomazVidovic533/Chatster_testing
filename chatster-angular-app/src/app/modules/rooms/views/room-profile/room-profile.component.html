@@ -49,17 +49,20 @@
 
   <div class="profile-content-container">
 
-    <app-profile-information-item [label]="'Bio'"
+    <app-profile-information-item [label]="createdAtLabel"
+                                  [content]="'date'" [date]="room?.created_at"></app-profile-information-item>
+
+    <app-profile-information-item [label]="bioLabel"
                                   [content]="room.bio"></app-profile-information-item>
 
     <ng-template [ngIf]="room.is_private">
-      <app-profile-information-item [label]="'Type'"
-                                    [content]="'Private room'"></app-profile-information-item>
+      <app-profile-information-item [label]="typeLabel"
+                                    [content]="privateRoomLabel"></app-profile-information-item>
     </ng-template>
 
     <ng-template [ngIf]="!room.is_private">
-      <app-profile-information-item [label]="'Type'"
-                                    [content]="'Public room'"></app-profile-information-item>
+      <app-profile-information-item [label]="typeLabel"
+                                    [content]="publicRoomLabel"></app-profile-information-item>
     </ng-template>
   </div>
 

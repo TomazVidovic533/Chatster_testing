@@ -1,5 +1,30 @@
 {
 
-  "hello": "zdravo"
-
+  "welcome-string": "Pozdravljen v spletni klepetalnici Chatster!",
+  "profile" : {
+    "username" : "Uporabniško ime",
+    "email" : "Elektronski naslov",
+    "name" : "Ime",
+    "gender" : "Spol",
+    "language" : "Jezik",
+    "private_room" : "Zasebna soba",
+    "public_room" : "Javna soba",
+    "created_at": "Ustvarjeno dne",
+    "type": "Vrsta sobe",
+    "bio": "Opis",
+    "pro": "PRO uporabnik",
+    "male": "Moški",
+    "female": "Female",
+    "slovene": "Sloveščina",
+    "english": "Angleščina"
+  },
+  "search_users": "Išči po uporabnikih....",
+  "search_rooms": "Išči po sobah....",
+  "create_room_string": "Ustvari novo sobo",
+  "create_room_btn": "Ustvari sobo",
+  "join_room_btn": "Pridruži se sobi",
+  "request_room_btn": "Zahtevaj dostop",
+  "edit_room_string": "Uredi sobo",
+  "edit_profile_string": "Uredi profil",
+  "avatar-btn": "Izberi sliko"
 }

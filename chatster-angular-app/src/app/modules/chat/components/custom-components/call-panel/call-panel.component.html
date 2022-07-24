@@ -7,6 +7,6 @@
     {{(roomData$ | async)?.name}}
   </div>
   <div class="call-panel-videocall">
-    <lucide-icon [img]="videocall" class="svg"></lucide-icon>
+    <lucide-icon [img]="videocall" style="cursor: pointer;" (click)="createCallRoom()"  class="svg"></lucide-icon>
   </div>
 </div>

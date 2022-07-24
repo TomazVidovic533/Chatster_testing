@@ -11,11 +11,12 @@ import {ChatService} from "../../../services/chat.service";
 export class RoomListItemComponent implements OnInit {
 
   @Input() roomData!: Room;
+
   constructor() { }
 
   ngOnInit(): void {
 
-    console.log("moja soba", this.roomData)
+    console.log("room-list-item", this.roomData)
   }
 
 

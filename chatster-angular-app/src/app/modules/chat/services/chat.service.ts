@@ -13,19 +13,8 @@ import {forkJoin} from 'rxjs';
   providedIn: 'root'
 })
 export class ChatService extends FirestoreService<Message> {
-  get roomId$(): BehaviorSubject<string> {
-    return this._roomId$;
-  }
 
-  set roomId$(value: BehaviorSubject<string>) {
-    this._roomId$ = value;
-  }
-
-  private _roomId$: BehaviorSubject<string> = new BehaviorSubject<string>('');
-
-  constructor(private firestore: AngularFirestore,
-              private route: ActivatedRoute,
-              private roomsService: RoomService) {
+  constructor(private firestore: AngularFirestore) {
     super("room_messages", firestore);
 
   }
@@ -36,20 +25,6 @@ export class ChatService extends FirestoreService<Message> {
 
   getChatRoomMessages(roomId: string): Observable<Message[]> {
     return this.listSubCollection(roomId, 'messages');
-  }
-
-  getRoomMembersIds(roomId: string): Observable<any> {
-    return this.firestore.collection('rooms').doc(roomId).collection('members')
-      .snapshotChanges()
-      .pipe(
-        map(changes => {
-          return changes.map(a => {
-            const data = a.payload.doc.data() as any;
-            data.id = a.payload.doc.id;
-            return data;
-          });
-        })
-      );
   }
 
   getMessages(roomId: string) {
@@ -121,16 +96,6 @@ export class ChatService extends FirestoreService<Message> {
         )
       );
   }
-
-  /* return combineLatest([
-     this.getIds(roomId),
-     this.getMessages(roomId)
-   ]).pipe(
-     map(([members,messages]) => {
-       return messages;
-     })
-   )*/
-
 
   getUsersContacts(userId: string | undefined): Observable<any> {
     return this.firestore

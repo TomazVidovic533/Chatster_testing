@@ -5,18 +5,18 @@
       <form action="#" [formGroup]="createRoomForm">
 
         <app-custom-form-input-text [type]="'text'"
-                                    [placeholderValue]="'Name'"
+                                    [placeholderValue]="nameLabel"
                                     formControlName="name"></app-custom-form-input-text>
 
         <app-custom-file-upload formControlName="avatar"></app-custom-file-upload>
 
         <app-custom-form-input-text [type]="'select'"
-                                    [placeholderValue]="'Private'"
+                                    [placeholderValue]="nameLabel"
                                     formControlName="is_private"
                                     [optionItems]="isPrivateOptions"></app-custom-form-input-text>
 
         <app-custom-form-input-text [type]="'text'"
-                                    [placeholderValue]="'Bio'"
+                                    [placeholderValue]="bioLabel"
                                     formControlName="bio"></app-custom-form-input-text>
 
 
@@ -27,7 +27,7 @@
       <div class="media-options">
 
         <app-custom-button (clickTrigger)="createNewRoom($event)"
-                           [name]="'Create Room'"
+                           [name]="createRoomBtnLabel"
                            [btnType]="'form-btn-create'"></app-custom-button>
       </div>
     </div>

@@ -1,11 +1,12 @@
 import {DataObjectItem} from "../../shared/models/data-object-item";
+import {Timestamp} from "@angular/fire/firestore";
 
 export interface User extends DataObjectItem{
   id?: string;
   username?: string;
   name?: string;
   email: string;
-  created_at?: Date,
+  created_at?: Timestamp,
   gender?: string;
   language?:string;
   is_verified?: boolean;
