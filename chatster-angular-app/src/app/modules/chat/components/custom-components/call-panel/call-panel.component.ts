@@ -1,11 +1,12 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Video} from "lucide-angular";
-import {Observable, switchMap} from "rxjs";
+import {Observable, switchMap, take} from "rxjs";
 import {Room} from "../../../../../core/models/room.model";
 import {AuthService} from "../../../../auth/services/auth.service";
 import {UsersService} from "../../../../people/services/users.service";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RoomService} from "../../../../rooms/services/room.service";
+import {CallService} from "../../../services/call.service";
 
 
 @Component({
@@ -25,7 +26,8 @@ export class CallPanelComponent implements OnInit {
               private authService: AuthService,
               private usersService: UsersService,
               private route: ActivatedRoute,
-              private router: Router) {
+              private router: Router,
+              private callService: CallService) {
   }
 
   ngOnInit(): void {
@@ -41,8 +43,11 @@ export class CallPanelComponent implements OnInit {
   }
 
   createCallRoom(){
-    console.log("create callroom")
-    this.router.navigate(['/app/chat/call/id']);
+    this.authService.getUserData().pipe(take(1)).subscribe((myUserData)=>{
+      this.callService.createNewCallRoom(<string>myUserData?.id, 'otherid');
+      this.router.navigate(['/app/chat/call/id']);
+    })
+
   }
 
 }

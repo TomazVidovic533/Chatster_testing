@@ -34,6 +34,8 @@ export class CreateRoomFormComponent implements OnInit {
   bioLabel!: string;
   chooseAvatarLabel!: string;
   createRoomBtnLabel!: string;
+  createRoomStringLabel!: string;
+  errors: any;
 
   ngOnInit(): void {
 
@@ -48,7 +50,8 @@ export class CreateRoomFormComponent implements OnInit {
       'profile.private_room',
       'profile.public_room',
       'profile.pro',
-      'create_room_btn'])
+      'create_room_btn',
+      'create_room_string'])
       .subscribe(translations => {
         this.bioLabel = translations['profile.bio'];
         this.nameLabel = translations['profile.name'];
@@ -56,6 +59,7 @@ export class CreateRoomFormComponent implements OnInit {
         this.isPrivateOptions.push(translations['profile.public_room']);
         this.isPrivateOptions.push(translations['profile.private_room']);
         this.createRoomBtnLabel = translations['create_room_btn'];
+        this.createRoomStringLabel = translations['create_room_string']
       });
 
 
@@ -67,8 +71,6 @@ export class CreateRoomFormComponent implements OnInit {
     });
 
 
-
-
     this.userData$ = this.authService.getUserData();
   }
 
@@ -77,7 +79,7 @@ export class CreateRoomFormComponent implements OnInit {
       let newRoomData = {
         name: this.createRoomForm.get('name')?.value,
         is_private:
-          (this.createRoomForm.get('is_private')?.value != 'Public room' || this.createRoomForm.get('is_private')?.value != 'Javna soba' ),
+          (this.createRoomForm.get('is_private')?.value != 'Public room' || this.createRoomForm.get('is_private')?.value != 'Javna soba'),
         is_group: true,
         recent_message: '',
         owner: user?.id,

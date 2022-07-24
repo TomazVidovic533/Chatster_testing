@@ -1,7 +1,7 @@
 <div class="container forms">
   <div class="form login">
     <div class="form-content">
-      <header>Create New Room</header>
+      <header>{{createRoomStringLabel}}</header>
       <form action="#" [formGroup]="createRoomForm">
 
         <app-custom-form-input-text [type]="'text'"
@@ -25,6 +25,8 @@
       <div class="line"></div>
 
       <div class="media-options">
+
+        <div class="error-notification"> {{errors}}</div>
 
         <app-custom-button (clickTrigger)="createNewRoom($event)"
                            [name]="createRoomBtnLabel"

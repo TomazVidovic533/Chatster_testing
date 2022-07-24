@@ -94,6 +94,4 @@ export class RoomService extends FirestoreService<Room> {
         })
       );
   }
-
-
 }

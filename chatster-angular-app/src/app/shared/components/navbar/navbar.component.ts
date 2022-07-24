@@ -1,5 +1,5 @@
 import {Component, ElementRef, OnInit, Renderer2} from '@angular/core';
-import {Boxes, Home, MessageCircle, Users, Menu, LogOut} from 'lucide-angular';
+import {Boxes, Home, MessageCircle, Users, Menu, LogOut, UserCog} from 'lucide-angular';
 import {AuthService} from "../../../modules/auth/services/auth.service";
 import {Observable} from "rxjs";
 import {User} from "../../../core/models/user.model";
@@ -14,6 +14,7 @@ export class NavbarComponent implements OnInit {
   status:boolean=true;
 
   home=Home;
+  profile=UserCog;
   chat=MessageCircle;
   people=Users;
   community=Boxes;
@@ -24,6 +25,8 @@ export class NavbarComponent implements OnInit {
   userId!: Observable<firebase.User>;
 
   userData$!: Observable<User|null>;
+  profilePath!: string;
+
 
   constructor(private elRef: ElementRef,
               private renderer: Renderer2,
@@ -34,7 +37,9 @@ export class NavbarComponent implements OnInit {
     this.userId.subscribe();
 
     this.userData$=this.authService.getUserData();
-    this.userData$.subscribe((res)=>{});
+    this.userData$.subscribe((res)=>{
+      this.profilePath="profile/"+res?.id;
+    });
   }
 
   toggleMenu(){

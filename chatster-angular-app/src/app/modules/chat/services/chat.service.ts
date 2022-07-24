@@ -45,7 +45,7 @@ export class ChatService extends FirestoreService<Message> {
     return this.firestore
       .collection('users')
       .doc(userId)
-      .collection('rooms',ref => ref.where('is_group','==', true))
+      .collection('rooms', ref => ref.where('is_group', '==', true))
       .snapshotChanges()
       .pipe(
         map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
@@ -124,11 +124,11 @@ export class ChatService extends FirestoreService<Message> {
 
   getUsersActiveRoomsAndContacts(userId: string | undefined) {
     forkJoin([
-      this.getRoomsOfUser(userId),
-      this.getUsersContacts(userId)
+        this.getRoomsOfUser(userId),
+        this.getUsersContacts(userId)
       ]
-    ).subscribe((r)=>{
-      console.log("r",r)
+    ).subscribe((r) => {
+      console.log("r", r)
     });
   }
 }

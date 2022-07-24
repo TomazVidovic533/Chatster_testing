@@ -18,10 +18,6 @@
   box-shadow: rgba(0, 0, 0, 0.16) 0px 1px 4px;
 }
 
-.google-btn{
-  background-color: #FFFFFF;
-}
-
 header {
   font-size: 28px;
   font-weight: 600;
@@ -88,4 +84,18 @@ form {
   .form {
     padding: 20px 10px;
   }
+}
+
+.error-notification{
+  color: #dc4d4d;
+  margin-left: auto;
+  margin-right: auto;
+  text-align: center;
+  border: #e78b93 1px solid;
+  border-radius: 0.2em;
+  padding-top: 0.3em;
+  padding-bottom: 0.3em;
+  word-wrap: break-word;
+  height: fit-content;
+  display: none;
 }

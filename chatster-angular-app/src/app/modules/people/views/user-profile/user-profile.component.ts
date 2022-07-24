@@ -38,6 +38,8 @@ export class UserProfileComponent implements OnInit {
   bioLabel!: string;
   proStatusLabel!: string;
 
+  errors!: string;
+
 
   ngOnInit(): void {
 

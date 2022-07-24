@@ -19,6 +19,8 @@
 
       <div class="media-options">
 
+        <div class="error-notification"> {{errors}}</div>
+
         <app-custom-button (clickTrigger)="editRoom($event)"
                            [name]="'Edit Room'"
                            [btnType]="'form-btn-create'"></app-custom-button>

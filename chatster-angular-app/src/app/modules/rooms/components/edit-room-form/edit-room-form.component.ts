@@ -1,10 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {Observable, of, switchMap, take} from "rxjs";
-import {User} from "../../../../core/models/user.model";
-import {FilesService} from "../../../../shared/services/files.service";
-import {AuthService} from "../../../auth/services/auth.service";
-import {ActivatedRoute, Route, Router} from "@angular/router";
+import {Router} from "@angular/router";
 import {Room} from "../../../../core/models/room.model";
 import {RoomService} from "../../services/room.service";
 
@@ -19,6 +15,8 @@ export class EditRoomFormComponent implements OnInit {
   isPrivateOptions: string[] = ['Private room', 'Public room'];
   // @ts-ignore
   @Input() roomData: Room;
+
+  errors!: string;
 
   constructor(private formBuilder: FormBuilder,
               private roomService: RoomService,
