@@ -4,40 +4,22 @@
 
     <!-- request header -->
     <ng-container *ngIf="itemType=='request'">
+
       <thead>
       <tr>
         <th scope="col">{{contentHeader}}</th>
         <th scope="col">{{nameHeader}}</th>
         <th scope="col">{{viewActionHeader}}</th>
         <ng-template [ngIf]="isOwner">
-        <th scope="col">{{reactionActionHeader}}</th>
+          <th scope="col">{{reactionActionHeader}}</th>
         </ng-template>
         <ng-template [ngIf]="isOwner">
           <th scope="col">{{deleteActionHeader}}</th>
         </ng-template>
       </tr>
       </thead>
-    </ng-container>
 
-    <!-- files header -->
-    <ng-container *ngIf="itemType=='file'">
-      <thead>
-      <tr>
-        <th scope="col">{{nameHeader}}</th>
-        <th scope="col">{{viewActionHeader}}</th>
-        <ng-template [ngIf]="isOwner">
-          <th scope="col">{{deleteActionHeader}}</th>
-        </ng-template>
-      </tr>
-      </thead>
-    </ng-container>
-
-    <tbody>
-
-
-    <!-- user request -->
-
-    <ng-container *ngIf="itemType=='request'">
+      <tbody>
       <ng-container *ngFor="let dataObject of (dataSource$ | async)">
         <tr>
           <td>
@@ -68,32 +50,42 @@
           </ng-template>
         </tr>
       </ng-container>
+      </tbody>
     </ng-container>
 
-    <!-- files list -->
+    <!-- files header -->
     <ng-container *ngIf="itemType=='file'">
-
+      <thead>
       <tr>
-
-        <td>Name</td>
-
-        <td><a class="see"> <!--(click)="goToUrl('https://firebasestorage.googleapis.com/v0/b/chatsterv2/o/files%2F1658523882397_Nov%20dokument%20z%20besedilom.txt?alt=media&token=c869fff3-7caa-44b8-b753-e8cff3710d62')">
-         -->  <lucide-icon [img]="view" class="svg"></lucide-icon>
-        </a>
-        </td>
-
+        <th scope="col">{{nameHeader}}</th>
+        <th scope="col">{{viewActionHeader}}</th>
         <ng-template [ngIf]="isOwner">
-          <td (click)="deleteClicked($event, 'moj id')"><a class="delete">
-            <lucide-icon [img]="trash" class="svg"></lucide-icon>
+          <th scope="col">{{deleteActionHeader}}</th>
+        </ng-template>
+      </tr>
+      </thead>
+
+      <ng-container *ngFor="let dataObject of (dataSource$ | async)">
+        <tbody>
+        <tr>
+          <td>{{dataObject?.name}}</td>
+
+          <td (click)="viewClicked($event, dataObject?.url)">
+            <a class="see">
+            <lucide-icon [img]="view" class="svg"></lucide-icon>
           </a>
           </td>
-        </ng-template>
 
-      </tr>
+          <ng-template [ngIf]="isOwner">
+            <td (click)="deleteClicked($event, dataObject?.id)"><a class="delete">
+              <lucide-icon [img]="trash" class="svg"></lucide-icon>
+            </a>
+            </td>
+          </ng-template>
+        </tr>
+        </tbody>
+      </ng-container>
     </ng-container>
-
-
-    </tbody>
   </table>
 </div>
 

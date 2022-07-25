@@ -92,6 +92,7 @@
     itemType="file"
     viewActionHeader="See File's Content"
     contentHeader=""
+    [dataSource$]="roomFilesShared$"
     (onViewTriggered)="goToUrl($event[0],$event[1])"
     (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
 

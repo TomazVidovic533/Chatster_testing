@@ -7,6 +7,7 @@ import {Room} from "../../../../core/models/room.model";
 import {AuthService} from "../../../auth/services/auth.service";
 import {TranslateService} from "@ngx-translate/core";
 import {TableDataItem} from "../../../../core/models/table-data-item.model";
+import {RoomsFilesService} from "../../services/rooms-files.service";
 
 
 @Component({
@@ -16,15 +17,16 @@ import {TableDataItem} from "../../../../core/models/table-data-item.model";
 })
 export class RoomProfileComponent implements OnInit {
 
-
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
+              private roomFilesService: RoomsFilesService,
               private authService: AuthService,
               private translateService: TranslateService,
               private router: Router) {
   }
 
   roomRequests$!: Observable<TableDataItem[]>;
+  roomFilesShared$!: Observable<TableDataItem[]>;
 
   roomMembers$!: Observable<Room[]>;
   roomData$!: Observable<Room>;
@@ -76,6 +78,22 @@ export class RoomProfileComponent implements OnInit {
       this.roomRequests$.subscribe((res)=>{
         console.log("requesti",res)
       })
+
+      this.roomFilesShared$ = this.roomFilesService.getSharedFilesInRoom(this.roomId).pipe(
+        map(data => {
+          return data.map((element: any) => {
+            return {
+              id: element.id,
+              url: element.fileData.url,
+              name: element.fileData.name,
+            };
+          });
+        }));
+
+      this.roomFilesShared$.subscribe((res)=>{
+        console.log("requesti",res)
+      })
+
     }
   }
 
@@ -122,7 +140,6 @@ export class RoomProfileComponent implements OnInit {
   goToUrl(event: Event, url: string) {
     window.location.href = url;
   }
-
 
   deleteFile(event: Event, id: string) {
     console.log("delete file", id)
