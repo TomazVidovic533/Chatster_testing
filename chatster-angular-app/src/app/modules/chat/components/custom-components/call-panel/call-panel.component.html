@@ -1,10 +1,10 @@
 <div class="call-panel">
   <div class="call-panel-avatar">
-    <img src="{{(roomData$ | async)?.avatar}}"
+    <img src="{{(room | async)?.avatar}}"
          alt="">
   </div>
   <div class="call-panel-username">
-    {{(roomData$ | async)?.name}}
+    {{(room | async)?.name}}
   </div>
   <div class="call-panel-videocall">
     <lucide-icon [img]="videocall" style="cursor: pointer;" (click)="createCallRoom()"  class="svg"></lucide-icon>

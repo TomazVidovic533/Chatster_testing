@@ -16,7 +16,7 @@ export class RoomListItemComponent implements OnInit {
 
   ngOnInit(): void {
 
-    console.log("room-list-item", this.roomData)
+    //console.log("room-list-item", this.roomData)
   }
 
 

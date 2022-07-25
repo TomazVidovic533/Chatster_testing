@@ -4,7 +4,7 @@ import {ChatService} from "../../../services/chat.service";
 import {Message} from "../../../../../core/models/message.model";
 import {SmilePlus} from "lucide-angular";
 import {AuthService} from "../../../../auth/services/auth.service";
-import {Observable, take} from "rxjs";
+import {Observable, Subscription, take} from "rxjs";
 import {Room} from "../../../../../core/models/room.model";
 import { Timestamp } from '@angular/fire/firestore';
 
@@ -21,12 +21,17 @@ export class SendMessagePanelComponent implements OnInit {
 
   smilePlus = SmilePlus;
 
+  message!: any;
+  subscription!: Subscription;
+
   constructor(private formBuilder: FormBuilder,
               private chatService: ChatService,
               private authService: AuthService) {
   }
 
   ngOnInit(): void {
+   // this.subscription = this.chatService.currentMessage.subscribe(message => console.log("send message", message))
+
     this.sendMessageForm = this.formBuilder.group({
       message: new FormControl(null, [Validators.required])
     });

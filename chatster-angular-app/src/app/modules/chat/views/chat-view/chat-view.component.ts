@@ -29,8 +29,10 @@ export class ChatViewComponent implements OnInit {
   id!: string | null;
   chatMessages$!: Observable<MappedMessage[]>;
   roomData$!: Observable<Room>;
-  roomId!: string
   routeListener$!: Observable<any>;
+
+  message!: any;
+  subscription!: Subscription;
 
   constructor(private route: ActivatedRoute,
               private chatService: ChatService,
@@ -40,23 +42,31 @@ export class ChatViewComponent implements OnInit {
 
   ngOnInit(): void {
 
+    this.subscription = this.chatService.currentMessage.subscribe(message =>
+      this.message = message)
+
 
     this.chatMessages$ = this.route.params.pipe(
       switchMap(params => {
-        this.roomId = params['roomId'];
         return this.chatService.getMappedRoomMessages(params['roomId']);
       })
     )
 
-    this.routeListener$=this.route.params;
-    this.routeListener$.subscribe((params)=>{
-
+    this.routeListener$ = this.route.params;
+    this.routeListener$.subscribe((params) => {
+      console.log("room  :: id", params);
+      this.chatService.changeMessage({roomId: params['roomId'], userId: 'fdkf9fujaw98f'})
     });
 
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.routeListener$.subscribe().unsubscribe();
+    this.subscription.unsubscribe();
+  }
+
+  newMessage() {
+
   }
 
 }
@@ -79,7 +89,6 @@ export class ChatViewComponent implements OnInit {
 //  console.log(this.chatService.roomId$.value)
 
 
-
 /*    this.route.params.pipe(
       switchMap(typeId => combineLatest([
         this.chatService.getIds(typeId['roomId']),
@@ -92,14 +101,12 @@ export class ChatViewComponent implements OnInit {
       });*/
 
 
-
 /*    this.chatMessages$ = this.route.params.pipe(
       switchMap(params => {
         this.roomId = params['roomId'];
         return this.chatService.getChatRoomMessages(params['roomId']);
       })
     );*/
-
 
 
 /*    this.route.params.pipe(

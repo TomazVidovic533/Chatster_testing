@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {combineLatest, map, Observable, switchMap, take} from "rxjs";
+import {combineLatest, map, Observable, Subscription, switchMap, take} from "rxjs";
 import {Room} from "../../../../core/models/room.model";
 import {UsersService} from "../../../people/services/users.service";
 import {RoomService} from "../../../rooms/services/room.service";
@@ -13,6 +13,7 @@ import {ChatService} from "../../services/chat.service";
 })
 export class ChatroomComponent implements OnInit {
 
+  private subscriptions = new Subscription();
   usersRooms$!: Observable<any>;
   userRooms: any;
 
@@ -22,8 +23,8 @@ export class ChatroomComponent implements OnInit {
   ngOnInit(): void {
     this.usersRooms$ = this.authService.getUserData().pipe(
       switchMap(user => combineLatest([
-        this.chatService.getRoomsOfUser(user?.id),
-        this.chatService.getUsersContacts(user?.id)
+        this.usersService.getRoomsOfUser(user?.id),
+        this.usersService.getUsersContacts(user?.id)
       ])),
       map(([rooms, contacts]) => {
         let combined = [...rooms, ...contacts];
@@ -38,8 +39,11 @@ export class ChatroomComponent implements OnInit {
         return mappedContacts;
       })
     );
+    this.subscriptions.add(this.usersRooms$.subscribe());
+  }
 
-    this.usersRooms$.subscribe()
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 }
 

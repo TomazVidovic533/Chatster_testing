@@ -1,20 +1,25 @@
 import {Injectable} from '@angular/core';
 import {FirestoreService} from "../../../core/services/firestore.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {ActivatedRoute, Router} from "@angular/router";
+
 import {Message} from "../../../core/models/message.model";
-import {BehaviorSubject, combineLatest, map, Observable, of, switchMap} from "rxjs";
-import {RoomService} from "../../rooms/services/room.service";
-import {user} from "@angular/fire/auth";
-import {zip} from "rxjs/operators";
-import {forkJoin} from 'rxjs';
+import {BehaviorSubject, combineLatest, map, Observable, of, Subject, switchMap} from "rxjs";
+
+import {UsersService} from "../../people/services/users.service";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService extends FirestoreService<Message> {
 
-  constructor(private firestore: AngularFirestore) {
+  private messageSource = new BehaviorSubject('default message');
+  currentMessage = this.messageSource.asObservable();
+
+  changeMessage(message: any) {
+    this.messageSource.next(message)
+  }
+
+  constructor(private firestore: AngularFirestore, private usersService:UsersService) {
     super("room_messages", firestore);
 
   }
@@ -38,31 +43,6 @@ export class ChatService extends FirestoreService<Message> {
             return data;
           });
         })
-      );
-  }
-
-  getRoomsOfUser(userId: string | undefined): Observable<any> {
-    return this.firestore
-      .collection('users')
-      .doc(userId)
-      .collection('rooms', ref => ref.where('is_group', '==', true))
-      .snapshotChanges()
-      .pipe(
-        map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
-        switchMap((products: any[]) => {
-          const pricesCols$ = products.map((p) =>
-            this.firestore
-              .collection(`rooms`).doc(p.id)
-              .valueChanges()
-          );
-          return combineLatest([of(products), combineLatest(pricesCols$.length ? pricesCols$ : [of([])])]);
-        }),
-        map(([products, pricesCols]) =>
-          products.map((p, idx) => {
-            p.roomData = pricesCols[idx];
-            return p;
-          })
-        )
       );
   }
 
@@ -97,39 +77,5 @@ export class ChatService extends FirestoreService<Message> {
       );
   }
 
-  getUsersContacts(userId: string | undefined): Observable<any> {
-    return this.firestore
-      .collection('users')
-      .doc(userId)
-      .collection('contacts')
-      .snapshotChanges()
-      .pipe(
-        map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
-        switchMap((products: any[]) => {
-          const pricesCols$ = products.map((p) =>
-            this.firestore
-              .collection(`users`).doc(p.id)
-              .valueChanges()
-          );
-          return combineLatest([of(products), combineLatest(pricesCols$.length ? pricesCols$ : [of([])])]);
-        }),
-        map(([products, pricesCols]) =>
-          products.map((p, idx) => {
-            p.userData = pricesCols[idx];
-            return p;
-          })
-        )
-      );
-  }
-
-  getUsersActiveRoomsAndContacts(userId: string | undefined) {
-    forkJoin([
-        this.getRoomsOfUser(userId),
-        this.getUsersContacts(userId)
-      ]
-    ).subscribe((r) => {
-      console.log("r", r)
-    });
-  }
 }
 

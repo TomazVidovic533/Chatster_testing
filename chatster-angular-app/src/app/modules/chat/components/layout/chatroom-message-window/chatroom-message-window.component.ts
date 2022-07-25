@@ -1,5 +1,5 @@
 import {Component, ElementRef, Input, OnInit, ViewChild} from '@angular/core';
-import {Observable, take} from "rxjs";
+import {Observable, Subscription, take} from "rxjs";
 import {MappedMessage, Message} from "../../../../../core/models/message.model";
 import {ChatService} from "../../../services/chat.service";
 import {FilesService} from "../../../../../shared/services/files.service";
@@ -19,14 +19,19 @@ export class ChatroomMessageWindowComponent implements OnInit {
 
   files: File[] = [];
 
+  message!: any;
+  subscription!: Subscription;
+
   constructor(private chatService: ChatService,
               private filesService: FilesService,
               private authService: AuthService) {
   }
 
   ngOnInit(): void {
+   // this.subscription = this.chatService.currentMessage.subscribe(message => console.log("message window", message))
+
     this.chatMessages$.subscribe((m)=>{
-      console.log(m)
+
     });
     this.scrollToBottom();
   }

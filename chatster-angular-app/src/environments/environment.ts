@@ -12,6 +12,10 @@ export const environment = {
     authDomain: 'chatsterv2.firebaseapp.com',
     messagingSenderId: '686248898913',
   },
+  stripe: {
+    key: 'sk_test_51LOmISGgB96LAeCntnmZcpAKzcLPmbOQChvWgFbAzieSD4L7H5uxBE773qzOgzx0PaAClqLMXGQHlOgh7NgYTiG700jll6zune'
+  }
+  ,
   production: false
 };
 

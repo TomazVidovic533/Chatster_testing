@@ -14,7 +14,9 @@ export class HorizontalGridviewComponent<T extends DataObjectItem> implements On
   constructor() { }
 
   ngOnInit(): void {
-    this.dataSource.subscribe();
+    this.dataSource.subscribe((r)=>{
+      console.log(r);
+    });
   }
 
 }
