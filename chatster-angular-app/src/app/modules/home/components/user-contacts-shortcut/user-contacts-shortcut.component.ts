@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import {Observable, take} from "rxjs";
+import {Component, OnInit} from '@angular/core';
+import {combineLatest, map, Observable, Subscription, switchMap, take} from "rxjs";
 import {DataObjectItem} from "../../../../shared/models/data-object-item";
 import {UsersService} from "../../../people/services/users.service";
 import {AuthService} from "../../../auth/services/auth.service";
@@ -11,14 +11,36 @@ import {AuthService} from "../../../auth/services/auth.service";
 })
 export class UserContactsShortcutComponent implements OnInit {
   userContacts$!: Observable<DataObjectItem[]>;
+  private subscription = new Subscription();
 
-  constructor(private usersService: UsersService, private authService: AuthService) { }
+  constructor(private usersService: UsersService,
+              private authService: AuthService) {
+  }
 
   ngOnInit(): void {
-    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
-      // @ts-ignore
-      this.userContacts$ = this.usersService.getUsersContacts(user.id);
-    })
+    /*   this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+         // @ts-ignore
+         this.userContacts$ = this.usersService.getUsersContacts(user.id);
+       })*/
+
+    this.userContacts$ = this.authService.getUserData().pipe(
+      switchMap(user => {
+        return this.usersService.getUsersContacts(user?.id)
+      }),
+      map(data => {
+        return data.map((element: any) => {
+          return {
+            id: element.id,
+            avatar: element.userData.avatar,
+            name: element.userData.name,
+          };
+        });
+      }));
+
+    this.subscription.add(this.userContacts$.subscribe());
+  }
+
+  ngOnDestroy(){
 
   }
 

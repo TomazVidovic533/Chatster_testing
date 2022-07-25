@@ -1,5 +1,5 @@
 <div class="call-panel">
-  <div class="call-panel-avatar">
+  <div class="call-panel-avatar" routerLink="/app/rooms/{{(room | async)?.id}}">
     <img src="{{(room | async)?.avatar}}"
          alt="">
   </div>

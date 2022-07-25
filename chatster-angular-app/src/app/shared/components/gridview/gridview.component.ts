@@ -14,7 +14,7 @@ export class GridviewComponent<T extends DataObjectItem> implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    this.dataSource.subscribe();
+
   }
 
 }

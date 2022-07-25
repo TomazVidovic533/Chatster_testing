@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Observable} from "rxjs";
+import {Observable, Subscription} from "rxjs";
 import {DataObjectItem} from "../../models/data-object-item";
 
 @Component({
@@ -14,9 +14,9 @@ export class HorizontalGridviewComponent<T extends DataObjectItem> implements On
   constructor() { }
 
   ngOnInit(): void {
-    this.dataSource.subscribe((r)=>{
-      console.log(r);
-    });
+  }
+
+  ngOnDestroy(){
   }
 
 }

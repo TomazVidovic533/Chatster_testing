@@ -14,7 +14,6 @@ export class GridCardComponent<T extends DataObjectItem>  implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
-    console.log('dataobject',this.dataObject)
   }
 
 }
