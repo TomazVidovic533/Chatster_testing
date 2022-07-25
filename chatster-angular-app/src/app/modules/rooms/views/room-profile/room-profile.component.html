@@ -49,9 +49,11 @@
           [btnType]="'leave-btn'"></app-custom-button>
       </ng-template>
 
+      <ng-template [ngIf]="room.owner==myId">
       <app-custom-button
         [name]="'Edit'"
         [btnType]="'edit-btn'"></app-custom-button>
+      </ng-template>
 
       <ng-template [ngIf]="room.owner==myId">
         <app-custom-button

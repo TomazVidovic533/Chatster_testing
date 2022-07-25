@@ -107,9 +107,17 @@ export class RoomProfileComponent implements OnInit {
           });
         }));
 
-      this.roomMembers$.subscribe((res)=>{
-        console.log("members",res)
+      this.roomMembers$.subscribe((members)=>{
+        console.log("mem",members)
+        for(var i = 0; i < members.length; i++) {
+          if (members[i].id == this.myId) {
+            this.isViewingUserMember = true;
+            break;
+          }
+        }
       })
+
+      console.log("ismem",this.isViewingUserMember)
 
     }
   }
