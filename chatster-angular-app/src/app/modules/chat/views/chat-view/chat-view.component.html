@@ -1,3 +1,3 @@
 <app-call-panel [elementId]="(roomData$| async)?.id"></app-call-panel>
-<app-chatroom-message-window [roomId]="roomId" [chatMessages$]="chatMessages$"></app-chatroom-message-window>
-<app-send-message-panel [roomId]="(roomData$| async)?.id"></app-send-message-panel>
+<app-chatroom-message-window [roomId]="this.roomId" [chatMessages$]="chatMessages$"></app-chatroom-message-window>
+<app-send-message-panel [roomId]="(this.roomId ? this.roomId :(roomData$| async)?.id)"></app-send-message-panel>

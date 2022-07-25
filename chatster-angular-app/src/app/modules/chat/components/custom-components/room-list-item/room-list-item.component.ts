@@ -1,5 +1,5 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Room} from "../../../../../core/models/room.model";
+import {Room, RoomItem} from "../../../../../core/models/room.model";
 import {BehaviorSubject} from "rxjs";
 import {ChatService} from "../../../services/chat.service";
 
@@ -10,7 +10,7 @@ import {ChatService} from "../../../services/chat.service";
 })
 export class RoomListItemComponent implements OnInit {
 
-  @Input() roomData!: Room;
+  @Input() roomData!: RoomItem;
 
   constructor() { }
 

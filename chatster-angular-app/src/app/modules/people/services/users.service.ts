@@ -12,19 +12,4 @@ export class UsersService extends FirestoreService<User> {
     super("users", firestore);
   }
 
-  getUsersRooms(userId: string) {
-    return this.firestore.collection('users').doc(userId).collection('rooms')
-      .snapshotChanges()
-      .pipe(
-        map(changes => {
-          return changes.map(a => {
-            const data = a.payload.doc.data() as Room;
-            data.id = a.payload.doc.id;
-            return data;
-          });
-        })
-      );
-  }
-
-
 }

@@ -17,6 +17,9 @@ import { SearchViewComponent } from './components/search-view/search-view.compon
 import {TranslateModule} from "@ngx-translate/core";
 import { TableViewComponent } from './components/table-view/table-view.component';
 import { TableItemComponent } from './components/table-item/table-item.component';
+import { HorizontalGridviewComponent } from './components/horizontal-gridview/horizontal-gridview.component';
+import { NotificationsPanelComponent } from './components/notifications-panel/notifications-panel.component';
+import { NotificationItemComponent } from './components/notification-item/notification-item.component';
 
 @NgModule({
   declarations: [
@@ -30,7 +33,10 @@ import { TableItemComponent } from './components/table-item/table-item.component
     CustomButtonComponent,
     SearchViewComponent,
     TableViewComponent,
-    TableItemComponent
+    TableItemComponent,
+    HorizontalGridviewComponent,
+    NotificationsPanelComponent,
+    NotificationItemComponent
   ],
     imports: [
         CommonModule,
@@ -51,7 +57,9 @@ import { TableItemComponent } from './components/table-item/table-item.component
     SearchViewComponent,
     TranslateModule,
     TableItemComponent,
-    TableViewComponent
+    TableViewComponent,
+    HorizontalGridviewComponent,
+    NotificationsPanelComponent
   ]
 })
 export class SharedModule { }

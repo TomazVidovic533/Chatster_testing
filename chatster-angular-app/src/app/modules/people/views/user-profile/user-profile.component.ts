@@ -8,6 +8,7 @@ import {RoomService} from "../../../rooms/services/room.service";
 import {Room} from "../../../../core/models/room.model";
 import {Timestamp} from "@angular/fire/firestore";
 import {TranslateService} from "@ngx-translate/core";
+import {DataObjectItem} from "../../../../shared/models/data-object-item";
 
 @Component({
   selector: 'app-user-profile',
@@ -39,7 +40,9 @@ export class UserProfileComponent implements OnInit {
   proStatusLabel!: string;
 
   errors!: string;
+  usersRooms$!: Observable<DataObjectItem[]>;
 
+  isViewingUserContact: boolean = true;
 
   ngOnInit(): void {
 

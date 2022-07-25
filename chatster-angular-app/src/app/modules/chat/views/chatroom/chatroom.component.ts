@@ -27,11 +27,10 @@ export class ChatroomComponent implements OnInit {
       ])),
       map(([rooms, contacts]) => {
         let combined = [...rooms, ...contacts];
-        console.log(combined)
         let mappedContacts = [];
         for (const element of combined) {
           mappedContacts.push({
-            id: element.id,
+            id: (element.room_id ? element.room_id : element.id),
             avatar: (element.userData ? element.userData.avatar : element.roomData.avatar),
             name: (element.userData ? element.userData.name : element.roomData.name)
           })

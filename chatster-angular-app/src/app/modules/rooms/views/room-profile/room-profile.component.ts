@@ -22,6 +22,7 @@ export class RoomProfileComponent implements OnInit {
               private router: Router) {
   }
 
+  roomMembers$!: Observable<Room[]>;
   roomData$!: Observable<Room>;
   roomObject!: Room;
   myId!: string | undefined;
@@ -33,34 +34,36 @@ export class RoomProfileComponent implements OnInit {
   privateRoomLabel!: string;
   publicRoomLabel!: string;
 
+  isViewingUserMember: boolean = true;
+
   ngOnInit(): void {
     // @ts-ignore
-    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+    this.authService.getUserData().pipe(take(1)).subscribe((user) => {
       this.myId = user?.id
     })
 
     this.roomId = this.route.snapshot.paramMap.get('roomId')
 
-    this.translateService.get(['profile.created_at','profile.bio','profile.public_room', 'profile.private_room', 'profile.type'])
+    this.translateService.get(['profile.created_at', 'profile.bio', 'profile.public_room', 'profile.private_room', 'profile.type'])
       .subscribe(translations => {
-        this.createdAtLabel=translations['profile.created_at'];
-        this.bioLabel=translations['profile.bio'];
-        this.typeLabel=translations['profile.type'];
-        this.publicRoomLabel=translations['profile.public_room'];
-        this.privateRoomLabel=translations['profile.private_room'];
+        this.createdAtLabel = translations['profile.created_at'];
+        this.bioLabel = translations['profile.bio'];
+        this.typeLabel = translations['profile.type'];
+        this.publicRoomLabel = translations['profile.public_room'];
+        this.privateRoomLabel = translations['profile.private_room'];
       });
 
     if (this.roomId) {
       this.roomData$ = this.roomService.get(this.roomId);
-      this.roomData$.subscribe((roomObject)=>{
-        this.roomObject=roomObject;
+      this.roomData$.subscribe((roomObject) => {
+        this.roomObject = roomObject;
       });
     }
   }
 
   joinRoom(event: Event) {
     if (this.roomId != null) {
-      this.authService.getUserData().pipe(take(1)).subscribe((myUserData)=>{
+      this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
         if (myUserData) {
           this.roomService.joinRoom(this.roomObject, myUserData);
         }
@@ -68,7 +71,17 @@ export class RoomProfileComponent implements OnInit {
     }
   }
 
-  leaveRoom(event: Event){
+  requestAccessToRoom(event: Event) {
+    if (this.roomId != null) {
+      this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
+        if (myUserData) {
+          this.roomService.requestAccess(this.roomObject, myUserData);
+        }
+      })
+    }
+  }
+
+  leaveRoom(event: Event) {
     if (this.roomId != null) {
       if (typeof this.myId === "string") {
         this.roomService.leaveRoom(this.roomId, this.myId);
@@ -84,8 +97,8 @@ export class RoomProfileComponent implements OnInit {
   }
 
 
-  deleteFile(event: Event, id: string){
-      console.log("deletem", id)
+  deleteFile(event: Event, id: string) {
+    console.log("deletem", id)
   }
 
 }

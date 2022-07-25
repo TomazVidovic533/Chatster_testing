@@ -1,8 +1,8 @@
-import {map, Observable} from "rxjs";
+import {map, Observable, publishReplay, refCount, shareReplay} from "rxjs";
 
 import {AngularFirestore, AngularFirestoreCollection} from "@angular/fire/compat/firestore";
 import {Condition} from "../models/condition";
-import { CollectionItem } from "../models/collection-item.model";
+import {CollectionItem} from "../models/collection-item.model";
 
 export class FirestoreService<T extends CollectionItem> {
   protected collection: AngularFirestoreCollection<T>;
@@ -11,8 +11,8 @@ export class FirestoreService<T extends CollectionItem> {
     this.collection = this.afs.collection(this.uri);
   }
 
-  search(collectionName: string,fieldName: string, query: string): Observable<T[]> {
-    if(query === ''){
+  search(collectionName: string, fieldName: string, query: string): Observable<T[]> {
+    if (query === '') {
       return this.list();
     }
     return this.afs
@@ -21,6 +21,7 @@ export class FirestoreService<T extends CollectionItem> {
         .endAt(query + '\uf8ff'))
       .snapshotChanges()
       .pipe(
+        shareReplay(1), // this tells Rx to cache the latest emitted
         map(changes => {
           return changes.map(a => {
             const data = a.payload.doc.data() as T;
@@ -31,11 +32,11 @@ export class FirestoreService<T extends CollectionItem> {
       );
   }
 
-  searchWhere(collectionName: string,fieldName: string, query: string, condition: Condition): Observable<T[]> {
+  searchWhere(collectionName: string, fieldName: string, query: string, condition: Condition): Observable<T[]> {
     return this.afs
       .collection(collectionName, ref => ref.orderBy(fieldName)
         // @ts-ignore
-         .where(condition.fieldName,condition.operator, condition.value)
+        .where(condition.fieldName, condition.operator, condition.value)
         .startAt(query)
         .endAt(query + '\uf8ff'))
       .snapshotChanges()
@@ -51,18 +52,18 @@ export class FirestoreService<T extends CollectionItem> {
   }
 
   get(identifier: string): Observable<T> {
-    return this.collection
-      .doc<T>(identifier)
-      .snapshotChanges()
-      .pipe(
-        map(doc => {
-          if (doc.payload.exists) {
-            const data = doc.payload.data() as any;
-            const id = doc.payload.id;
-            return {id, ...data};
-          }
-        })
-      );
+      return this.collection
+        .doc<T>(identifier)
+        .snapshotChanges()
+        .pipe(
+          map(doc => {
+            if (doc.payload.exists) {
+              const data = doc.payload.data() as any;
+              const id = doc.payload.id;
+              return {id, ...data};
+            }
+          })
+        );
   }
 
   getSubCollectionDocument(documentId: string, collectionId: string, collectionDocumentId: string): Observable<T> {
@@ -81,20 +82,21 @@ export class FirestoreService<T extends CollectionItem> {
 
 
   list(): Observable<T[]> {
-    return this.collection
-      .snapshotChanges()
-      .pipe(
-        map(changes => {
-          return changes.map(a => {
-            const data = a.payload.doc.data() as T;
-            data.id = a.payload.doc.id;
-            return data;
-          });
-        })
-      );
-  }
+      return this.collection
+        .snapshotChanges()
+        .pipe(
+          map(changes => {
+            return changes.map(a => {
+              const data = a.payload.doc.data() as T;
+              data.id = a.payload.doc.id;
+              return data;
+            });
+          })
+        );
+    }
 
-  listWhere(fieldName: string,operator:string, value: any): Observable<T[]> {
+
+  listWhere(fieldName: string, operator: string, value: any): Observable<T[]> {
     // @ts-ignore
     return this.afs.collection(this.uri, ref => ref.where(fieldName, operator, value))
       .snapshotChanges()

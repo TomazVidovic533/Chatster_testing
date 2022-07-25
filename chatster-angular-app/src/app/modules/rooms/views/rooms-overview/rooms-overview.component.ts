@@ -11,10 +11,7 @@ import {AuthService} from "../../../auth/services/auth.service";
   templateUrl: './rooms-overview.component.html',
   styleUrls: ['./rooms-overview.component.css']
 })
-export class RoomsOverviewComponent implements OnInit, OnDestroy {
-
-  rooms$!: Observable<Room[]>;
-  room$!: Observable<Room>;
+export class RoomsOverviewComponent implements OnInit {
 
   searchCondition!: Condition;
   createRoomBtnLabel!: string;
@@ -33,23 +30,16 @@ export class RoomsOverviewComponent implements OnInit, OnDestroy {
       }
     })
 
-    /*    this.rooms$ =  this.roomService.listWhere('is_group','==',true).pipe(shareReplay(1));
-        this.rooms$.subscribe((res)=>{console.log("list", res)});*/
-
     this.translateService.get(['create_room_btn'])
       .subscribe(translations => {
         this.createRoomBtnLabel = translations['create_room_btn'];
       });
-
 
     this.searchCondition = {
       fieldName: 'is_group',
       operator: '==',
       value: true
     } as Condition;
-  }
-
-  ngOnDestroy() {
   }
 
 }

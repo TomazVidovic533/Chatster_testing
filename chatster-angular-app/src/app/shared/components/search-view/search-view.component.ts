@@ -46,22 +46,28 @@ export class SearchViewComponent implements OnInit {
         }
         return this.searchService.searchWhere(this.collectionName, 'name', queryString, this.condition);
       }));
+  }
 
-    /*    this.queryResults$ = this.querySubmit$
-          .pipe(
-            switchMap((event) => {
-              const {queryString} = this.searchForm.value;
-              if(!this.condition){
-                return this.searchService.search(this.collectionName,'name', queryString)
-              }
-              return this.searchService.searchWhere(this.collectionName,'name', queryString, this.condition);
-            }),
-          );*/
-
+  ngOnDestroy(){
 
   }
 
-  search(event: Event) {
-    // this.querySubmit$..next(event);
-  }
 }
+
+
+// with button
+/*    this.queryResults$ = this.querySubmit$
+      .pipe(
+        switchMap((event) => {
+          const {queryString} = this.searchForm.value;
+          if(!this.condition){
+            return this.searchService.search(this.collectionName,'name', queryString)
+          }
+          return this.searchService.searchWhere(this.collectionName,'name', queryString, this.condition);
+        }),
+      );*/
+
+// with button
+/*search(event: Event) {
+  // this.querySubmit$..next(event);
+}*/

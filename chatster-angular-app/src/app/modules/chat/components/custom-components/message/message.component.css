@@ -22,6 +22,10 @@
   }
 }
 
+a{
+  all:unset;
+}
+
 
 @media (max-width: 500px) {
   .chat-message-item{
@@ -130,4 +134,12 @@
 
 .file-message{
   width: 60%;
+}
+
+
+.file-shared{
+  cursor: pointer;
+  box-shadow: rgba(4, 81, 197, 0.68) 0 3px 8px;
+  transition-timing-function: cubic-bezier(0.075, 0.82, 0.165, 1);
+  transition: box-shadow 0.5s;
 }

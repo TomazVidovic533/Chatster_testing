@@ -79,7 +79,8 @@ export class CreateRoomFormComponent implements OnInit {
       let newRoomData = {
         name: this.createRoomForm.get('name')?.value,
         is_private:
-          (this.createRoomForm.get('is_private')?.value != 'Public room' || this.createRoomForm.get('is_private')?.value != 'Javna soba'),
+          (this.createRoomForm.get('is_private')?.value != 'Public room' ||
+            this.createRoomForm.get('is_private')?.value != 'Javna soba'),
         is_group: true,
         recent_message: '',
         owner: user?.id,
@@ -87,7 +88,9 @@ export class CreateRoomFormComponent implements OnInit {
         created_at: Timestamp.now(),
       } as Room;
 
-      this.roomService.uploadRoomProfilePhoto(newRoomData, this.createRoomForm.get('avatar')?.value);
+      if (user) {
+        this.roomService.uploadRoomProfilePhoto(newRoomData, this.createRoomForm.get('avatar')?.value, user);
+      }
 
       this.router.navigate(['/app/rooms']);
     })

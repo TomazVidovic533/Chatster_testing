@@ -3,11 +3,9 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {FirestoreService} from "../../../core/services/firestore.service";
 import {Room} from "../../../core/models/room.model";
 import {Router} from "@angular/router";
-import {arrayRemove, arrayUnion, documentId} from "@angular/fire/firestore";
-import {user} from "@angular/fire/auth";
 import {map, take} from "rxjs";
 import {User} from "../../../core/models/user.model";
-import {Contact} from "../../../core/models/contact.model";
+
 
 
 @Injectable({providedIn: 'root'})
@@ -27,7 +25,7 @@ export class RoomService extends FirestoreService<Room> {
         this.add(roomData).then((newRoomReference) => {
 
           if (newRoomReference.id != null) {
-            this.addRoomToUser(otherUserData,newRoomReference.id, false);
+            this.addRoomToUser(otherUserData, newRoomReference.id, false);
             this.addRoomToUser(myUserData, newRoomReference.id, false);
 
             this.addUserToRoom(otherUserData, newRoomReference.id);
@@ -40,6 +38,14 @@ export class RoomService extends FirestoreService<Room> {
         });
       }
     });
+  }
+
+  requestAccess(roomObject: Room, myUserData: User) {
+    if (roomObject.id != null && myUserData.id != null) {
+      this.setSubCollectionDocument(roomObject.id, 'requests', myUserData.id, {
+        id: myUserData.id
+      });
+    }
   }
 
   joinRoom(roomData: Room, user: User) {
@@ -76,12 +82,12 @@ export class RoomService extends FirestoreService<Room> {
     /* this.firestore.collection('rooms').doc(roomId).update({
        members: arrayRemove(userId)
      });*/
-    this.deleteSubCollectionDocument(roomId,'members', userId);
+    this.deleteSubCollectionDocument(roomId, 'members', userId);
     this.firestore.collection('users').doc(userId).collection('rooms').doc(roomId).delete();
     this.router.navigate(['/app/chat/' + roomId]);
   }
 
-  getCurrentRoom(userId: string | undefined, roomId: string | undefined){
+  getCurrentRoom(userId: string | undefined, roomId: string | undefined) {
     return this.firestore.collection('users').doc(userId).collection('rooms').doc(roomId)
       .snapshotChanges()
       .pipe(
@@ -94,4 +100,5 @@ export class RoomService extends FirestoreService<Room> {
         })
       );
   }
+
 }

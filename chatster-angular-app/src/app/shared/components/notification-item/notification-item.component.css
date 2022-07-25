@@ -1,0 +1,41 @@
+
+.answer-container{
+  width: 20em;
+  height: 4em;
+  background-color: rgb(46, 154, 216);
+  margin-top: .6em;
+  border-radius: .8em;
+  box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
+}
+
+.answer-container:hover{
+  background-color: rgb(17, 118, 173);
+  transition: all 0.6s ease-in-out;
+}
+
+.holder{
+  display: flex;
+}
+
+.image-header img{
+  width: 3em;
+  height: 3em;
+  object-fit: cover;
+  padding-top: 20%;
+  padding-left: 20%;
+  border-radius: 50%;
+}
+
+.image-content{
+  display: flex;
+  padding-top: 1.6em;
+  padding-left: 2.6em;
+}
+
+.accept-call{
+  padding-right: 1.2em;
+}
+
+.deny-call{
+
+}

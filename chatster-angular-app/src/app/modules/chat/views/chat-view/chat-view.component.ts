@@ -30,6 +30,7 @@ export class ChatViewComponent implements OnInit {
   chatMessages$!: Observable<MappedMessage[]>;
   roomData$!: Observable<Room>;
   roomId!: string
+  routeListener$!: Observable<any>;
 
   constructor(private route: ActivatedRoute,
               private chatService: ChatService,
@@ -42,19 +43,20 @@ export class ChatViewComponent implements OnInit {
 
     this.chatMessages$ = this.route.params.pipe(
       switchMap(params => {
+        this.roomId = params['roomId'];
         return this.chatService.getMappedRoomMessages(params['roomId']);
       })
     )
 
-    this.roomData$ = this.route.params.pipe(
-      switchMap(params => {
-        this.roomId = params['roomId'];
-        return this.roomsService.get(params['roomId']);
-      })
-    );
+    this.routeListener$=this.route.params;
+    this.routeListener$.subscribe((params)=>{
 
-    this.chatMessages$.subscribe();
-    this.roomData$.subscribe();
+    });
+
+  }
+
+  ngOnDestroy(){
+    this.routeListener$.subscribe().unsubscribe();
   }
 
 }

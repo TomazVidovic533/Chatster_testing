@@ -57,7 +57,7 @@ export class FilesService extends FirestoreService<UploadFile> {
     ).subscribe();
   }
 
-  uploadRoomProfilePhoto(roomData: Room, file: File) {
+  uploadRoomProfilePhoto(roomData: Room, file: File, user: User) {
     const filePath = 'files/' + new Date().getTime() + '_' + file.name;
     const storageRef = this.storage.ref(filePath);
     const uploadTask = this.storage.upload(filePath, file);
@@ -65,7 +65,11 @@ export class FilesService extends FirestoreService<UploadFile> {
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
           roomData.avatar = downloadURL;
-          this.roomsService.add(roomData);
+          this.roomsService.add(roomData).then((newRoom)=>{
+            if (newRoom.id != null) {
+              this.roomsService.joinRoom(newRoom,user);
+            }
+          });
 
           this.add({
             name: file.name,
@@ -74,6 +78,8 @@ export class FilesService extends FirestoreService<UploadFile> {
             created_at: Timestamp.now(),
             url: downloadURL,
           } as UploadFile);
+
+
 
         });
       })
@@ -87,6 +93,7 @@ export class FilesService extends FirestoreService<UploadFile> {
     uploadTask.snapshotChanges().pipe(
       finalize(() => {
         storageRef.getDownloadURL().subscribe(downloadURL => {
+
           this.add({
             name: file.name,
             path: filePath,
@@ -94,9 +101,14 @@ export class FilesService extends FirestoreService<UploadFile> {
             created_at: Timestamp.now(),
             url: downloadURL,
           } as UploadFile)
+
             .then((file) => {
+              console.log("url",downloadURL)
+              console.log("file",file)
+              console.log("roomId",roomId)
               if (file.id) {
                 // @ts-ignore
+
                 this.roomsFilesService.setSubCollectionDocument(roomId, 'files', file.id, {name: file.name} as UploadFile);
 
                 this.chatService.addSubCollectionDocument(roomId, 'messages', {

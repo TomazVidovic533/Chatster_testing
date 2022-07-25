@@ -15,7 +15,6 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class UsersOverviewComponent implements OnInit {
 
-  users$!: Observable<User[]>;
   constructor(private usersService: UsersService,
               private authService: AuthService,
               private translateService: TranslateService) {}
@@ -29,8 +28,6 @@ export class UsersOverviewComponent implements OnInit {
         this.translateService.use('en');
       }
     })
-
-    this.users$ =  this.usersService.list().pipe(shareReplay(1));
-    this.users$.subscribe((res)=>{console.log("list", res)});
   }
+
 }

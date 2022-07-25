@@ -5,17 +5,49 @@
 
     <ng-template [ngIf]="!room.is_private">
 
-      <app-custom-button
-        routerLink="/app/chat/{{room.id}}"
-        (clickTrigger)="joinRoom($event)"
-        [name]="'Join'"
-        [btnType]="'join-btn'"></app-custom-button>
+        <app-custom-button
+          routerLink="/app/chat/{{room.id}}"
+          (clickTrigger)="joinRoom($event)"
+          [name]="'Join'"
+          [btnType]="'join-btn'"></app-custom-button>
 
-      <app-custom-button
-        routerLink="/app/rooms/{{room.id}}"
-        (clickTrigger)="leaveRoom($event)"
-        [name]="'Leave'"
-        [btnType]="'leave-btn'"></app-custom-button>
+
+      <ng-template [ngIf]="isViewingUserMember">
+        <app-custom-button
+          routerLink="/app/rooms/{{room.id}}"
+          (clickTrigger)="leaveRoom($event)"
+          [name]="'Leave'"
+          [btnType]="'leave-btn'"></app-custom-button>
+      </ng-template>
+
+      <ng-template [ngIf]="room.owner==myId">
+        <app-custom-button
+          [name]="'Edit'"
+          [btnType]="'edit-btn'"></app-custom-button>
+
+        <app-custom-button
+          (clickTrigger)="delete($event)"
+          [name]="'Delete'"
+          [btnType]="'delete-btn'"></app-custom-button>
+      </ng-template>
+    </ng-template>
+
+
+    <ng-template [ngIf]="room.is_private">
+
+      <ng-template [ngIf]="room.owner!=myId">
+      <app-custom-button  (clickTrigger)="requestAccessToRoom($event)"
+                          [name]="'Request Access'"
+                         [btnType]="'request-btn'"></app-custom-button>
+      </ng-template>
+
+      <ng-template [ngIf]="isViewingUserMember">
+        <app-custom-button
+          routerLink="/app/rooms/{{room.id}}"
+          (clickTrigger)="leaveRoom($event)"
+          [name]="'Leave'"
+          [btnType]="'leave-btn'"></app-custom-button>
+      </ng-template>
 
       <app-custom-button
         [name]="'Edit'"
@@ -27,24 +59,8 @@
           [name]="'Delete'"
           [btnType]="'delete-btn'"></app-custom-button>
       </ng-template>
-
     </ng-template>
 
-    <ng-template [ngIf]="room.is_private">
-      <app-custom-button [name]="'Request Access'"
-                         [btnType]="'request-btn'"></app-custom-button>
-
-      <app-custom-button
-        [name]="'Edit'"
-        [btnType]="'edit-btn'"></app-custom-button>
-
-      <ng-template [ngIf]="room.owner==myId">
-        <app-custom-button
-          [name]="'Delete'"
-          [btnType]="'delete-btn'"></app-custom-button>
-      </ng-template>
-
-    </ng-template>
   </div>
 
 
@@ -77,15 +93,17 @@
     contentHeader=""
     (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
 
-    <app-table-view
-      [isOwner]="room.owner==myId"
-      redirectPath="app/people"
-      [deleteActionHeader]="'Remove request'"
-      [nameHeader]="'Username'"
-      [title]="'User Requests'"
-      viewActionHeader="See User Profile"
-      contentHeader=""
-      (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
+  <app-table-view
+    [isOwner]="room.owner==myId"
+    redirectPath="app/people"
+    [deleteActionHeader]="'Remove request'"
+    [nameHeader]="'Username'"
+    [title]="'User Requests'"
+    viewActionHeader="See User Profile"
+    contentHeader=""
+    (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
+
+  <app-gridview [dataSource]="roomMembers$"></app-gridview>
 
 </ng-container>
 

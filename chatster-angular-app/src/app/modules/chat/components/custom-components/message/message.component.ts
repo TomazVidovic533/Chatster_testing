@@ -12,6 +12,7 @@ export class MessageComponent implements OnInit {
 
   myUserId!: string;
   @Input() messageData!: MappedMessage;
+  @Input() roomId!: string;
 
 
   constructor(private authService: AuthService) {

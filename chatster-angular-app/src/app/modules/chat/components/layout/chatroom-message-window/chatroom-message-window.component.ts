@@ -21,10 +21,13 @@ export class ChatroomMessageWindowComponent implements OnInit {
 
   constructor(private chatService: ChatService,
               private filesService: FilesService,
-              private authService: AuthService) { }
+              private authService: AuthService) {
+  }
 
   ngOnInit(): void {
-    this.chatMessages$.subscribe();
+    this.chatMessages$.subscribe((m)=>{
+      console.log(m)
+    });
     this.scrollToBottom();
   }
 
@@ -35,21 +38,26 @@ export class ChatroomMessageWindowComponent implements OnInit {
   scrollToBottom(): void {
     try {
       this.myScrollContainer.nativeElement.scrollTop = this.myScrollContainer.nativeElement.scrollHeight;
-    } catch(err) { }
+    } catch (err) {
+    }
   }
 
   showFileDetection(isOver: boolean) {
     this.isFileOverMessageWindow = isOver;
   }
 
-   dropFiles(files: FileList) {
-    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+  dropFiles(files: FileList) {
+    this.authService.getUserData().pipe(take(1)).subscribe((user) => {
       for (let i = 0; i < files.length; i++) {
+        console.log(files[i])
         // @ts-ignore
-        this.filesService.sendFileAsMessage(files.item(i),this.roomId,user?.id);
+        this.filesService.sendFileAsMessage(files.item(i), this.roomId, user?.id);
       }
     })
+  }
 
+  ngOnDestroy(){
+    this.chatMessages$.subscribe().unsubscribe();
   }
 
 

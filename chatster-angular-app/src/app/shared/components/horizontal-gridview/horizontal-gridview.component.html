@@ -1,0 +1,5 @@
+<div class="grid">
+  <ng-container *ngFor="let dataObject of (dataSource | async)">
+    <app-grid-card [dataObject]="dataObject"></app-grid-card>
+  </ng-container>
+</div>
