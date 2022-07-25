@@ -2,7 +2,7 @@
   background-color: #e7e9eb;
   position: relative;
   margin-top: 1.4em;
-  width: 60%;
+  width: 80%;
   margin-left: auto;
   margin-right: auto;
   border-radius: 0.6em;
@@ -27,4 +27,10 @@
   display: flex;
   flex-direction: row;
   flex-wrap: wrap;
+}
+
+h2{
+ font-weight: normal;
+  text-align: center;
+  padding-top: 0.5em;
 }

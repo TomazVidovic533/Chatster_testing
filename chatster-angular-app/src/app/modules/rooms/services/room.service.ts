@@ -119,4 +119,29 @@ export class RoomService extends FirestoreService<Room> {
       );
   }
 
+  getRoomsMembers(roomId: string){
+    return this.firestore
+      .collection('rooms')
+      .doc(roomId)
+      .collection('members')
+      .snapshotChanges()
+      .pipe(
+        map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
+        switchMap((products: any[]) => {
+          const pricesCols$ = products.map((p) =>
+            this.firestore
+              .collection(`users`).doc(p.id)
+              .valueChanges()
+          );
+          return combineLatest([of(products), combineLatest(pricesCols$.length ? pricesCols$ : [of([])])]);
+        }),
+        map(([products, pricesCols]) =>
+          products.map((p, idx) => {
+            p.userData = pricesCols[idx];
+            return p;
+          })
+        )
+      );
+  }
+
 }

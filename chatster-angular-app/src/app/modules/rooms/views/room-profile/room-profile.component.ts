@@ -40,7 +40,7 @@ export class RoomProfileComponent implements OnInit {
   privateRoomLabel!: string;
   publicRoomLabel!: string;
 
-  isViewingUserMember: boolean = true;
+  isViewingUserMember: boolean = false;
 
   ngOnInit(): void {
     // @ts-ignore
@@ -91,7 +91,24 @@ export class RoomProfileComponent implements OnInit {
         }));
 
       this.roomFilesShared$.subscribe((res)=>{
-        console.log("requesti",res)
+        console.log("shared",res)
+      })
+
+
+
+      this.roomMembers$ = this.roomService.getRoomsMembers(this.roomId).pipe(
+        map(data => {
+          return data.map((element: any) => {
+            return {
+              id: element.id,
+              avatar: element.userData.avatar,
+              name: element.userData.name,
+            };
+          });
+        }));
+
+      this.roomMembers$.subscribe((res)=>{
+        console.log("members",res)
       })
 
     }
