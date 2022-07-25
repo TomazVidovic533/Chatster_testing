@@ -1,10 +1,9 @@
 import {Injectable} from '@angular/core';
 import {FirestoreService} from "../../../core/services/firestore.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
-import {LoggedUser, User} from "../../../core/models/user.model";
-import {user} from "@angular/fire/auth";
+import {User} from "../../../core/models/user.model";
 import {combineLatest, map, Observable, of, switchMap} from "rxjs";
-import {Room} from "../../../core/models/room.model";
+
 
 @Injectable({providedIn: 'root'})
 export class UsersService extends FirestoreService<User> {

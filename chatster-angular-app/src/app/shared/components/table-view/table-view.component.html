@@ -2,22 +2,25 @@
   <table>
     <caption>{{title}}</caption>
 
-
-    <ng-container *ngIf="redirectPath">
+    <!-- request header -->
+    <ng-container *ngIf="itemType=='request'">
       <thead>
       <tr>
         <th scope="col">{{contentHeader}}</th>
         <th scope="col">{{nameHeader}}</th>
         <th scope="col">{{viewActionHeader}}</th>
         <ng-template [ngIf]="isOwner">
+        <th scope="col">{{reactionActionHeader}}</th>
+        </ng-template>
+        <ng-template [ngIf]="isOwner">
           <th scope="col">{{deleteActionHeader}}</th>
         </ng-template>
-
       </tr>
       </thead>
     </ng-container>
 
-    <ng-container *ngIf="!redirectPath">
+    <!-- files header -->
+    <ng-container *ngIf="itemType=='file'">
       <thead>
       <tr>
         <th scope="col">{{nameHeader}}</th>
@@ -34,41 +37,48 @@
 
     <!-- user request -->
 
-    <ng-container *ngIf="redirectPath">
-      <tr>
+    <ng-container *ngIf="itemType=='request'">
+      <ng-container *ngFor="let dataObject of (dataSource$ | async)">
+        <tr>
+          <td>
+            <img
+              src="{{dataObject?.avatar}}"
+              class="image-item-table" alt="avatar">
+          </td>
 
-        <td>
-          <img
-            src="https://source.unsplash.com/1600x900/?nature"
-            class="image-item-table">
-        </td>
+          <td>{{dataObject?.name}}</td>
 
-        <td>Name</td>
-
-        <td><a class="see" routerLink="/{{redirectPath}}/ZetHct6P5UQC3kFqRXXmR5M3ocJ3">
-          <lucide-icon [img]="view" class="svg"></lucide-icon>
-        </a>
-        </td>
-
-        <ng-template [ngIf]="isOwner">
-          <td (click)="deleteClicked($event, 'moj id')"><a class="delete">
-            <lucide-icon [img]="trash" class="svg"></lucide-icon>
+          <td (click)="viewClicked($event, dataObject?.id)"><a class="see">
+            <lucide-icon [img]="view" class="svg"></lucide-icon>
           </a>
           </td>
-        </ng-template>
 
-      </tr>
+          <ng-template [ngIf]="isOwner">
+            <td (click)="acceptClicked($event, dataObject?.id)"><a class="accept">
+              <lucide-icon [img]="accept" class="svg"></lucide-icon>
+            </a>
+            </td>
+          </ng-template>
+
+          <ng-template [ngIf]="isOwner">
+            <td (click)="deleteClicked($event, dataObject?.id)"><a class="delete">
+              <lucide-icon [img]="trash" class="svg"></lucide-icon>
+            </a>
+            </td>
+          </ng-template>
+        </tr>
+      </ng-container>
     </ng-container>
 
     <!-- files list -->
-    <ng-container *ngIf="!redirectPath">
+    <ng-container *ngIf="itemType=='file'">
 
       <tr>
 
         <td>Name</td>
 
-        <td><a class="see" (click)="goToUrl('https://firebasestorage.googleapis.com/v0/b/chatsterv2/o/files%2F1658523882397_Nov%20dokument%20z%20besedilom.txt?alt=media&token=c869fff3-7caa-44b8-b753-e8cff3710d62')">
-           <lucide-icon [img]="view" class="svg"></lucide-icon>
+        <td><a class="see"> <!--(click)="goToUrl('https://firebasestorage.googleapis.com/v0/b/chatsterv2/o/files%2F1658523882397_Nov%20dokument%20z%20besedilom.txt?alt=media&token=c869fff3-7caa-44b8-b753-e8cff3710d62')">
+         -->  <lucide-icon [img]="view" class="svg"></lucide-icon>
         </a>
         </td>
 

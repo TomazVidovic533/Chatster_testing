@@ -27,8 +27,6 @@ export class ChatroomComponent implements OnInit {
         this.usersService.getUsersContacts(user?.id)
       ])),
       map(([rooms, contacts]) => {
-        console.log("rooms", rooms)
-        console.log("contacts", contacts)
         let combined = [...rooms, ...contacts];
         let mappedContacts = [];
         for (const element of combined) {

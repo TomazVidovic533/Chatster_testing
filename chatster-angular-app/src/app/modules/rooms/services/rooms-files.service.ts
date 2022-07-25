@@ -12,4 +12,8 @@ export class RoomsFilesService extends FirestoreService<UploadFile>{
   constructor(private firestore: AngularFirestore, private router: Router) {
     super("rooms_files", firestore);
   }
+
+  getSharedFilesInRoom(){
+
+  }
 }

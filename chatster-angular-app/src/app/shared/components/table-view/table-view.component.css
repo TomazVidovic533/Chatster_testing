@@ -90,13 +90,17 @@ table th {
   height: 4em;
   width: 4em;
   object-fit: cover;
-  border-radius: 0.6em;
+  border-radius: 50%;
 }
 
 a {
   all: unset;
   cursor: pointer;
 
+}
+
+.accept{
+  color: #5eb945;
 }
 
 .see{

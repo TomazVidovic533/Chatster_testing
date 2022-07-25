@@ -1,11 +1,12 @@
 import {Component, OnInit} from '@angular/core';
-import {Observable, take} from "rxjs";
+import {map, Observable, switchMap, take} from "rxjs";
 import {User} from "../../../../core/models/user.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RoomService} from "../../services/room.service";
 import {Room} from "../../../../core/models/room.model";
 import {AuthService} from "../../../auth/services/auth.service";
 import {TranslateService} from "@ngx-translate/core";
+import {TableDataItem} from "../../../../core/models/table-data-item.model";
 
 
 @Component({
@@ -15,12 +16,15 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class RoomProfileComponent implements OnInit {
 
+
   constructor(private route: ActivatedRoute,
               private roomService: RoomService,
               private authService: AuthService,
               private translateService: TranslateService,
               private router: Router) {
   }
+
+  roomRequests$!: Observable<TableDataItem[]>;
 
   roomMembers$!: Observable<Room[]>;
   roomData$!: Observable<Room>;
@@ -58,6 +62,20 @@ export class RoomProfileComponent implements OnInit {
       this.roomData$.subscribe((roomObject) => {
         this.roomObject = roomObject;
       });
+
+      this.roomRequests$ = this.roomService.getPrivateRoomsRequests(this.roomId).pipe(
+        map(data => {
+          return data.map((element: any) => {
+            return {
+              id: element.id,
+              avatar: element.userData.avatar,
+              name: element.userData.name,
+            };
+          });
+        }));
+      this.roomRequests$.subscribe((res)=>{
+        console.log("requesti",res)
+      })
     }
   }
 
@@ -97,8 +115,24 @@ export class RoomProfileComponent implements OnInit {
   }
 
 
-  deleteFile(event: Event, id: string) {
-    console.log("deletem", id)
+  viewProfile(event: Event, id: string){
+    console.log("view profile", id)
   }
 
+  goToUrl(event: Event, url: string) {
+    window.location.href = url;
+  }
+
+
+  deleteFile(event: Event, id: string) {
+    console.log("delete file", id)
+  }
+
+  acceptRequest(event: Event, id: string) {
+    console.log("accept", id)
+  }
+
+  deleteRequest(event: Event, id: string) {
+    console.log("delete request", id)
+  }
 }

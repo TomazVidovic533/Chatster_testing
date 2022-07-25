@@ -89,19 +89,25 @@
     [deleteActionHeader]="'Remove file'"
     [nameHeader]="'File name'"
     [title]="'Shared files inside room'"
+    itemType="file"
     viewActionHeader="See File's Content"
     contentHeader=""
+    (onViewTriggered)="goToUrl($event[0],$event[1])"
     (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
 
   <app-table-view
     [isOwner]="room.owner==myId"
-    redirectPath="app/people"
+    itemType="request"
+    [reactionActionHeader]="'Accept Request'"
     [deleteActionHeader]="'Remove request'"
     [nameHeader]="'Username'"
     [title]="'User Requests'"
     viewActionHeader="See User Profile"
     contentHeader=""
-    (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
+    [dataSource$]="roomRequests$"
+    (onViewTriggered)="viewProfile($event[0],$event[1])"
+    (onAcceptTriggered)="acceptRequest($event[0],$event[1])"
+    (onDeleteTriggered)="deleteRequest($event[0],$event[1])"></app-table-view>
 
   <app-gridview [dataSource]="roomMembers$"></app-gridview>
 

@@ -3,7 +3,7 @@ import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {FirestoreService} from "../../../core/services/firestore.service";
 import {Room} from "../../../core/models/room.model";
 import {Router} from "@angular/router";
-import {map, take} from "rxjs";
+import {combineLatest, map, of, switchMap, take} from "rxjs";
 import {User} from "../../../core/models/user.model";
 
 
@@ -74,14 +74,7 @@ export class RoomService extends FirestoreService<Room> {
     })
   }
 
-  getUsersRooms(userId: string) {
-    return this.listWhere('members', 'array-contains', userId);
-  }
-
   leaveRoom(roomId: string, userId: string) {
-    /* this.firestore.collection('rooms').doc(roomId).update({
-       members: arrayRemove(userId)
-     });*/
     this.deleteSubCollectionDocument(roomId, 'members', userId);
     this.firestore.collection('users').doc(userId).collection('rooms').doc(roomId).delete();
     this.router.navigate(['/app/chat/' + roomId]);
@@ -98,6 +91,31 @@ export class RoomService extends FirestoreService<Room> {
             return {id, ...data};
           }
         })
+      );
+  }
+
+  getPrivateRoomsRequests(roomId: string){
+    return this.firestore
+      .collection('rooms')
+      .doc(roomId)
+      .collection('requests')
+      .snapshotChanges()
+      .pipe(
+        map((actions: any[]) => actions.map((a) => ({...a.payload.doc.data(), ...{id: a.payload.doc.id}}))),
+        switchMap((products: any[]) => {
+          const pricesCols$ = products.map((p) =>
+            this.firestore
+              .collection(`users`).doc(p.id)
+              .valueChanges()
+          );
+          return combineLatest([of(products), combineLatest(pricesCols$.length ? pricesCols$ : [of([])])]);
+        }),
+        map(([products, pricesCols]) =>
+          products.map((p, idx) => {
+            p.userData = pricesCols[idx];
+            return p;
+          })
+        )
       );
   }
 
