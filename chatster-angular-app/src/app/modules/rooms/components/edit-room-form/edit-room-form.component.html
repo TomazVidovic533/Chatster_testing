@@ -7,25 +7,41 @@
         <app-custom-form-input-text [type]="'text'"
                                     formControlName="name"></app-custom-form-input-text>
 
+        <ng-template [ngIf]="editRoomForm.get('name')?.errors">
+          <app-error-form-notification [formControlInput]="editRoomForm.get('name')"
+                                       [inputLabel]="'Name'"></app-error-form-notification>
+        </ng-template>
+
         <app-custom-form-input-text [type]="'select'"
                                     formControlName="is_private"
                                     [optionItems]="isPrivateOptions"></app-custom-form-input-text>
 
         <app-custom-form-input-text [type]="'text'"
                                     formControlName="bio"></app-custom-form-input-text>
+
+        <ng-template [ngIf]="editRoomForm.get('bio')?.errors">
+          <app-error-form-notification [formControlInput]="editRoomForm.get('bio')"
+                                       [inputLabel]="'Bio'"></app-error-form-notification>
+        </ng-template>
       </form>
 
       <div class="line"></div>
 
       <div class="media-options">
 
-        <div class="error-notification"> {{errors}}</div>
+        <ng-template [ngIf]="editRoomForm.valid">
+          <app-custom-button (clickTrigger)="editRoom($event)"
+                             [name]="editRoomLabel"
+                             [btnType]="'form-btn-create'"></app-custom-button>
+        </ng-template>
 
-        <app-custom-button (clickTrigger)="editRoom($event)"
-                           [name]="'Edit Room'"
-                           [btnType]="'form-btn-create'"></app-custom-button>
+        <ng-template [ngIf]="!editRoomForm.valid">
+          <app-custom-button (clickTrigger)="invalid($event)"
+                             [name]="editRoomLabel"
+                             [btnType]="'disabled-btn'"></app-custom-button>
+        </ng-template>
+
       </div>
     </div>
-
   </div>
 </div>

@@ -24,6 +24,7 @@ export class CustomFormInputTextComponent implements OnInit, ControlValueAccesso
   @Input() optionItems!: string[];
 
   constructor() {
+
   }
 
   ngOnInit(): void {
@@ -36,7 +37,6 @@ export class CustomFormInputTextComponent implements OnInit, ControlValueAccesso
   registerOnTouched(onTouched: any): void {
     this.onTouched = onTouched;
   }
-
 
   setDisabledState(isDisabled: boolean): void {
   }

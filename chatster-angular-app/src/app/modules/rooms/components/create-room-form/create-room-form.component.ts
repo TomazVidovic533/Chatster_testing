@@ -66,7 +66,7 @@ export class CreateRoomFormComponent implements OnInit {
     this.createRoomForm = this.formBuilder.group({
       name: new FormControl(null, [Validators.required]),
       avatar: new FormControl(null, [Validators.required]),
-      is_private: new FormControl(this.isPrivateOptions[0], [Validators.required]),
+      is_private: new FormControl(this.isPrivateOptions[0], null),
       bio: new FormControl(null, [Validators.required])
     });
 
@@ -96,4 +96,7 @@ export class CreateRoomFormComponent implements OnInit {
     })
   }
 
+  invalid($event: Event) {
+
+  }
 }

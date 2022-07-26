@@ -20,6 +20,7 @@ import { TableItemComponent } from './components/table-item/table-item.component
 import { HorizontalGridviewComponent } from './components/horizontal-gridview/horizontal-gridview.component';
 import { NotificationsPanelComponent } from './components/notifications-panel/notifications-panel.component';
 import { NotificationItemComponent } from './components/notification-item/notification-item.component';
+import { ErrorFormNotificationComponent } from './components/error-form-notification/error-form-notification.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +37,8 @@ import { NotificationItemComponent } from './components/notification-item/notifi
     TableItemComponent,
     HorizontalGridviewComponent,
     NotificationsPanelComponent,
-    NotificationItemComponent
+    NotificationItemComponent,
+    ErrorFormNotificationComponent
   ],
     imports: [
         CommonModule,
@@ -45,21 +47,22 @@ import { NotificationItemComponent } from './components/notification-item/notifi
         FormsModule,
         ReactiveFormsModule
     ],
-  exports: [
-    GridviewComponent,
-    SearchSectionComponent,
-    GridCardComponent,
-    ProfileInformationItemComponent,
-    ProfileHeaderComponent,
-    CustomFormInputTextComponent,
-    CustomFileUploadComponent,
-    CustomButtonComponent,
-    SearchViewComponent,
-    TranslateModule,
-    TableItemComponent,
-    TableViewComponent,
-    HorizontalGridviewComponent,
-    NotificationsPanelComponent
-  ]
+    exports: [
+        GridviewComponent,
+        SearchSectionComponent,
+        GridCardComponent,
+        ProfileInformationItemComponent,
+        ProfileHeaderComponent,
+        CustomFormInputTextComponent,
+        CustomFileUploadComponent,
+        CustomButtonComponent,
+        SearchViewComponent,
+        TranslateModule,
+        TableItemComponent,
+        TableViewComponent,
+        HorizontalGridviewComponent,
+        NotificationsPanelComponent,
+        ErrorFormNotificationComponent
+    ]
 })
 export class SharedModule { }

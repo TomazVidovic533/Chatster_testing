@@ -4,6 +4,7 @@ import {Router} from "@angular/router";
 import {Room} from "../../../../core/models/room.model";
 import {RoomService} from "../../services/room.service";
 import {TranslateService} from "@ngx-translate/core";
+import {PasswordValidator} from "../../../../shared/validators/password-validator/password-validator";
 
 @Component({
   selector: 'app-edit-room-form',
@@ -28,16 +29,17 @@ export class EditRoomFormComponent implements OnInit {
   ngOnInit(): void {
     this.translateService.get(['edit_room_string'])
       .subscribe(translations => {
-        this.editRoomLabel=translations['edit_room_string'];
+        this.editRoomLabel = translations['edit_room_string'];
       });
 
     this.editRoomForm = this.formBuilder.group({
-      name: new FormControl(this.roomData.name, [Validators.required]),
+      // name: new FormControl(this.roomData.name, [Validators.required, Validators.minLength(6), Validators.email, Validators.max(16), PasswordValidator.complex]),
+      //
+      name: new FormControl(this.roomData.name, [Validators.required, Validators.minLength(6), Validators.maxLength(18)]),
       is_private: new FormControl((this.roomData?.is_private || false) ? 'Private room' : 'Public room', [Validators.required]),
-      bio: new FormControl(this.roomData.bio, [Validators.required])
+      bio: new FormControl(this.roomData.bio, [Validators.required, Validators.maxLength(150)])
     });
   }
-
 
 
   editRoom(event: Event) {
@@ -52,6 +54,11 @@ export class EditRoomFormComponent implements OnInit {
       this.roomService.update(editedData, this.roomData.id);
       this.router.navigate(['/app/rooms/' + this.roomData.id]);
     }
+
+  }
+
+
+  invalid($event: Event) {
 
   }
 }

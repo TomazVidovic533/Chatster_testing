@@ -87,3 +87,9 @@
     {{name}}
   </button>
 </ng-template>
+
+<ng-template [ngIf]="btnType=='disabled-btn'">
+  <div class="field button-field disabled-btn">
+    <button type="button" class="disabled-btn" (click)="triggerButton($event)">{{name}}</button>
+  </div>
+</ng-template>
