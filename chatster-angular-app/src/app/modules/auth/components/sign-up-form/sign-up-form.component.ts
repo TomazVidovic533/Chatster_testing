@@ -2,6 +2,7 @@ import {Component, OnInit} from '@angular/core';
 import {AuthService} from "../../services/auth.service";
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
 import {User} from "../../../../core/models/user.model";
+import {PasswordValidator} from "../../../../shared/validators/password-validator/password-validator";
 
 @Component({
   selector: 'app-sign-up-form',
@@ -20,14 +21,14 @@ export class SignUpFormComponent implements OnInit {
 
   ngOnInit(): void {
     this.signUpForm = this.formBuilder.group({
-      name: new FormControl(null, [Validators.required]),
-      username: new FormControl(null, [Validators.required]),
-      email: new FormControl(null, [Validators.required]),
+      name: new FormControl(null, [Validators.required,  Validators.maxLength(30)]),
+      username: new FormControl(null, [Validators.required, Validators.maxLength(18)]),
+      email: new FormControl(null, [Validators.required,Validators.email]),
       gender: new FormControl('Male', [Validators.required]),
       language: new FormControl('Slovene', [Validators.required]),
       avatar: new FormControl(null, [Validators.required]),
-      bio: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required])
+      bio: new FormControl(null, [Validators.required,Validators.maxLength(150)]),
+      password: new FormControl(null, [Validators.required, PasswordValidator.complex])
     });
   }
 
@@ -45,5 +46,9 @@ export class SignUpFormComponent implements OnInit {
 
   signInGoogle(event: Event){
     this.authService.signInWithGoogle();
+  }
+
+  invalid($event: Event) {
+
   }
 }

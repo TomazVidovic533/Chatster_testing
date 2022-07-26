@@ -5,6 +5,7 @@ import {finalize, tap} from "rxjs";
 import {AngularFireFunctions} from "@angular/fire/compat/functions";
 import {AngularFireAuth} from "@angular/fire/compat/auth";
 import {AuthService} from "../../services/auth.service";
+import {PasswordValidator} from "../../../../shared/validators/password-validator/password-validator";
 
 export function requiredFileType( type: string ) {
   return function (control: FormControl) {
@@ -32,15 +33,17 @@ export function requiredFileType( type: string ) {
 export class SignInFormComponent implements OnInit {
 
   signInForm!: FormGroup;
+  checkErrors!: boolean;
 
   constructor(private formBuilder: FormBuilder, private authService: AuthService) {
   }
 
   ngOnInit(): void {
     this.signInForm = this.formBuilder.group({
-      email: new FormControl(null, [Validators.required]),
-      password: new FormControl(null, [Validators.required])
+      email: new FormControl(null, [Validators.required, Validators.email]),
+      password: new FormControl(null, [Validators.required, PasswordValidator.complex])
     });
+    this.checkErrors=false;
   }
 
   async signInGoogle(event: Event) {
@@ -50,8 +53,15 @@ export class SignInFormComponent implements OnInit {
   }
 
   async signInWithEmailAndPassword(event: Event) {
-    await this.authService.signInWithEmailAndPassword(
-      this.signInForm.get('email')?.value,
-      this.signInForm.get('password')?.value);
+
+    if(!this.signInForm.valid){
+      this.checkErrors=true;
+    }else{
+      await this.authService.signInWithEmailAndPassword(
+        this.signInForm.get('email')?.value,
+        this.signInForm.get('password')?.value).catch((err)=>{
+          console.log(err);
+      });
+    }
   }
 }

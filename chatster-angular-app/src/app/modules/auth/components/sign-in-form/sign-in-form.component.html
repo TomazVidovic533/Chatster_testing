@@ -9,9 +9,19 @@
                                     [placeholderValue]="'Email'"
                                     formControlName="email"></app-custom-form-input-text>
 
+        <ng-template [ngIf]="signInForm.get('email')?.errors && checkErrors">
+          <app-error-form-notification [formControlInput]="signInForm.get('email')"
+                                       [inputLabel]="'email'"></app-error-form-notification>
+        </ng-template>
+
         <app-custom-form-input-text [type]="'password'"
                                     [placeholderValue]="'Password'"
                                     formControlName="password"></app-custom-form-input-text>
+
+        <ng-template [ngIf]="signInForm.get('password')?.errors && checkErrors">
+          <app-error-form-notification [formControlInput]="signInForm.get('password')"
+                                       [inputLabel]="'Password'"></app-error-form-notification>
+        </ng-template>
 
         <app-custom-button (clickTrigger)="signInWithEmailAndPassword($event)"
                            [name]="'Sign In'"

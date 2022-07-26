@@ -52,10 +52,8 @@ export class AuthService{
 
   signInWithEmailAndPassword(email: string, password: string) {
     return this.fireAuth.signInWithEmailAndPassword(email, password).then(res => {
-      localStorage.setItem('myUserId',<string>res.user?.uid)
       return res;
-    })
-      .catch(err => {
+    }).catch(err => {
         return err.message;
       });
   }
@@ -74,7 +72,7 @@ export class AuthService{
       .catch((error) => {
       });
   }
-
+//
   resendVerificationEmail() {
     this.fireAuth.currentUser.then((user) => {
       user?.sendEmailVerification().then(() => {
@@ -94,7 +92,6 @@ export class AuthService{
 
   async signInWithGoogle() {
     return this.fireAuth.signInWithPopup(new GoogleAuthProvider()).then((res) => {
-      localStorage.setItem('myUserId',<string>res.user?.uid)
       if (res.user?.emailVerified == false) {
         this.resendVerificationEmail();
       } else {
@@ -106,7 +103,6 @@ export class AuthService{
   }
 
   logOut() {
-    localStorage.removeItem('myUserId')
     this.fireAuth.signOut().then(() => {
       this.router.navigate(['auth/sign-in'])
     });

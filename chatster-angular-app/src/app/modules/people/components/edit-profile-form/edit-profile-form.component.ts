@@ -14,10 +14,13 @@ import {TranslateService} from "@ngx-translate/core";
 })
 export class EditProfileFormComponent implements OnInit {
 
+  @Input() userData!: User;
   editUserForm!: FormGroup;
   languageOptions: string[] = ['Slovene', 'English'];
   genderOptions: string[] = ['Male', 'Female'];
-  @Input() userData!: User;
+
+
+  editUserLabel!: string;
 
   constructor(private formBuilder: FormBuilder,
               private router: Router,
@@ -35,12 +38,17 @@ export class EditProfileFormComponent implements OnInit {
       }
     })
 
+    this.translateService.get(['edit_room_string'])
+      .subscribe(translations => {
+        this.editUserLabel = translations['edit_profile_string'];
+      });
+
     this.editUserForm = this.formBuilder.group({
-      name: new FormControl(this.userData.name, [Validators.required]),
-      username: new FormControl(this.userData.username, [Validators.required]),
+      name: new FormControl(this.userData.name, [Validators.required, Validators.maxLength(30)]),
+      username: new FormControl(this.userData.username, [Validators.required, Validators.maxLength(18)]),
       gender: new FormControl(this.userData.gender, [Validators.required]),
       language: new FormControl(this.userData.language, [Validators.required]),
-      bio: new FormControl(this.userData.bio, [Validators.required]),
+      bio: new FormControl(this.userData.bio, [Validators.required, Validators.maxLength(150)]),
     });
   }
 
@@ -57,8 +65,6 @@ export class EditProfileFormComponent implements OnInit {
       this.translateService.use('en');
     } else if (this.userData.language == 'Slovene') {
       this.translateService.use('si')
-    } else if (this.userData.language == 'Spanish') {
-      this.translateService.use('esp')
     }
 
     this.authService.getUserData().pipe(take(1)).subscribe((user) => {
@@ -67,4 +73,7 @@ export class EditProfileFormComponent implements OnInit {
     })
   }
 
+  invalid($event: Event) {
+
+  }
 }
