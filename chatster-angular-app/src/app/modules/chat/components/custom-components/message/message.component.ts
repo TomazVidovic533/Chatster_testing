@@ -20,9 +20,12 @@ export class MessageComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.myUserId = localStorage.getItem('myUserId');
-    this.authService.getUserData().pipe(take(1)).subscribe();
-
+    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+      if(user?.id){
+        this.myUserId=user?.id;
+      }
+    });
+    console.log(this.messageData)
   }
 
 }

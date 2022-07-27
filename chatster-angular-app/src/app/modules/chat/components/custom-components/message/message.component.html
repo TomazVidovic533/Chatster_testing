@@ -1,3 +1,20 @@
+<ng-template [ngIf]="messageData.messageData.sent_by==myUserId">
+  <div [className]="messageData.messageData.fileId ? 'chat-message-item my-message file-shared': 'chat-message-item my-message'">
+    <div class="chat-message-item-content
+                            content-my-message">
+      <div class="chat-message-item-text">
+        <ng-template [ngIf]="messageData.messageData.fileId">
+          <a routerLink="/app/rooms/{{roomId}}">{{messageData.messageData.message}}</a>
+        </ng-template>
+        <ng-template [ngIf]="!messageData.messageData.fileId">
+          {{messageData.messageData.message}}
+        </ng-template>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+
 <ng-template [ngIf]="messageData.messageData.sent_by!=myUserId">
   <div class="chat-message-item" >
     <div class="chat-message-item-header">
@@ -26,19 +43,4 @@
 </ng-template>
 
 
-<ng-template [ngIf]="messageData.messageData.sent_by==myUserId">
-  <div [className]="messageData.messageData.fileId ? 'chat-message-item my-message file-shared': 'chat-message-item my-message'">
-    <div class="chat-message-item-content
-                            content-my-message">
-      <div class="chat-message-item-text">
-        <ng-template [ngIf]="messageData.messageData.fileId">
-          <a routerLink="/app/rooms/{{roomId}}">{{messageData.messageData.message}}</a>
-        </ng-template>
-        <ng-template [ngIf]="!messageData.messageData.fileId">
-          {{messageData.messageData.message}}
-        </ng-template>
-      </div>
-    </div>
-  </div>
-</ng-template>
 
