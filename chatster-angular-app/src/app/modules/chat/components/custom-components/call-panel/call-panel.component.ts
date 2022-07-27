@@ -17,14 +17,15 @@ import {ChatService} from "../../../services/chat.service";
 })
 export class CallPanelComponent implements OnInit {
 
+  @Input() elementId!: string | undefined;
+  roomData$!: Observable<Room>
+  room!: Observable<any>;
+
   videocall = Video;
 
   message!: any;
-  subscription!: Subscription;
+  subscription: Subscription = new Subscription();
 
-  @Input() elementId!: string | undefined;
-  roomData$!: Observable<Room>
-  room!:Observable<any>;
 
   constructor(private roomsService: RoomService,
               private authService: AuthService,
@@ -37,24 +38,29 @@ export class CallPanelComponent implements OnInit {
 
   ngOnInit(): void {
     this.room = this.chatService.selectedRoom.pipe(
-      switchMap((params)=>{
+      switchMap((params) => {
         // @ts-ignore
-        console.log("userID",params.userId)
-        // @ts-ignore
-        console.log("roomId",params.roomId)
-
-        // @ts-ignore
-        if(params.userId){
+        if (params.userId) {
           // @ts-ignore
           return this.usersService.get(params.userId)
         }
         // @ts-ignore
         return this.roomsService.get(params.roomId)
-    }))
+      }))
+    this.subscription.add(this.room.subscribe());
+  }
 
-    this.room.subscribe((d)=>{
-      console.log("data: ",d)
-    });
+  createCallRoom() {
+    this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
+      this.callService.createNewCallRoom(<string>myUserData?.id, 'otherid');
+      this.router.navigate(['/app/chat/call/id']);
+    })
+  }
+
+  ngOnDestroy() {
+    this.subscription.unsubscribe();
+  }
+}
 
 
 /*    this.roomData$ = this.route.params.pipe(
@@ -66,18 +72,3 @@ export class CallPanelComponent implements OnInit {
     this.roomData$.subscribe((res) => {
 
     });*/
-  }
-
-  createCallRoom() {
-    this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
-      this.callService.createNewCallRoom(<string>myUserData?.id, 'otherid');
-      this.router.navigate(['/app/chat/call/id']);
-    })
-
-  }
-
-  ngOnDestroy() {
-
-  }
-
-}

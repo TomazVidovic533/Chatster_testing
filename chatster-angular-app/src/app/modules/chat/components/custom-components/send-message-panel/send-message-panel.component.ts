@@ -18,6 +18,7 @@ export class SendMessagePanelComponent implements OnInit {
 
   sendMessageForm!: FormGroup;
   @Input() roomId!: string | undefined;
+  roomData: any;
 
   smilePlus = SmilePlus;
 
@@ -30,11 +31,17 @@ export class SendMessagePanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.subscription = this.chatService.selectedRoom.subscribe(message => console.log("send message", message))
+    this.subscription = new Subscription();
 
     this.sendMessageForm = this.formBuilder.group({
       message: new FormControl(null, [Validators.required])
     });
+
+    this.chatService.selectedRoom.subscribe((r)=>{
+      this.roomData
+    })
+
+    this.subscription.add();
   }
 
   sendMessage(event: Event) {
@@ -45,10 +52,13 @@ export class SendMessagePanelComponent implements OnInit {
           sent_by: myUserData?.id,
           message: this.sendMessageForm.get('message')?.value,
         } as Message, this.roomId)
-
       }
     })
    // this.sendMessageForm.get('message')?.reset();
+  }
+
+  ngOnDestroy(){
+    this.subscription.unsubscribe();
   }
 
 }

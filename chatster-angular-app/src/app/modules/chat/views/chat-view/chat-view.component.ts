@@ -24,7 +24,7 @@ export class ChatViewComponent implements OnInit {
   routeListener$!: Observable<any>;
 
   message!: any;
-  subscription!: Subscription;
+  subscription: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute,
               private chatService: ChatService,
@@ -34,8 +34,8 @@ export class ChatViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.subscription = this.chatService.selectedRoom.subscribe(message =>
-      this.message = message)
+    this.subscription.add(this.chatService.selectedRoom.subscribe(message =>
+      this.message = message));
 
 
     this.chatMessages$ = this.route.params.pipe(
