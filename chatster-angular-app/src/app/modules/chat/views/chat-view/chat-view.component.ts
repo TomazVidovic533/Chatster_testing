@@ -34,7 +34,7 @@ export class ChatViewComponent implements OnInit {
 
   ngOnInit(): void {
 
-    this.subscription = this.chatService.currentMessage.subscribe(message =>
+    this.subscription = this.chatService.selectedRoom.subscribe(message =>
       this.message = message)
 
 
@@ -44,11 +44,21 @@ export class ChatViewComponent implements OnInit {
       })
     )
 
-    this.routeListener$ = this.route.params;
+/*    this.routeListener$ = this.route.params;
     this.routeListener$.subscribe((params) => {
-      console.log("room  :: id", );
-      this.chatService.changeMessage({roomId: params['roomId'], userId: 'fdkf9fujaw98f'})
-    });
+
+      this.chatService.switchRoom({roomId: params['roomId'], userId: 'fdkf9fujaw98f'})
+    });*/
+
+    this.routeListener$ = this.route.params.pipe(
+      switchMap(params => {
+        console.log("room", params['roomId']);
+        return this.roomsService.get(params['roomId']);
+      })
+    );
+    this.routeListener$.subscribe((room)=>{
+     // this.chatService.switchRoom({roomId: room.id, userId: 'fdkf9fujaw98f'})
+    })
 
   }
 

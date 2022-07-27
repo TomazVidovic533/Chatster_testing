@@ -33,7 +33,8 @@ export class ChatroomComponent implements OnInit {
           mappedContacts.push({
             id: (element.room_id ? element.room_id : element.id),
             avatar: (element.userData ? element.userData.avatar : element.roomData.avatar),
-            name: (element.userData ? element.userData.name : element.roomData.name)
+            name: (element.userData ? element.userData.name : element.roomData.name),
+            user_id: (element.room_id ? element.id : null)
           })
         }
         return mappedContacts;

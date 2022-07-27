@@ -3,25 +3,25 @@ import {FirestoreService} from "../../../core/services/firestore.service";
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 
 import {Message} from "../../../core/models/message.model";
-import {BehaviorSubject, combineLatest, map, Observable, of, Subject, switchMap} from "rxjs";
+import {BehaviorSubject, combineLatest, map, Observable, of, Subject, switchMap, take} from "rxjs";
 
 import {UsersService} from "../../people/services/users.service";
+import {ActivatedRoute} from "@angular/router";
 
 @Injectable({
   providedIn: 'root'
 })
 export class ChatService extends FirestoreService<Message> {
 
-  private messageSource = new BehaviorSubject('default message');
-  currentMessage = this.messageSource.asObservable();
-
-  changeMessage(message: any) {
-    this.messageSource.next(message)
+  constructor(private firestore: AngularFirestore, private route: ActivatedRoute) {
+    super("room_messages", firestore);
   }
 
-  constructor(private firestore: AngularFirestore, private usersService:UsersService) {
-    super("room_messages", firestore);
+  private selectedRoomData = new BehaviorSubject('');
+  selectedRoom = this.selectedRoomData.asObservable();
 
+  switchRoom(data: any) {
+    this.selectedRoomData.next(data)
   }
 
   sendMessageToRoom(message: Message, roomId: string) {

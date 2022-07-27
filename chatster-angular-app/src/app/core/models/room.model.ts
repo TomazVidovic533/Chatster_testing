@@ -28,6 +28,7 @@ export interface MappedRoom {
 export interface RoomItem{
   id?: string;
   room_id?: string;
+  user_id?: string;
   name?: string;
   avatar?: string;
   recent_message?: string;

@@ -30,7 +30,7 @@ export class SendMessagePanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-   // this.subscription = this.chatService.currentMessage.subscribe(message => console.log("send message", message))
+    this.subscription = this.chatService.selectedRoom.subscribe(message => console.log("send message", message))
 
     this.sendMessageForm = this.formBuilder.group({
       message: new FormControl(null, [Validators.required])

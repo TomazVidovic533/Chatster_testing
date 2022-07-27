@@ -25,7 +25,7 @@ export class MessageComponent implements OnInit {
         this.myUserId=user?.id;
       }
     });
-    console.log(this.messageData)
+    //console.log(this.messageData)
   }
 
 }

@@ -1,4 +1,4 @@
-<div class="room-list-item" routerLink="{{roomData.room_id != undefined ? roomData.room_id : roomData.id }}">
+<div class="room-list-item" routerLink="{{roomData.room_id != undefined ? roomData.room_id : roomData.id }}" (click)="enter(roomData.id,roomData.user_id)">
   <div class="room-list-item-header">
     <img class="room-list-item-avatar"
          src="{{roomData.avatar}}">

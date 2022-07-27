@@ -1,7 +1,7 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {Room, RoomItem} from "../../../../../core/models/room.model";
-import {BehaviorSubject} from "rxjs";
+import {RoomItem} from "../../../../../core/models/room.model";
 import {ChatService} from "../../../services/chat.service";
+
 
 @Component({
   selector: 'app-room-list-item',
@@ -12,12 +12,15 @@ export class RoomListItemComponent implements OnInit {
 
   @Input() roomData!: RoomItem;
 
-  constructor() { }
+  constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
-
-    //console.log("room-list-item", this.roomData)
   }
 
+  enter(roomId: string | undefined,userId: string | undefined | null){
+    if(roomId){
+      this.chatService.switchRoom({roomId: roomId, userId: userId})
+    }
+  }
 
 }

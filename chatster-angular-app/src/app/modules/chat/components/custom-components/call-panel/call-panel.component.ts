@@ -36,18 +36,28 @@ export class CallPanelComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.room = this.chatService.currentMessage.pipe(
+    this.room = this.chatService.selectedRoom.pipe(
       switchMap((params)=>{
-        console.log(params)
+        // @ts-ignore
+        console.log("userID",params.userId)
+        // @ts-ignore
+        console.log("roomId",params.roomId)
+
+        // @ts-ignore
+        if(params.userId){
+          // @ts-ignore
+          return this.usersService.get(params.userId)
+        }
         // @ts-ignore
         return this.roomsService.get(params.roomId)
     }))
 
-    this.room.subscribe();
+    this.room.subscribe((d)=>{
+      console.log("data: ",d)
+    });
 
-    console.log("local call panel", this.message);
 
-    this.roomData$ = this.route.params.pipe(
+/*    this.roomData$ = this.route.params.pipe(
       switchMap(params => {
         return this.roomsService.get(params['roomId']);
       })
@@ -55,7 +65,7 @@ export class CallPanelComponent implements OnInit {
 
     this.roomData$.subscribe((res) => {
 
-    });
+    });*/
   }
 
   createCallRoom() {
