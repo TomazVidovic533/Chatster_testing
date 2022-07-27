@@ -47,6 +47,7 @@
       <app-profile-information-item [label]="proStatusLabel"
                                     [content]="'Not a PRO member'"></app-profile-information-item>
     </ng-template>
+
     <ng-template [ngIf]="user.is_pro_member">
       <app-profile-information-item [label]="proStatusLabel"
                                     [content]="'PRO member status active'"></app-profile-information-item>
@@ -54,5 +55,9 @@
 
   </div>
 
-  <app-gridview [dataSource]="usersRooms$"></app-gridview>
+  <div>
+    <h2>Users Rooms</h2>
+    <app-gridview [dataSource]="usersRooms$"></app-gridview>
+  </div>
+
 </ng-container>

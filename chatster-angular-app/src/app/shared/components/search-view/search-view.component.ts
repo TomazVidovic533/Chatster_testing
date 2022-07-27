@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {FormBuilder, FormControl, FormGroup, Validators} from "@angular/forms";
-import {catchError, debounceTime, Observable, of, startWith, Subject, switchMap} from "rxjs";
+import {catchError, debounceTime, Observable, of, startWith, Subject, Subscription, switchMap} from "rxjs";
 import {SearchService} from "../../services/search.service";
 import {DataObjectItem} from "../../models/data-object-item";
 import {Condition} from "../../../core/models/condition";
@@ -15,6 +15,7 @@ export class SearchViewComponent implements OnInit {
 
   searchForm!: FormGroup;
   queryResults$!: Observable<DataObjectItem[]>;
+  private subscription = new Subscription();
 
   @Input() collectionName!: string;
   @Input() condition!: Condition;
@@ -27,8 +28,9 @@ export class SearchViewComponent implements OnInit {
 
   ngOnInit(): void {
 
+
     this.searchForm = this.formBuilder.group({
-      queryString: new FormControl('', [Validators.required]),
+      queryString: new FormControl('', []),
     });
 
     this.translateService.get(['search_' + this.collectionName])
@@ -46,10 +48,12 @@ export class SearchViewComponent implements OnInit {
         }
         return this.searchService.searchWhere(this.collectionName, 'name', queryString, this.condition);
       }));
+
+    this.subscription.add(this.queryResults$.subscribe());
   }
 
   ngOnDestroy(){
-
+    this.subscription.unsubscribe();
   }
 
 }

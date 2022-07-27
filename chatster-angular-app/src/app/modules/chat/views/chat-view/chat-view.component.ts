@@ -1,17 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {
-  combineLatest,
-  distinctUntilChanged,
-  first,
-  forkJoin,
-  map,
-  mergeMap,
   Observable,
   Subscription,
   switchMap,
-  take,
-  tap, zip
 } from "rxjs";
 import {Room} from "../../../../core/models/room.model";
 import {MappedMessage, Message} from "../../../../core/models/message.model";
@@ -54,7 +46,7 @@ export class ChatViewComponent implements OnInit {
 
     this.routeListener$ = this.route.params;
     this.routeListener$.subscribe((params) => {
-      console.log("room  :: id", params);
+      console.log("room  :: id", );
       this.chatService.changeMessage({roomId: params['roomId'], userId: 'fdkf9fujaw98f'})
     });
 
@@ -63,10 +55,6 @@ export class ChatViewComponent implements OnInit {
   ngOnDestroy() {
     this.routeListener$.subscribe().unsubscribe();
     this.subscription.unsubscribe();
-  }
-
-  newMessage() {
-
   }
 
 }

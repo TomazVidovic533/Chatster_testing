@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {first, Observable, switchMap, take} from "rxjs";
+import {first, map, Observable, switchMap, take} from "rxjs";
 import {AuthService} from "../../../auth/services/auth.service";
 import {UsersService} from "../../services/users.service";
 import {User} from "../../../../core/models/user.model";
@@ -94,6 +94,29 @@ export class UserProfileComponent implements OnInit {
         this.userObj = user;
       });
     }
+
+    // @ts-ignore
+    this.usersRooms$ = this.userService.getRoomsOfUser(this.id).pipe(
+      map(data => {
+        return data.map((element: any) => {
+          return {
+            id: element.id,
+            avatar: element.roomData.avatar,
+            name: element.roomData.name,
+          };
+        });
+      }));
+
+    this.usersRooms$.subscribe((members)=>{
+      console.log("rooms of user",members)
+      for(let i = 0; i < members.length; i++) {
+        if (members[i].id == this.myId) {
+          this.isViewingUserContact = true;
+          break;
+        }
+      }
+    })
+
   }
 
   startConversation(event: Event) {
