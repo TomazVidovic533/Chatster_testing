@@ -11,7 +11,7 @@ import {User} from "../../../core/models/user.model";
 })
 export class NavbarComponent implements OnInit {
 
-  status:boolean=true;
+  isOpenedOnMobile:boolean=true;
 
   home=Home;
   profile=UserCog;
@@ -43,7 +43,7 @@ export class NavbarComponent implements OnInit {
   }
 
   toggleMenu(){
-    this.status = !this.status;
+    this.isOpenedOnMobile = !this.isOpenedOnMobile;
   }
 
   logOut(){

@@ -40,14 +40,14 @@
   </a>
   <p class="menu cta" (click)="toggleMenu()"><lucide-icon [img]="menu" class="svg"></lucide-icon></p>
 </header>
-<div class="overlay" [ngClass]="status ? '': 'overlay--active' ">
+<div class="overlay" [ngClass]="isOpenedOnMobile ? '': 'overlay--active' ">
   <a class="close" (click)="toggleMenu()">&times;</a>
   <div class="overlay__content">
-    <a routerLink="home"><lucide-icon [img]="home" class="svg"></lucide-icon> Home</a>
-    <a routerLink="{{profilePath}}"><lucide-icon [img]="profile" class="svg"></lucide-icon> Profile</a>
-    <a routerLink="chat"><lucide-icon [img]="chat" class="svg"></lucide-icon> Chat</a>
-    <a routerLink="people"><lucide-icon [img]="people" class="svg"></lucide-icon> People</a>
-    <a routerLink="rooms"><lucide-icon [img]="community" class="svg"></lucide-icon> Rooms</a>
+    <a routerLink="home" (click)="toggleMenu()"><lucide-icon [img]="home" class="svg"></lucide-icon> Home</a>
+    <a routerLink="{{profilePath}}" (click)="toggleMenu()"><lucide-icon [img]="profile" class="svg"></lucide-icon> Profile</a>
+    <a routerLink="chat" (click)="toggleMenu()"><lucide-icon [img]="chat" class="svg"></lucide-icon> Chat</a>
+    <a routerLink="people" (click)="toggleMenu()"><lucide-icon [img]="people" class="svg"></lucide-icon> People</a>
+    <a routerLink="rooms" (click)="toggleMenu()"><lucide-icon [img]="community" class="svg"></lucide-icon> Rooms</a>
     <a (click)="logOut()"><lucide-icon [img]="logout" class="svg"></lucide-icon> Logout</a>
   </div>
 </div>
