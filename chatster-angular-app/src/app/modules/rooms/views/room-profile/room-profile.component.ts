@@ -177,4 +177,8 @@ export class RoomProfileComponent implements OnInit {
   deleteRequest(event: Event, id: string) {
     console.log("delete request", id)
   }
+
+  memberSelected(itemClicked: Event, itemId: string) {
+    this.router.navigate(['/app/people/'+itemId]);
+  }
 }

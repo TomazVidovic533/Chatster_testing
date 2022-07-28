@@ -1,9 +1,9 @@
-<div class="grid-item">
+<div class="grid-item" (click)="triggerItemSelected($event, dataObject?.id)">
   <img src="{{dataObject.avatar}}"
-       alt="avatar" routerLink="{{dataObject.id}}">
+       alt="avatar">
 
   <div class="grid-item-content">
-    <div class="grid-item-content-title" routerLink="{{dataObject.id}}">
+    <div class="grid-item-content-title" >
       {{dataObject.name}}
     </div>
   </div>

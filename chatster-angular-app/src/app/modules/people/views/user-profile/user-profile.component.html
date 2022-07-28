@@ -57,7 +57,8 @@
 
   <div>
     <h2>Users Rooms</h2>
-    <app-gridview [dataSource]="usersRooms$"></app-gridview>
+    <app-gridview [dataSource]="usersRooms$"
+                  (gridItemClicked)="roomSelected($event[0],$event[1])"></app-gridview>
   </div>
 
 </ng-container>

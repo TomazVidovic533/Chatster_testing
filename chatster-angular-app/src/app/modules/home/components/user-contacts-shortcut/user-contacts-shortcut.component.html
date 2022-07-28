@@ -1,1 +1,1 @@
-<app-horizontal-gridview [dataSource]="userContacts$"></app-horizontal-gridview>
+<app-horizontal-gridview [dataSource]="userContacts$" (gridItemClicked)="contactSelected($event[0],$event[1])"></app-horizontal-gridview>

@@ -55,7 +55,6 @@ export class SearchViewComponent implements OnInit {
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
-
 }
 
 

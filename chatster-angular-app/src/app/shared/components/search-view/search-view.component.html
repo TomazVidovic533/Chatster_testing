@@ -5,12 +5,13 @@
                                   [placeholderValue]="searchInputLabel"
                                   formControlName="queryString"></app-custom-form-input-text>
 
-<!--      <app-custom-button (clickTrigger)="search($event)"
-                         [name]="'Search'"
-                         [btnType]="'search-section-btn'"></app-custom-button>-->
+      <!--      <app-custom-button (clickTrigger)="search($event)"
+                               [name]="'Search'"
+                               [btnType]="'search-section-btn'"></app-custom-button>-->
     </form>
   </div>
 </div>
 
-<app-gridview [dataSource]="queryResults$"></app-gridview>
+<app-gridview [dataSource]="queryResults$"
+></app-gridview>
 

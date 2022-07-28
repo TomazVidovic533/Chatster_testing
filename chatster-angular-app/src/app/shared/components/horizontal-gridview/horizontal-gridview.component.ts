@@ -1,4 +1,4 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {Observable, Subscription} from "rxjs";
 import {DataObjectItem} from "../../models/data-object-item";
 
@@ -10,6 +10,7 @@ import {DataObjectItem} from "../../models/data-object-item";
 export class HorizontalGridviewComponent<T extends DataObjectItem> implements OnInit {
 
   @Input() dataSource!: Observable<T[]>;
+  @Output() gridItemClicked: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
@@ -17,6 +18,10 @@ export class HorizontalGridviewComponent<T extends DataObjectItem> implements On
   }
 
   ngOnDestroy(){
+  }
+
+  gridItemSelected(clickedEntry: MouseEvent, id: string | undefined){
+    this.gridItemClicked.emit([clickedEntry, id]);
   }
 
 }

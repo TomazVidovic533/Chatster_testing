@@ -25,7 +25,7 @@ export class ChatViewComponent implements OnInit {
   routeListener$!: Observable<any>;
   myUser$!: Observable<User>
 
-  message!: any;
+  selectedRoom!: any;
   subscription: Subscription = new Subscription();
 
   constructor(private route: ActivatedRoute,
@@ -35,102 +35,28 @@ export class ChatViewComponent implements OnInit {
   }
 
   ngOnInit(): void {
-
-    this.subscription.add(this.chatService.selectedRoom.subscribe(message =>
-      this.message = message));
+    this.subscription.add(this.chatService.selectedRoom.subscribe(data =>
+      this.selectedRoom = data));
 
      // @ts-ignore
     this.myUser$=this.auth.getUserData();
-
-    this.subscription.add(this.myUser$.subscribe());
 
     this.chatMessages$ = this.route.params.pipe(
       switchMap(params => {
         return this.chatService.getMappedRoomMessages(params['roomId']);
       })
     )
-
-/*    this.routeListener$ = this.route.params;
-    this.routeListener$.subscribe((params) => {
-
-      this.chatService.switchRoom({roomId: params['roomId'], userId: 'fdkf9fujaw98f'})
-    });*/
-
     this.routeListener$ = this.route.params.pipe(
       switchMap(params => {
-        console.log("room", params['roomId']);
         return this.roomsService.get(params['roomId']);
       })
     );
-    this.routeListener$.subscribe((room)=>{
-     // this.chatService.switchRoom({roomId: room.id, userId: 'fdkf9fujaw98f'})
-    })
 
+    this.subscription.add(this.myUser$.subscribe());
+    this.subscription.add(this.routeListener$.subscribe());
   }
 
   ngOnDestroy() {
-    this.routeListener$.subscribe().unsubscribe();
     this.subscription.unsubscribe();
   }
-
 }
-
-
-/*    this.route.params.pipe(
-      map(params => params['roomId']),
-    ).subscribe(changedParam => {
-     // console.log(`reacting to single param change ${changedParam}`);
-      if(changedParam){
-/!*        this.messages$ = this.chatService.getChatRoomMessages('TDdWM7XZ9j0gbX9HsoCE');
-        this.messages$.subscribe((m)=>{
-          console.log("messages",m);
-        });*!/
-
-        this.chatService.roomId$.next(changedParam);
-      }
-    })
-    this.messages$ = this.chatService.getChatRoomMessages(this.chatService.roomId$.value).subscribe();*/
-//  console.log(this.chatService.roomId$.value)
-
-
-/*    this.route.params.pipe(
-      switchMap(typeId => combineLatest([
-        this.chatService.getIds(typeId['roomId']),
-        this.chatService.getMessages(typeId['roomId'])
-      ]))
-    )
-      .subscribe(([ids, m]) => {
-        console.log("view ids", ids)
-        console.log("view m", m)
-      });*/
-
-
-/*    this.chatMessages$ = this.route.params.pipe(
-      switchMap(params => {
-        this.roomId = params['roomId'];
-        return this.chatService.getChatRoomMessages(params['roomId']);
-      })
-    );*/
-
-
-/*    this.route.params.pipe(
-      switchMap(typeId => combineLatest([
-        this.typesService.getProjectsByType(typeId),
-        this.typesService.getProgramsByType(typeId)
-      ]))
-    )
-      .subscribe(([projects, programs]) => {
-        // ...
-      });*/
-
-/*
-    this.room$ = this.route.params.pipe(
-      switchMap(params => {
-        return this.roomsService.get(params['roomId']);
-      })
-    );
-
-    this.room$.subscribe((res)=>{
-      console.log("room data", res);
-    });
-*/

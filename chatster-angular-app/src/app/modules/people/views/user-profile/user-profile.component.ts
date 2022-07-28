@@ -3,7 +3,7 @@ import {first, map, Observable, switchMap, take} from "rxjs";
 import {AuthService} from "../../../auth/services/auth.service";
 import {UsersService} from "../../services/users.service";
 import {User} from "../../../../core/models/user.model";
-import {ActivatedRoute} from "@angular/router";
+import {ActivatedRoute, Router} from "@angular/router";
 import {RoomService} from "../../../rooms/services/room.service";
 import {Room} from "../../../../core/models/room.model";
 import {Timestamp} from "@angular/fire/firestore";
@@ -22,7 +22,8 @@ export class UserProfileComponent implements OnInit {
               private roomsService: RoomService,
               private authService: AuthService,
               private translateService: TranslateService,
-              private _changeDetectorRef: ChangeDetectorRef) {
+              private _changeDetectorRef: ChangeDetectorRef,
+              private router: Router) {
   }
 
   userData$!: Observable<User>;
@@ -58,7 +59,6 @@ export class UserProfileComponent implements OnInit {
       this.translateService.use(language.lang);
       this._changeDetectorRef.detectChanges();
     })
-
 
     this.authService.getUserData().pipe(take(1)).subscribe((userData) => {
       // @ts-ignore
@@ -146,4 +146,7 @@ export class UserProfileComponent implements OnInit {
     }
   }
 
+  roomSelected(clickedEntry: Event, itemId: string) {
+    this.router.navigate(['/app/rooms/'+itemId]);
+  }
 }

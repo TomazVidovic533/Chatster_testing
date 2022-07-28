@@ -3,6 +3,8 @@ import {combineLatest, map, Observable, Subscription, switchMap, take} from "rxj
 import {DataObjectItem} from "../../../../shared/models/data-object-item";
 import {UsersService} from "../../../people/services/users.service";
 import {AuthService} from "../../../auth/services/auth.service";
+import {Router} from "@angular/router";
+import {ChatService} from "../../../chat/services/chat.service";
 
 @Component({
   selector: 'app-user-contacts-shortcut',
@@ -14,7 +16,9 @@ export class UserContactsShortcutComponent implements OnInit {
   private subscription = new Subscription();
 
   constructor(private usersService: UsersService,
-              private authService: AuthService) {
+              private authService: AuthService,
+              private router: Router,
+              private chatService: ChatService) {
   }
 
   ngOnInit(): void {
@@ -30,18 +34,25 @@ export class UserContactsShortcutComponent implements OnInit {
       map(data => {
         return data.map((element: any) => {
           return {
-            id: element.id,
+            id: element.room_id,
             avatar: element.userData.avatar,
             name: element.userData.name,
+            user_id: element.id
           };
         });
       }));
 
-    this.subscription.add(this.userContacts$.subscribe());
+    this.subscription.add(this.userContacts$.subscribe((r)=>{
+      console.log(r)
+    }));
   }
 
   ngOnDestroy(){
 
   }
 
+  contactSelected(eventClicked: Event, itemId: string) {
+    this.chatService.switchRoom({roomId: itemId, userId: null})
+    this.router.navigate(['/app/chat/'+itemId]);
+  }
 }
