@@ -10,6 +10,7 @@ import {MappedMessage, Message} from "../../../../core/models/message.model";
 import {ChatService} from "../../services/chat.service";
 import {RoomService} from "../../../rooms/services/room.service";
 import {AuthService} from "../../../auth/services/auth.service";
+import {User} from "../../../../core/models/user.model";
 
 @Component({
   selector: 'app-chat-view',
@@ -22,6 +23,7 @@ export class ChatViewComponent implements OnInit {
   chatMessages$!: Observable<MappedMessage[]>;
   roomData$!: Observable<Room>;
   routeListener$!: Observable<any>;
+  myUser$!: Observable<User>
 
   message!: any;
   subscription: Subscription = new Subscription();
@@ -37,6 +39,10 @@ export class ChatViewComponent implements OnInit {
     this.subscription.add(this.chatService.selectedRoom.subscribe(message =>
       this.message = message));
 
+     // @ts-ignore
+    this.myUser$=this.auth.getUserData();
+
+    this.subscription.add(this.myUser$.subscribe());
 
     this.chatMessages$ = this.route.params.pipe(
       switchMap(params => {

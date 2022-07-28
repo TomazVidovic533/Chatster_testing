@@ -14,13 +14,13 @@ export class ChatroomMessageWindowComponent implements OnInit {
   @ViewChild('scrollBar') private myScrollContainer!: ElementRef;
   @Input() chatMessages$!: Observable<MappedMessage[]>;
   @Input() roomId!: string;
+  @Input() myId!: string | undefined;
 
   isFileOverMessageWindow!: boolean;
-
   files: File[] = [];
 
   message!: any;
-  subscription!: Subscription;
+  subscription: Subscription = new Subscription();
 
   constructor(private chatService: ChatService,
               private filesService: FilesService,
@@ -30,9 +30,7 @@ export class ChatroomMessageWindowComponent implements OnInit {
   ngOnInit(): void {
    // this.subscription = this.chatService.currentMessage.subscribe(message => console.log("message window", message))
 
-    this.chatMessages$.subscribe((m)=>{
-
-    });
+    this.subscription.add(this.chatMessages$.subscribe());
     this.scrollToBottom();
   }
 
@@ -62,7 +60,7 @@ export class ChatroomMessageWindowComponent implements OnInit {
   }
 
   ngOnDestroy(){
-    this.chatMessages$.subscribe().unsubscribe();
+    this.subscription.unsubscribe();
   }
 
 

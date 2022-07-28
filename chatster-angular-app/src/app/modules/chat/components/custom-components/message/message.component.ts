@@ -10,9 +10,9 @@ import {take} from "rxjs";
 })
 export class MessageComponent implements OnInit {
 
-  myUserId!: string;
   @Input() messageData!: MappedMessage;
   @Input() roomId!: string;
+  @Input() myUserId!: string | undefined;
 
 
   constructor(private authService: AuthService) {
@@ -20,11 +20,11 @@ export class MessageComponent implements OnInit {
 
   ngOnInit(): void {
     // @ts-ignore
-    this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
+  /*  this.authService.getUserData().pipe(take(1)).subscribe((user)=>{
       if(user?.id){
         this.myUserId=user?.id;
       }
-    });
+    });*/
     //console.log(this.messageData)
   }
 
