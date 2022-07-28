@@ -22,6 +22,7 @@ import {ReactiveFormsModule} from "@angular/forms";
 import {LucideAngularModule} from "lucide-angular";
 import { ChatViewComponent } from './views/chat-view/chat-view.component';
 import { FileDropDirective } from './directive/file-drop.directive';
+import {ShortenTextPipe} from "./pipes/shorten-pipe";
 
 
 
@@ -42,6 +43,7 @@ import { FileDropDirective } from './directive/file-drop.directive';
     CallWindowsHolderComponent,
     ChatViewComponent,
     FileDropDirective,
+    ShortenTextPipe
   ],
   imports: [
     SharedModule,

@@ -5,6 +5,7 @@ import {SearchService} from "../../services/search.service";
 import {DataObjectItem} from "../../models/data-object-item";
 import {Condition} from "../../../core/models/condition";
 import {TranslateService} from "@ngx-translate/core";
+import {Router} from "@angular/router";
 
 @Component({
   selector: 'app-search-view',
@@ -23,11 +24,11 @@ export class SearchViewComponent implements OnInit {
 
   constructor(private formBuilder: FormBuilder,
               private searchService: SearchService,
-              private translateService: TranslateService) {
+              private translateService: TranslateService,
+              private router: Router) {
   }
 
   ngOnInit(): void {
-
 
     this.searchForm = this.formBuilder.group({
       queryString: new FormControl('', []),
@@ -55,22 +56,8 @@ export class SearchViewComponent implements OnInit {
   ngOnDestroy(){
     this.subscription.unsubscribe();
   }
+
+  itemSelected(eventClicked: Event, itemId: string) {
+    this.router.navigate(['/app/'+this.collectionName+'/'+itemId])
+  }
 }
-
-
-// with button
-/*    this.queryResults$ = this.querySubmit$
-      .pipe(
-        switchMap((event) => {
-          const {queryString} = this.searchForm.value;
-          if(!this.condition){
-            return this.searchService.search(this.collectionName,'name', queryString)
-          }
-          return this.searchService.searchWhere(this.collectionName,'name', queryString, this.condition);
-        }),
-      );*/
-
-// with button
-/*search(event: Event) {
-  // this.querySubmit$..next(event);
-}*/

@@ -5,11 +5,11 @@
 
     <ng-template [ngIf]="!room.is_private">
 
-        <app-custom-button
-          routerLink="/app/chat/{{room.id}}"
-          (clickTrigger)="joinRoom($event)"
-          [name]="'Join'"
-          [btnType]="'join-btn'"></app-custom-button>
+      <app-custom-button
+        routerLink="/app/chat/{{room.id}}"
+        (clickTrigger)="joinRoom($event)"
+        [name]="'Join'"
+        [btnType]="'join-btn'"></app-custom-button>
 
 
       <ng-template [ngIf]="isViewingUserMember">
@@ -36,9 +36,9 @@
     <ng-template [ngIf]="room.is_private">
 
       <ng-template [ngIf]="room.owner!=myId">
-      <app-custom-button  (clickTrigger)="requestAccessToRoom($event)"
-                          [name]="'Request Access'"
-                         [btnType]="'request-btn'"></app-custom-button>
+        <app-custom-button (clickTrigger)="requestAccessToRoom($event)"
+                           [name]="'Request Access'"
+                           [btnType]="'request-btn'"></app-custom-button>
       </ng-template>
 
       <ng-template [ngIf]="isViewingUserMember">
@@ -50,9 +50,9 @@
       </ng-template>
 
       <ng-template [ngIf]="room.owner==myId">
-      <app-custom-button
-        [name]="'Edit'"
-        [btnType]="'edit-btn'"></app-custom-button>
+        <app-custom-button
+          [name]="'Edit'"
+          [btnType]="'edit-btn'"></app-custom-button>
       </ng-template>
 
       <ng-template [ngIf]="room.owner==myId">
@@ -85,37 +85,42 @@
     </ng-template>
   </div>
 
+  <ng-template [ngIf]="isViewingUserMember">
+    <app-table-view
+      [isOwner]="room.owner==myId"
+      [deleteActionHeader]="'Remove file'"
+      [nameHeader]="'File name'"
+      [title]="'Shared files inside room'"
+      itemType="file"
+      viewActionHeader="See File's Content"
+      contentHeader=""
+      [dataSource$]="roomFilesShared$"
+      (onViewTriggered)="goToUrl($event[0],$event[1])"
+      (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
+  </ng-template>
 
-  <app-table-view
-    [isOwner]="room.owner==myId"
-    [deleteActionHeader]="'Remove file'"
-    [nameHeader]="'File name'"
-    [title]="'Shared files inside room'"
-    itemType="file"
-    viewActionHeader="See File's Content"
-    contentHeader=""
-    [dataSource$]="roomFilesShared$"
-    (onViewTriggered)="goToUrl($event[0],$event[1])"
-    (onDeleteTriggered)="deleteFile($event[0],$event[1])"></app-table-view>
 
-  <app-table-view
-    [isOwner]="room.owner==myId"
-    itemType="request"
-    [reactionActionHeader]="'Accept Request'"
-    [deleteActionHeader]="'Remove request'"
-    [nameHeader]="'Username'"
-    [title]="'User Requests'"
-    viewActionHeader="See User Profile"
-    contentHeader=""
-    [dataSource$]="roomRequests$"
-    (onViewTriggered)="viewProfile($event[0],$event[1])"
-    (onAcceptTriggered)="acceptRequest($event[0],$event[1])"
-    (onDeleteTriggered)="deleteRequest($event[0],$event[1])"></app-table-view>
+  <ng-template [ngIf]="room.owner==myId">
+    <app-table-view
+      [isOwner]="room.owner==myId"
+      itemType="request"
+      [reactionActionHeader]="'Accept Request'"
+      [deleteActionHeader]="'Remove request'"
+      [nameHeader]="'Username'"
+      [title]="'User Requests'"
+      viewActionHeader="See User Profile"
+      contentHeader=""
+      [dataSource$]="roomRequests$"
+      (onViewTriggered)="viewProfile($event[0],$event[1])"
+      (onAcceptTriggered)="acceptRequest($event[0],$event[1])"
+      (onDeleteTriggered)="deleteRequest($event[0],$event[1])"></app-table-view>
+
+  </ng-template>
 
   <div>
     <h2>Room Members</h2>
-  <app-gridview [dataSource]="roomMembers$"
-                (gridItemClicked)="memberSelected($event[0],$event[1])"></app-gridview>
+    <app-gridview [dataSource]="roomMembers$"
+                  (gridItemClicked)="memberSelected($event[0],$event[1])"></app-gridview>
   </div>
 </ng-container>
 

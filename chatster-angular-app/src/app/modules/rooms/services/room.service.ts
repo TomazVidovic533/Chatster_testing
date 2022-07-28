@@ -7,7 +7,6 @@ import {combineLatest, map, of, switchMap, take} from "rxjs";
 import {User} from "../../../core/models/user.model";
 
 
-
 @Injectable({providedIn: 'root'})
 export class RoomService extends FirestoreService<Room> {
   constructor(private firestore: AngularFirestore, private router: Router) {
@@ -94,7 +93,7 @@ export class RoomService extends FirestoreService<Room> {
       );
   }
 
-  getPrivateRoomsRequests(roomId: string){
+  getPrivateRoomsRequests(roomId: string) {
     return this.firestore
       .collection('rooms')
       .doc(roomId)
@@ -119,7 +118,7 @@ export class RoomService extends FirestoreService<Room> {
       );
   }
 
-  getRoomsMembers(roomId: string){
+  getRoomsMembers(roomId: string) {
     return this.firestore
       .collection('rooms')
       .doc(roomId)
@@ -144,4 +143,14 @@ export class RoomService extends FirestoreService<Room> {
       );
   }
 
+  acceptPendingRequest(roomId: string, id: string) {
+    this.addRoomToUser({id: id} as User, roomId, true);
+    this.addUserToRoom({id: id} as User, roomId);
+    this.deleteSubCollectionDocument(roomId, 'requests', id);
+
+  }
+
+  deletePendingRequest(roomId: string, id: string) {
+    this.deleteSubCollectionDocument(roomId, 'requests', id);
+  }
 }

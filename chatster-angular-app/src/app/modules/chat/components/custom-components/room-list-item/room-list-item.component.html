@@ -11,13 +11,12 @@
 
     </div>
     <div class="room-list-item-text">
-      <ng-template [ngIf]="roomData.recent_message=='' ||roomData.recent_message==undefined">
+      <ng-template [ngIf]="roomData.recent_message=='' || roomData.recent_message==undefined">
         No messages
       </ng-template>
       <ng-template [ngIf]="roomData.recent_message!=''">
-        {{roomData.recent_message}}
+        {{roomData.recent_message | ShortenText: 15}}
       </ng-template>
-      {{roomData.recent_message}}
     </div>
   </div>
 </div>

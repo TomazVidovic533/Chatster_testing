@@ -15,6 +15,7 @@ export class RoomListItemComponent implements OnInit {
   constructor(private chatService: ChatService) { }
 
   ngOnInit(): void {
+    console.log(this.roomData)
   }
 
   enter(roomId: string | undefined,userId: string | undefined | null){

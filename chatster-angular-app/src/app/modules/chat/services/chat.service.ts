@@ -26,6 +26,7 @@ export class ChatService extends FirestoreService<Message> {
 
   sendMessageToRoom(message: Message, roomId: string) {
     this.addSubCollectionDocument(roomId, 'messages', message);
+    this.firestore.collection('rooms').doc(roomId).update({recent_message: message.message} as Message);
   }
 
   getChatRoomMessages(roomId: string): Observable<Message[]> {

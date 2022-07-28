@@ -200,8 +200,8 @@ a.google span {
 
 
 .field .disabled-btn{
-  background-color: #f1f1f1;
-  color: #cc3f3f;
-  border: 1px solid #cc3f3f;
+  background-color: #fdfdfd;
+  color: #da5656;
+  border: 1px solid #da4a4a;
   cursor: none;
 }

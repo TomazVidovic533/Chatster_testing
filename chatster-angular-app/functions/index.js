@@ -76,3 +76,5 @@ exports.onSuccessfullPayment = functions.https.onRequest(async (req, res) => {
   });
   return res.sendStatus(200);
 });
+
+

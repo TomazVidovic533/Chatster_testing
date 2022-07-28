@@ -42,9 +42,7 @@ export class UserContactsShortcutComponent implements OnInit {
         });
       }));
 
-    this.subscription.add(this.userContacts$.subscribe((r)=>{
-      console.log(r)
-    }));
+    this.subscription.add(this.userContacts$.subscribe());
   }
 
   ngOnDestroy(){

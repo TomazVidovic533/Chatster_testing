@@ -1,5 +1,5 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
-import {first, map, Observable, switchMap, take} from "rxjs";
+import {first, map, Observable, Subscription, switchMap, take} from "rxjs";
 import {AuthService} from "../../../auth/services/auth.service";
 import {UsersService} from "../../services/users.service";
 import {User} from "../../../../core/models/user.model";
@@ -26,6 +26,7 @@ export class UserProfileComponent implements OnInit {
               private router: Router) {
   }
 
+  private subscriptions = new Subscription();
   userData$!: Observable<User>;
   userObj!: User;
   id!: string | null;
@@ -55,7 +56,7 @@ export class UserProfileComponent implements OnInit {
       }
     })
 
-    this.translateService.onLangChange.subscribe((language)=>{
+    this.translateService.onLangChange.subscribe((language) => {
       this.translateService.use(language.lang);
       this._changeDetectorRef.detectChanges();
     })
@@ -90,9 +91,9 @@ export class UserProfileComponent implements OnInit {
 
     if (this.id) {
       this.userData$ = this.userService.get(this.id);
-      this.userData$.subscribe((user) => {
+      this.subscriptions.add(this.userData$.subscribe((user) => {
         this.userObj = user;
-      });
+      }));
     }
 
     // @ts-ignore
@@ -107,16 +108,20 @@ export class UserProfileComponent implements OnInit {
         });
       }));
 
-    this.usersRooms$.subscribe((members)=>{
-      console.log("rooms of user",members)
-      for(let i = 0; i < members.length; i++) {
-        if (members[i].id == this.myId) {
-          this.isViewingUserContact = true;
-          break;
+    this.subscriptions.add(this.usersRooms$.subscribe((members) => {
+        for (let i = 0; i < members.length; i++) {
+          if (members[i].id == this.myId) {
+            this.isViewingUserContact = true;
+            break;
+          }
         }
-      }
-    })
+      })
+    );
 
+  }
+
+  ngOnDestroy(){
+    this.subscriptions.unsubscribe();
   }
 
   startConversation(event: Event) {
@@ -140,13 +145,12 @@ export class UserProfileComponent implements OnInit {
 
   delete(event: Event) {
     if (this.myId != null) {
-      localStorage.removeItem('myUserId')
       this.authService.deleteAccount();
       this.authService.logOut();
     }
   }
 
   roomSelected(clickedEntry: Event, itemId: string) {
-    this.router.navigate(['/app/rooms/'+itemId]);
+    this.router.navigate(['/app/rooms/' + itemId]);
   }
 }

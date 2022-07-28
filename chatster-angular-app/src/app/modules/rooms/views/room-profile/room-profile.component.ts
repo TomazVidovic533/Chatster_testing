@@ -1,5 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {map, Observable, switchMap, take} from "rxjs";
+import {map, Observable, Subscription, switchMap, take} from "rxjs";
 import {User} from "../../../../core/models/user.model";
 import {ActivatedRoute, Router} from "@angular/router";
 import {RoomService} from "../../services/room.service";
@@ -25,6 +25,7 @@ export class RoomProfileComponent implements OnInit {
               private router: Router) {
   }
 
+  private subscriptions = new Subscription();
   roomRequests$!: Observable<TableDataItem[]>;
   roomFilesShared$!: Observable<TableDataItem[]>;
 
@@ -61,9 +62,6 @@ export class RoomProfileComponent implements OnInit {
 
     if (this.roomId) {
       this.roomData$ = this.roomService.get(this.roomId);
-      this.roomData$.subscribe((roomObject) => {
-        this.roomObject = roomObject;
-      });
 
       this.roomRequests$ = this.roomService.getPrivateRoomsRequests(this.roomId).pipe(
         map(data => {
@@ -75,9 +73,6 @@ export class RoomProfileComponent implements OnInit {
             };
           });
         }));
-      this.roomRequests$.subscribe((res)=>{
-        console.log("requesti",res)
-      })
 
       this.roomFilesShared$ = this.roomFilesService.getSharedFilesInRoom(this.roomId).pipe(
         map(data => {
@@ -90,12 +85,6 @@ export class RoomProfileComponent implements OnInit {
           });
         }));
 
-      this.roomFilesShared$.subscribe((res)=>{
-        console.log("shared",res)
-      })
-
-
-
       this.roomMembers$ = this.roomService.getRoomsMembers(this.roomId).pipe(
         map(data => {
           return data.map((element: any) => {
@@ -107,19 +96,24 @@ export class RoomProfileComponent implements OnInit {
           });
         }));
 
-      this.roomMembers$.subscribe((members)=>{
-        console.log("mem",members)
-        for(var i = 0; i < members.length; i++) {
+      this.roomMembers$.subscribe((members) => {
+        for (var i = 0; i < members.length; i++) {
           if (members[i].id == this.myId) {
             this.isViewingUserMember = true;
             break;
           }
         }
       })
-
-      console.log("ismem",this.isViewingUserMember)
-
     }
+    this.subscriptions.add(this.roomFilesShared$.subscribe());
+    this.subscriptions.add(this.roomRequests$.subscribe());
+    this.subscriptions.add(this.roomData$.subscribe((roomObject) => {
+      this.roomObject = roomObject;
+    }));
+  }
+
+  ngOnDestroy() {
+    this.subscriptions.unsubscribe();
   }
 
   joinRoom(event: Event) {
@@ -158,8 +152,8 @@ export class RoomProfileComponent implements OnInit {
   }
 
 
-  viewProfile(event: Event, id: string){
-    console.log("view profile", id)
+  viewProfile(event: Event, id: string) {
+    this.router.navigate(['/app/people/' + id]);
   }
 
   goToUrl(event: Event, url: string) {
@@ -171,14 +165,18 @@ export class RoomProfileComponent implements OnInit {
   }
 
   acceptRequest(event: Event, id: string) {
-    console.log("accept", id)
+    if (this.roomId) {
+      this.roomService.acceptPendingRequest(this.roomId, id);
+    }
   }
 
   deleteRequest(event: Event, id: string) {
-    console.log("delete request", id)
+    if (this.roomId) {
+      this.roomService.deletePendingRequest(this.roomId, id);
+    }
   }
 
   memberSelected(itemClicked: Event, itemId: string) {
-    this.router.navigate(['/app/people/'+itemId]);
+    this.router.navigate(['/app/people/' + itemId]);
   }
 }

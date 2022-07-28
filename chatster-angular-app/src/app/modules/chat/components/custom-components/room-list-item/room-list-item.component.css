@@ -63,12 +63,12 @@
   padding-left: .4em;
   padding-top: .4em;
   padding-right: .2em;
-  width: -moz-fit-content;
-  width: fit-content;
+  width: 100%;
   height: fit-content;
-  text-align: justify;
-  margin-right: .8em;
+  margin-right: 1.8em;
   margin-bottom: .8em;
+  word-wrap: break-word;
+  overflow: hidden;
 }
 
 

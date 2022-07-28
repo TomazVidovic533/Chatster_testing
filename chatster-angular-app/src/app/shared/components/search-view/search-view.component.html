@@ -13,5 +13,6 @@
 </div>
 
 <app-gridview [dataSource]="queryResults$"
+              (gridItemClicked)="itemSelected($event[0],$event[1])"
 ></app-gridview>
 
