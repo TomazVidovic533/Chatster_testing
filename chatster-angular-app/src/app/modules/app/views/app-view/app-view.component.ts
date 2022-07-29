@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../auth/services/auth.service";
-import {switchMap} from "rxjs";
+import {map, Observable, Subscription, switchMap, take} from "rxjs";
+import {CallService} from "../../../chat/services/call.service";
 
 @Component({
   selector: 'app-app-view',
@@ -9,8 +10,11 @@ import {switchMap} from "rxjs";
   styleUrls: ['./app-view.component.css']
 })
 export class AppViewComponent implements OnInit {
-
-  constructor(private translate: TranslateService, private authService: AuthService) { }
+  usersIncomingCalls$!: Observable<any>;
+  subscription = new Subscription();
+  constructor(private translate: TranslateService,
+              private authService: AuthService,
+              private callsService: CallService) { }
 
   ngOnInit(): void {
     this.translate.addLangs(['en', 'si']);
@@ -25,9 +29,30 @@ export class AppViewComponent implements OnInit {
         this.translate.use('esp');
       }
     })
+
+    this.usersIncomingCalls$ = this.authService.getUserData().pipe(
+      switchMap(user => {
+        // @ts-ignore
+        return this.callsService.getIncomingCalls(user?.id);
+      }),
+      map(data => {
+        console.log(data)
+        return data.map((element: any) => {
+          return {
+            id: element.callData.id,
+            avatar: element.userData.avatar,
+            name: element.userData.name,
+          };
+        });
+      }));
+
+    this.subscription.add(this.usersIncomingCalls$.subscribe((r)=>{
+      console.log("incoming calls", r)
+    }));
   }
 
-
-
+  ngOnDestroy(){
+    this.subscription.unsubscribe()
+  }
 
 }

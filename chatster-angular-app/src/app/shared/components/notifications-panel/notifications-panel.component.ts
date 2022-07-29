@@ -8,11 +8,11 @@ import {NotificationItem} from "../../../core/models/notification-item.model";
   styleUrls: ['./notifications-panel.component.css']
 })
 export class NotificationsPanelComponent implements OnInit {
- @Input() dataSource$!: Observable<NotificationItem[]>;
+  @Input() dataSource$!: Observable<NotificationItem[]>;
 
   constructor() { }
 
   ngOnInit(): void {
-  }
 
+  }
 }

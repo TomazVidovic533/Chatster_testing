@@ -1,17 +1,17 @@
 <div class="answer-container">
   <div class="holder">
     <div class="image-header">
-      <img src="https://source.unsplash.com/1600x900/?nature"
+      <img src="{{item?.avatar}}"
            alt="nature">
     </div>
     <div class="image-content">
       <div class="accept-call">
-        ...is calling
+        {{item.name}}...is calling
       </div>
-      <div class="accept-call">
+      <div class="accept-call" (click)="acceptCall(item?.id || '')">
         Accept
       </div>
-      <div class="deny-call">
+      <div class="deny-call" (click)="denyCall(item?.id || '')">
         Deny
       </div>
     </div>

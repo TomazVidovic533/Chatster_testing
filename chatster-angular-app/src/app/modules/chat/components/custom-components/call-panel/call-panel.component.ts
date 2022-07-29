@@ -20,6 +20,7 @@ export class CallPanelComponent implements OnInit {
   @Input() elementId!: string | undefined;
   roomData$!: Observable<Room>
   room!: Observable<any>;
+  calleeId!: string;
 
   videocall = Video;
 
@@ -47,13 +48,14 @@ export class CallPanelComponent implements OnInit {
         // @ts-ignore
         return this.roomsService.get(params.roomId)
       }))
-    this.subscription.add(this.room.subscribe());
+    this.subscription.add(this.room.subscribe((data)=>{
+      this.calleeId = data.id;
+    }));
   }
 
   createCallRoom() {
     this.authService.getUserData().pipe(take(1)).subscribe((myUserData) => {
-      this.callService.createNewCallRoom(<string>myUserData?.id, 'otherid');
-      this.router.navigate(['/app/chat/call/id']);
+      this.callService.createNewCallRoom(<string>myUserData?.id, this.calleeId);
     })
   }
 

@@ -1,7 +1,7 @@
 export interface Call {
   id?: string;
-  owner?: string;
-  callee?: string;
+  creatorId?: string;
+  calleeId?: string;
   answer?: any;
   offer?: any;
 }
