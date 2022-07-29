@@ -18,7 +18,7 @@ const routes: Routes = [
     ]
   },
   {
-    path: 'call/:roomId', component: CallroomComponent
+    path: 'call/:callId', component: CallroomComponent
   }
 ];
 

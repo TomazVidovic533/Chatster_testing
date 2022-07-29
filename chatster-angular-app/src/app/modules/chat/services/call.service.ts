@@ -18,30 +18,30 @@ export class CallService extends FirestoreService<Call> {
   }
 
   createNewCallRoom(myId: string, calleeId: string) {
-    this.add({creatorId: myId, calleeId: calleeId}).then((newCallReference)=>{
+    this.add({creatorId: myId, calleeId: calleeId}).then((newCallReference) => {
       if (newCallReference.id) {
         this.sendCallNotification(myId, calleeId, newCallReference.id);
       }
-      this.router.navigate(['/app/chat/call/'+newCallReference.id]);
+      this.router.navigate(['/app/chat/call/' + newCallReference.id]);
     })
   }
 
-  sendCallNotification(callerId: string, calleeId: string, callId: string){
+  sendCallNotification(callerId: string, calleeId: string, callId: string) {
     this.firestore.collection('call_invitations').doc(calleeId).collection('calls').doc(callerId).set({
       callId: callId
     })
   }
 
-  acceptCallOffer(callId: string, userId: string){
-      this.router.navigate(['/app/chat/call'+callId]);
-      this.firestore.collection('call_invitations').doc(userId).delete();
+  acceptCallOffer(callId: string, userId: string) {
+    this.firestore.collection('call_invitations').doc(userId).delete();
+    this.router.navigate(['/app/chat/call/' + callId]);
   }
 
-  denyCallOffer(callId: string,userId: string){
-    this.firestore.collection('call_invitations').doc(userId).collection('calls').doc(callId).delete();
+  denyCallOffer(userId: string, id:string) {
+    this.firestore.collection('call_invitations').doc(userId).collection('calls').doc(id).delete();
   }
 
-  getIncomingCalls(userId: string){
+  getIncomingCalls(userId: string) {
     return this.firestore.collection('call_invitations')
       .doc(userId)
       .collection('calls')

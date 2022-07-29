@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {TranslateService} from "@ngx-translate/core";
 import {AuthService} from "../../../auth/services/auth.service";
 import {map, Observable, Subscription, switchMap, take} from "rxjs";
@@ -12,15 +12,17 @@ import {CallService} from "../../../chat/services/call.service";
 export class AppViewComponent implements OnInit {
   usersIncomingCalls$!: Observable<any>;
   subscription = new Subscription();
+
   constructor(private translate: TranslateService,
               private authService: AuthService,
-              private callsService: CallService) { }
+              private callsService: CallService) {
+  }
 
   ngOnInit(): void {
     this.translate.addLangs(['en', 'si']);
     this.translate.setDefaultLang('si');
 
-        this.authService.getUserData().pipe().subscribe((user) => {
+    this.authService.getUserData().pipe().subscribe((user) => {
       if (user?.language == 'Slovene') {
         this.translate.use('si');
       } else if (user?.language == 'English') {
@@ -40,18 +42,19 @@ export class AppViewComponent implements OnInit {
         return data.map((element: any) => {
           return {
             id: element.callData.id,
+            callId: element.callData.callId,
             avatar: element.userData.avatar,
             name: element.userData.name,
           };
         });
       }));
 
-    this.subscription.add(this.usersIncomingCalls$.subscribe((r)=>{
+    this.subscription.add(this.usersIncomingCalls$.subscribe((r) => {
       console.log("incoming calls", r)
     }));
   }
 
-  ngOnDestroy(){
+  ngOnDestroy() {
     this.subscription.unsubscribe()
   }
 

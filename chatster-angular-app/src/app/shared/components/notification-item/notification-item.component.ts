@@ -1,8 +1,9 @@
 import {Component, Input, OnInit} from '@angular/core';
-import {NotificationItem} from "../../../core/models/notification-item.model";
 import {CallService} from "../../../modules/chat/services/call.service";
 import {AuthService} from "../../../modules/auth/services/auth.service";
 import {take} from "rxjs";
+import {IncomingCall} from "../../../core/models/incoming-call.model";
+import {user} from "@angular/fire/auth";
 
 @Component({
   selector: 'app-notification-item',
@@ -11,7 +12,7 @@ import {take} from "rxjs";
 })
 export class NotificationItemComponent implements OnInit {
 
-  @Input() item!: NotificationItem;
+  @Input() item!: IncomingCall;
 
   constructor(private callService: CallService,
               private authService: AuthService) {
@@ -21,20 +22,22 @@ export class NotificationItemComponent implements OnInit {
   ngOnInit(): void {
   }
 
-  denyCall(callId: string) {
+  denyCall(callId: string,id: string) {
+
     this.authService.getUserData().pipe(take(1)).subscribe((userData)=>{
       if(userData){
         // @ts-ignore
-        this.callService.acceptCallOffer(callId,userData.id)
+        this.callService.denyCallOffer(userData.id, id)
       }
     })
   }
 
   acceptCall(callId: string) {
+
     this.authService.getUserData().pipe(take(1)).subscribe((userData)=>{
       if(userData){
         // @ts-ignore
-        this.callService.denyCallOffer(callId,userData.id)
+        this.callService.acceptCallOffer(callId,userData.id)
       }
     })
   }

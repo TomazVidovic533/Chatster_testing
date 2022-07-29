@@ -5,13 +5,13 @@
            alt="nature">
     </div>
     <div class="image-content">
-      <div class="accept-call">
-        {{item.name}}...is calling
+      <div class="content-item">
+        {{item.name}} ...is calling {{item?.callId}}
       </div>
-      <div class="accept-call" (click)="acceptCall(item?.id || '')">
+      <div class="content-item accept-call" (click)="acceptCall(item?.callId || '')">
         Accept
       </div>
-      <div class="deny-call" (click)="denyCall(item?.id || '')">
+      <div class="content-item deny-call" (click)="denyCall(item?.callId || '',item?.id || '' )">
         Deny
       </div>
     </div>

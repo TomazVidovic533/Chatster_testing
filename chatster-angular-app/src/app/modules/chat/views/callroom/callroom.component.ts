@@ -1,7 +1,11 @@
 import {Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import {AngularFirestore} from "@angular/fire/compat/firestore";
 import {ActivatedRoute} from "@angular/router";
-import {map, Observable, switchMap, take} from "rxjs";
+import {combineLatest, map, Observable, Subscription, switchMap, take} from "rxjs";
+import {CallService} from "../../services/call.service";
+import {Call} from "../../../../core/models/call.model";
+import {AuthService} from "../../../auth/services/auth.service";
+import {User} from "../../../../core/models/user.model";
 
 const servers = {
   iceServers: [
@@ -30,12 +34,19 @@ export class CallroomComponent implements OnInit {
   offers$!: Observable<any>;
   answers$!: Observable<any>;
   currentCallData$!: Observable<any>;
-
+  user$!: Observable<any>;
+  userData!: any;
+  callData!: Call;
+  subscription = new Subscription();
   offers: any;
   answers: any;
 
+  test: any;
+
   constructor(private firestore: AngularFirestore,
-              private route: ActivatedRoute) {
+              private route: ActivatedRoute,
+              private callService: CallService,
+              private authService: AuthService) {
 
   }
 
@@ -45,9 +56,30 @@ export class CallroomComponent implements OnInit {
     })
 
     console.log(this.currentCallId);
+
+    this.currentCallData$ = this.route.params.pipe(
+      switchMap(params => {
+        return this.callService.get(params['callId']);
+      })
+    );
+
+    this.user$ = this.authService.getUserData();
+
+     combineLatest([
+      this.currentCallData$,
+      this.user$
+    ]).pipe(take(1)).subscribe(([callData, user]) => {
+      this.userData = user;
+      this.callData = callData;
+    })
+
+    this.join();
   }
 
   async join() {
+    console.log("cd", this.callData)
+    console.log("us", this.userData)
+
     this.myStream = await navigator.mediaDevices.getUserMedia({video: true, audio: true});
     this.otherStream = new MediaStream();
 
@@ -65,9 +97,9 @@ export class CallroomComponent implements OnInit {
     this.otherStreamVideoElement.nativeElement.srcObject = this.otherStream;
   }
 
-  async createOffer() {
+  async createOffer(callId: string) {
 
-    const newCallDocument = this.firestore.collection('calls').doc();
+    const newCallDocument = this.firestore.collection('calls').doc(callId);
     const offerCandidates = newCallDocument.collection('offer_candidates');
     const answerCandidates = newCallDocument.collection('answer_candidates');
 
@@ -81,7 +113,7 @@ export class CallroomComponent implements OnInit {
     const offerDescription = await this.pc.createOffer();
     await this.pc.setLocalDescription(offerDescription);
 
-    await newCallDocument.set({
+    await newCallDocument.update({
       offer: {
         sdp: offerDescription.sdp,
         type: offerDescription.type,
@@ -113,11 +145,8 @@ export class CallroomComponent implements OnInit {
     ).subscribe();
   }
 
-  async createAnswer() {
-
-    const callId = this.currentCallId;
-    console.log("Joining ...",this.currentCallId);
-
+  async createAnswer(callId: string) {
+    console.log("Joining ...", callId);
     const activeCallDocument = this.firestore.collection('calls').doc(callId);
     const offerCandidates = activeCallDocument.collection('offer_candidates');
     const answerCandidates = activeCallDocument.collection('answer_candidates');
@@ -129,7 +158,7 @@ export class CallroomComponent implements OnInit {
             return {...doc.payload.data() as any};
           }
         })
-      ).subscribe(async (data) => {
+      ).pipe(take(1)).subscribe(async (data) => {
 
       await this.pc.setRemoteDescription(new RTCSessionDescription(data.offer));
 
@@ -162,6 +191,4 @@ export class CallroomComponent implements OnInit {
   leave() {
 
   }
-
-
 }

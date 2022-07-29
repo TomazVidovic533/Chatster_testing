@@ -1,6 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {Observable} from "rxjs";
-import {NotificationItem} from "../../../core/models/notification-item.model";
+import {IncomingCall} from "../../../core/models/incoming-call.model";
 
 @Component({
   selector: 'app-notifications-panel',
@@ -8,7 +8,7 @@ import {NotificationItem} from "../../../core/models/notification-item.model";
   styleUrls: ['./notifications-panel.component.css']
 })
 export class NotificationsPanelComponent implements OnInit {
-  @Input() dataSource$!: Observable<NotificationItem[]>;
+  @Input() dataSource$!: Observable<IncomingCall[]>;
 
   constructor() { }
 

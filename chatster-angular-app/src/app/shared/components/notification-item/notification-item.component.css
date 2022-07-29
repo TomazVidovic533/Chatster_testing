@@ -1,8 +1,8 @@
 
 .answer-container{
-  width: 20em;
+  width: fit-content;
   height: 4em;
-  background-color: rgb(46, 154, 216);
+  background-color: rgb(37, 110, 147);
   margin-top: .6em;
   border-radius: .8em;
   box-shadow: 0 4px 17px rgba(0, 0, 0, 0.35);
@@ -28,14 +28,20 @@
 
 .image-content{
   display: flex;
-  padding-top: 1.6em;
-  padding-left: 2.6em;
+  padding-top: 1.2em;
+  padding-left: .6em;
+  padding-right: 0.8em;
 }
-
-.accept-call{
+.content-item{
   padding-right: 1.2em;
 }
 
-.deny-call{
+.accept-call{
+  color: #91fd74;
+  cursor: pointer;
+}
 
+.deny-call{
+color: #ff7070;
+  cursor: pointer;
 }
